@@ -151,7 +151,20 @@
     <Content Include="images\banner3.svg" />
     <Content Include="images\btnBack.png" />
     <Content Include="images\btnNext.png" />
+    <Content Include="images\btnPlanNow.png" />
+    <Content Include="images\btnPlanNow1.png" />
+    <Content Include="images\cny-1feb.jpg" />
+    <Content Include="images\cny-2feb.png" />
+    <Content Include="images\cny-31jan.jpg" />
+    <Content Include="images\cny-7feb.png" />
+    <Content Include="images\cny-8feb.png" />
+    <Content Include="images\cny-9feb.png" />
     <Content Include="images\cny_bg.jpg" />
+    <Content Include="images\promo_secretrecipe.jpg" />
+    <Content Include="images\rsa_seremban.jpg" />
+    <Content Include="images\rsa_sgbuloh.jpg" />
+    <Content Include="images\rsa_tapah.jpg" />
+    <Content Include="jquery\searchbox.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\journeyPLUS - Web Deploy.pubxml" />
@@ -180,6 +193,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ViewPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

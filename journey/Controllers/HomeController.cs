@@ -19,9 +19,72 @@ namespace journey.Controllers
         //    return View();
         //}
 
+
+        //LOAD RSA FROM DATABASE BASED ON FROM & TO LOCATION
+        //public ActionResult Students(CustomerModel customer)
+        //{
+        //    String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //    String sql = "SELECT * FROM students";
+
+        //    SqlConnection conn = new SqlConnection(connectionString);
+
+        //    SqlCommand cmd = new SqlCommand(sql, conn);
+        //    var model = new List<Student>();
+        //    using (conn)
+        //    {
+        //        conn.Open();
+        //        SqlDataReader rdr = cmd.ExecuteReader();
+        //        while (rdr.Read())
+        //        {
+        //            var student = new Student();
+        //            student.FirstName = rdr["FirstName"].ToString();
+        //            student.LastName = rdr["LastName"].ToString();
+        //            student.Class = rdr["Class"].ToString();
+
+        //            model.Add(student);
+        //        }
+
+        //    }
+
+        //    return View(model);
+        //}
+        //END LOAD RSA HERE
+
+
         public ActionResult Index(CustomerModel customer)
         {
-            //loadDrpLst();
+            //load RSA here
+            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            String sql = "SELECT * FROM students";
+
+            SqlConnection conn2 = new SqlConnection(connectionString);
+            
+            SqlCommand cmd2 = new SqlCommand(sql, conn2);
+            var model = new List<Student>();
+            var model2 = customer.NameLIST.ToList();
+
+            using (conn2)
+            {
+                conn2.Open();
+                SqlDataReader rdr = cmd2.ExecuteReader();
+                
+                while (rdr.Read())
+                {
+                    var customer2 = new Student();
+
+                    customer2.FirstName = rdr["FirstName"].ToString();
+                    //student.LastName = rdr["LastName"].ToString();
+                    //customer.Class = rdr["Class"].ToString();
+
+                    model.Add(customer2);
+                    model2.Add(customer2.FirstName.ToString());
+                }
+              
+            }
+            
+            View(model);
+            //end load RSA here
+
 
             string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             //ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
@@ -51,12 +114,13 @@ namespace journey.Controllers
             }
             if (customer.Email == null)
             {
-                string messagetodisplay = "please fill up email";
+                //string messagetodisplay = "please fill up email";
             }
             else
             {
                 using (SqlConnection con = new SqlConnection(constr))
                 {
+                    customer.Date = customer.DateSelected;
                     //string query = "INSERT INTO Customers(Name, Country) VALUES(@Name, @Country)";
                     string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
                     query += " SELECT SCOPE_IDENTITY()";
@@ -64,21 +128,7 @@ namespace journey.Controllers
                     {
                         cmd.Connection = con;
                         con.Open();
-
-                        if (customer.Time2 != null)
-                        {
-                            customer.Time = customer.Time2;
-                        }
-                        else if (customer.Time3 != null)
-                        {
-                            customer.Time = customer.Time3;
-                        }
-                        else if (customer.Time4 != null)
-                        {
-                            customer.Time = customer.Time4;
-                        }
-                        //cmd.Parameters.AddWithValue("@Name", customer.Name);
-                        //cmd.Parameters.AddWithValue("@Country", customer.Country);
+                        
                         cmd.Parameters.AddWithValue("@Email", customer.Email);
                         cmd.Parameters.AddWithValue("@From", customer.From);
                         cmd.Parameters.AddWithValue("@To", customer.To);
@@ -91,9 +141,16 @@ namespace journey.Controllers
                 }
 
             }
+            //try
+            //{
+            //    customer.Gender.ToString();
+            //    customer.DateSelected.ToString();
+            //}
+            //catch
+            //{ }
 
             //FOR SENDING EMAIL FUNCTION
-            IndexAsync(customer);
+             IndexAsync(customer);
             //END FOR SENDING EMAIL FUNCTION
 
             return View(customer);
@@ -217,7 +274,7 @@ namespace journey.Controllers
                     smtp.Host = "smtp-mail.outlook.com";
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
-                    smtp.SendMailAsync(message);
+                    await smtp.SendMailAsync(message);
                     //await smtp.SendMailAsync(message);
                     return RedirectToAction("Sent");
                 }
@@ -233,6 +290,13 @@ namespace journey.Controllers
         }
 
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Index2()
         {
             ViewBag.Message = "Your contact page.";
 

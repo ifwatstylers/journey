@@ -6,9 +6,14 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        body {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,15 +28,16 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Index2", "Index2", "Home")</li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </div>*@
+    <div class="container body-content" style="background-color:whitesmoke; width:93%;">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; PLUS @DateTime.Now.Year - This travel time advisory is recomended based on our traffic insights during CNY in the last 5 years</p>
         </footer>
     </div>
 
