@@ -261,18 +261,18 @@
     {
         <div class="row" id="MainDiv" style="background-color:whitesmoke; text-align:center;">
             @*FOR TESTING ONLY*@
-            <div id="testing" style="display:none;">
+            <div id="testing">
                 <h1>Student</h1>
                 <table>
                     <tr>
                         <th> First Name</th>
                     </tr>
-                    @*@foreach (var student in)
-                    {*@
+                    @foreach (var student in Model.NameLIST)
+                    {
                         <tr>
-                            <td></td>
+                            <td>@student</td>
                         </tr>
-                    @*}*@
+                    }
                 </table>
             </div>
             @*END OF TESTING PART*@

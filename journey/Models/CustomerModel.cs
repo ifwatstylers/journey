@@ -18,6 +18,7 @@ namespace journey.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Class { get; set; }
+        public List<string> NameLIST2 = new List<string>();
     }
     //END PART FOR LOAD RSA HERE
     public class CustomerModel

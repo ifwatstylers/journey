@@ -73,7 +73,7 @@ namespace journey.Controllers
                     var customer2 = new Student();
 
                     customer2.FirstName = rdr["FirstName"].ToString();
-                    //student.LastName = rdr["LastName"].ToString();
+                    //customer2.LastName = rdr["LastName"].ToString();
                     //customer.Class = rdr["Class"].ToString();
 
                     model.Add(customer2);
@@ -81,24 +81,26 @@ namespace journey.Controllers
                 }
               
             }
-            
             View(model);
+
+            customer.NameLIST = model2;
+
             //end load RSA here
 
 
             string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             //ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
 
-            if (customer.From == "Jalan Duta" && customer.To == "Sg Besi")
-            {
-                customer.ListMerchant = "Utara";
-                customer.ListRSA = "Utara";
-            }
-            else
-            {
-                customer.ListMerchant = null;
-                customer.ListRSA = null;
-            }
+            //if (customer.From == "Jalan Duta" && customer.To == "Sg Besi")
+            //{
+            //    customer.ListMerchant = "Utara";
+            //    customer.ListRSA = "Utara";
+            //}
+            //else
+            //{
+            //    customer.ListMerchant = null;
+            //    customer.ListRSA = null;
+            //}
 
             using (SqlConnection conn = new SqlConnection(constr))
             {
