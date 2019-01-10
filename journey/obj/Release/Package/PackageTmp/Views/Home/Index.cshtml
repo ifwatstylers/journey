@@ -133,6 +133,7 @@
 
         $(document).ready(function () {
             $("#hide").click(function () {
+
                 var jsfrom = document.forms['ifwatForm'].jsFrom.value;
                 var jsto = document.forms['ifwatForm'].jsTo.value;
                 //var jsdate = document.forms['ifwatForm'].jsDate.value;
@@ -141,18 +142,27 @@
                 
                
                 if (SBorNB == 1 || SBorNB == -1) {
-                    $("#Time").text("7:00 pm");
+                    $("#LabelTime").text("7:00 pm");
+                    $("#Time").val("7:00 pm");
+                    
 
                 }
                 else if (SBorNB == 2 || SBorNB == -2) {
-                    $("#Time").text("12:00 pm");
+                    $("#LabelTime").text("12:00 pm");
+                    $("#Time").val("12:00 pm");
 
                 }
                 else if (SBorNB >= 3 || SBorNB <= -3) {
-                    $("#Time").text("7:00 am");
-
+                    $("#LabelTime").text("7:00 am");
+                    $("#Time").val("7:00 am");
                 }
-                $("#Time").val();
+                
+                //function fnNext() {
+                //    var frm = document.forms[0];
+                //    frm.selecteditem.value = "Next";
+                //    Javascriptfunction();
+                //    return true;
+                //}
 
                 //FOR LABEL RESULT FROM TO TO IN 2ND PAGE
 
@@ -203,6 +213,28 @@
                 $("#SecondDiv").hide();
                 $("#ThirdDiv").hide();
             });
+            $("#CheckEmailDateTime").click(function () {
+                var checkEmail = document.forms['ifwatForm'].jsEmail.value;
+                var checkTime = document.forms['ifwatForm'].Time.value;
+                //var checkDate = document.forms['ifwatForm'].DateSelected.value;
+                //if (checkDate == null || checkDate == "") {
+                //    alert("Please select your prefer date for journey")
+                //    return false;
+                //}
+
+                if (checkTime == null || checkTime == "") {
+                    alert("Time not available. Please back and reselect your destination!")
+                    return false;
+                }
+
+                if (checkEmail == null || checkEmail == "" ) {
+                    alert("Please fill up an email");
+                    return false;
+                }
+
+                
+            });
+            
         });
     </script>
 </head>
@@ -261,20 +293,7 @@
     {
         <div class="row" id="MainDiv" style="background-color:whitesmoke; text-align:center;">
             @*FOR TESTING ONLY*@
-            <div id="testing" style="display:none;">
-                <h1>Student</h1>
-                <table>
-                    <tr>
-                        <th> First Name</th>
-                    </tr>
-                    @*@foreach (var student in)
-                    {*@
-                        <tr>
-                            <td></td>
-                        </tr>
-                    @*}*@
-                </table>
-            </div>
+            
             @*END OF TESTING PART*@
 
             <h2 style="text-align: center">
@@ -356,6 +375,7 @@
 
             <div class="col-md-2">
                 <br />
+                @*<input type="button" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
                 <img src="~/images/btnPlanNow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
             </div>
             <br/>
@@ -363,12 +383,27 @@
         </div>
 
         <div class="row" id="SecondDiv" style="display:none; text-align: center">
+            @*FOR TESTING ONLY*@
+            <div id="testing" style="display:none;">
+                <table>
+                    <tr>
+                        <th>List RSA from DB</th>
+                    </tr>
+                    @foreach (var rsa in Model.ListRSA)
+                    {
+                        <tr>
+                            <td>@rsa</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            @*END OF TESTING PART*@
             <br />
             <h4>
                 BELOW ARE RECOMENDED DATE &Aacute; TIME FOR YOU TO START YOUR JOURNEY. SELECT DATE TO CREATE/SET REMINDER
                 <br />
                 <br />
-                @Html.LabelFor(m => m.Time, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })
+                @Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })
             </h4>
 
             <div class="cc-selector" id="preDateList" style="display:none;">
@@ -377,10 +412,10 @@
                 @*<input id="mastercard" type="radio" name="credit-card" value="mastercard" />*@
                 <label class="drinkcard-cc mastercard" for="1hb">@Html.RadioButton("DateSelected", "1hb")</label>
                 @*<input id="visa" type="radio" name="credit-card" value="mastercard2" />*@
-                <label class="drinkcard-cc mastercard2" for="2hb">@Html.RadioButton("DateSelected", "2hb")</label>
+                <label class="drinkcard-cc mastercard2" for="2hb">@Html.RadioButton("DateSelected", "2hb", isChecked: true)</label>
             </div>
             <div class="cc-selector" id="postDateList" style="display:none;">
-                
+
                 @*<input checked="checked" id="visapost" type="radio" name="credit-card" value="visapost" />*@
                 <label class="drinkcard-cc visapost" for="visapost">@Html.RadioButton("DateSelected", "7hb")</label>
                 @*<input id="mastercardpost" type="radio" name="credit-card" value="mastercardpost" />*@
@@ -389,29 +424,24 @@
                 <label class="drinkcard-cc mastercard2post" for="mastercard2post">@Html.RadioButton("DateSelected", "9hb")</label>
             </div>
             <br />
-            @*@Html.EditorFor(model => model.Email,
-        new { htmlAttributes = new { @class = "form-control input-md",
-        @placeholder = "Whatever you want as a placeholder" } })*@
-            @*Male:   @Html.RadioButton("Gender", "Male")
-            Female: @Html.RadioButton("Gender", "Female")*@
 
             <h4>You recomended to start journey on:</h4>
             @*@Html.LabelFor(m => m.Time, new { id = "Time", Value = "JS Calculation Error" })*@
-            @Html.LabelFor(m => m.Time, new { id = "Time" })
+            @Html.LabelFor(m => m.Time, new { id = "LabelTime" })
             <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
-                @Html.DropDownListFor(m => m.Time, new List<SelectListItem> { new SelectListItem { Text = "Allahualam", Value = Model.Time, Selected = true } }, "")
+                @Html.TextBoxFor(m => m.Time, new { id = "Time" })
             </div>
             <br />
             @Html.AntiForgeryToken()
             <h4>Email</h4>
-            @Html.TextBoxFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { id = "jsEmail" })
             @Html.ValidationMessageFor(m => m.Email)
             <br />
             <br />
-            <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" />
+            <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" id="CheckEmailDateTime" />
             <input type="submit" value="BACK " class="btn btn-warning" />
-            <br/>
-            <br/>
+            <br />
+            <br />
             @*<br/>
         <br/>
         <img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">

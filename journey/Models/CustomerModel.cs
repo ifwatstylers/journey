@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel;
 
 namespace journey.Models
 {
@@ -27,7 +27,7 @@ namespace journey.Models
 
         public string Email { get; set; }
 
-        public string ListRSA { get; set; }
+       // public string ListRSA { get; set; }
 
         public string ListMerchant { get; set; }
 
@@ -56,6 +56,7 @@ namespace journey.Models
 
       
         public List<string> NameLIST = new List<string>();
+        public List<string> ListRSA = new List<string>();
 
 
 
@@ -63,5 +64,6 @@ namespace journey.Models
         public string DateSelected { get; set; }
     }
     
+
 
 }

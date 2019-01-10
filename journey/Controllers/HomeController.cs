@@ -54,36 +54,91 @@ namespace journey.Controllers
         public ActionResult Index(CustomerModel customer)
         {
             //load RSA here
-            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            String sql = "SELECT * FROM students";
+            //String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            //String sql = "SELECT * FROM students";
 
-            SqlConnection conn2 = new SqlConnection(connectionString);
-            
-            SqlCommand cmd2 = new SqlCommand(sql, conn2);
-            var model = new List<Student>();
-            var model2 = customer.NameLIST.ToList();
+            //SqlConnection conn2 = new SqlConnection(connectionString);
 
-            using (conn2)
+            //SqlCommand cmd2 = new SqlCommand(sql, conn2);
+            //var model = new List<Student>();
+            //var model2 = customer.NameLIST.ToList();
+
+            //using (conn2)
+            //{
+            //    conn2.Open();
+            //    SqlDataReader rdr = cmd2.ExecuteReader();
+
+            //    while (rdr.Read())
+            //    {
+            //        var customer2 = new Student();
+
+            //        customer2.FirstName = rdr["FirstName"].ToString();
+            //        //customer2.LastName = rdr["LastName"].ToString();
+            //        //customer.Class = rdr["Class"].ToString();
+
+            //        model.Add(customer2);
+            //        model2.Add(customer2.FirstName.ToString());
+            //    }
+
+            //}
+            //View(model);
+
+            //customer.NameLIST = model2;
+           if (customer.From != null)
             {
-                conn2.Open();
-                SqlDataReader rdr = cmd2.ExecuteReader();
-                
-                while (rdr.Read())
+                int DriverFROM = Int32.Parse(customer.From);
+                int DriverTO = Int32.Parse(customer.To);
+
+                int checkUtaraSelatan = DriverFROM - DriverTO;
+
+                String sql;
+                if (checkUtaraSelatan < 0)
                 {
-                    var customer2 = new Student();
-
-                    customer2.FirstName = rdr["FirstName"].ToString();
-                    //customer2.LastName = rdr["LastName"].ToString();
-                    //customer.Class = rdr["Class"].ToString();
-
-                    model.Add(customer2);
-                    model2.Add(customer2.FirstName.ToString());
+                    sql = "SELECT RSA_NAME,Country_Code,RSA_Type,RSA_Status FROM POI WHERE " +
+                               "(RSA_Type = 'NB') AND " +
+                               "(RSA_Status = 'ON') AND " +
+                               "((Country_Code >= " + DriverFROM + ") and(Country_Code <= " + DriverTO + "))";
                 }
-              
-            }
-            View(model);
+                else
+                {
+                    sql = "SELECT RSA_NAME, Country_Code, RSA_Type, RSA_Status FROM POI WHERE " +
+                            "(RSA_Type = 'SB') AND " +
+                            "(RSA_Status = 'ON') AND " +
+                            "((Country_Code >= " + DriverFROM + ") and(Country_Code <= " + DriverTO + "))";
+                }
 
-            customer.NameLIST = model2;
+                String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+
+
+                SqlConnection conn2 = new SqlConnection(connectionString);
+
+                SqlCommand cmd2 = new SqlCommand(sql, conn2);
+
+                var model2 = customer.ListRSA.ToList();
+
+                using (conn2)
+                {
+                    conn2.Open();
+                    SqlDataReader rdr = cmd2.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        var customer2 = new Student();
+
+                        customer2.FirstName = rdr["RSA_NAME"].ToString();
+                        //customer2.LastName = rdr["LastName"].ToString();
+                        //customer.Class = rdr["Class"].ToString();
+
+
+                        model2.Add(customer2.FirstName.ToString());
+                    }
+
+                }
+
+
+                customer.ListRSA = model2;
+            }
 
             //end load RSA here
 
@@ -281,7 +336,9 @@ namespace journey.Controllers
                     return RedirectToAction("Sent");
                 }
             }
+
             return View(customer);
+            
         }
 
         public ActionResult About()
