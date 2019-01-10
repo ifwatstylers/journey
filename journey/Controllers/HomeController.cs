@@ -50,69 +50,103 @@ namespace journey.Controllers
         //}
         //END LOAD RSA HERE
 
+        
 
         public ActionResult Index(CustomerModel customer)
         {
-            //load RSA here
-            //String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //String sql = "SELECT * FROM students";
+            
+        #region LOAD TOL TO DROPDOWNLIST
+            //load TOL from to here
+            String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-            //SqlConnection conn2 = new SqlConnection(connectionString);
+            String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
+            
+            SqlConnection conn3 = new SqlConnection(connectionString3);
 
-            //SqlCommand cmd2 = new SqlCommand(sql, conn2);
-            //var model = new List<Student>();
-            //var model2 = customer.NameLIST.ToList();
+            SqlCommand cmd3 = new SqlCommand(sql3, conn3);
 
-            //using (conn2)
-            //{
-            //    conn2.Open();
-            //    SqlDataReader rdr = cmd2.ExecuteReader();
+            var model3 = customer.ListTolFromTo.ToList();
 
-            //    while (rdr.Read())
-            //    {
-            //        var customer2 = new Student();
-
-            //        customer2.FirstName = rdr["FirstName"].ToString();
-            //        //customer2.LastName = rdr["LastName"].ToString();
-            //        //customer.Class = rdr["Class"].ToString();
-
-            //        model.Add(customer2);
-            //        model2.Add(customer2.FirstName.ToString());
-            //    }
-
-            //}
-            //View(model);
-
-            //customer.NameLIST = model2;
-           if (customer.From != null)
+            using (conn3)
             {
-                int DriverFROM = Int32.Parse(customer.From);
-                int DriverTO = Int32.Parse(customer.To);
+                conn3.Open();
+                SqlDataReader rdr = cmd3.ExecuteReader();
 
+                while (rdr.Read())
+                {
+                    var TolPlaza = new Student();
+                    TolPlaza.FirstName = rdr["PLACE_NAME"].ToString();
+                    
+                    model3.Add(TolPlaza.FirstName.ToString());
+                }
+
+            }
+            customer.ListTolFromTo = model3;
+
+            //end load TOL from to
+            #endregion
+
+
+            //load RSA here
+            if (customer.From == null)
+            {
+                //dummy
+                customer.From = "PAGOH";
+                customer.To = "NIBONG TEBAL";
+                //dummy
+
+                String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                
+                String sqlForPlaceIDFrom = "select * from poi2 where PLACE_NAME = '" + customer.From + "' and PLACE_CAT = 'tp'";
+                String sqlForPlaceIDTo = "select * from poi2 where PLACE_NAME = '" + customer.To + "' and PLACE_CAT = 'tp'";
+                //int DriverFROM = 70;// Int32.Parse(customer.From);
+                //int DriverTO = 10;// Int32.Parse(customer.To);
+               string idFrom;
+                string idto;
+
+                SqlConnection connCheckIDFrom = new SqlConnection(connectionString);
+                SqlCommand cmdCheckIDfrom = new SqlCommand(sqlForPlaceIDFrom, connCheckIDFrom);
+                using (connCheckIDFrom)
+                {
+                    connCheckIDFrom.Open();
+                    
+                    SqlDataReader rdr = cmdCheckIDfrom.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        idFrom = rdr["ID"].ToString();
+                        customer.DriverFROM = Int32.Parse(idFrom);
+                    }
+                    connCheckIDFrom.Close();
+                }
+
+                SqlConnection connCheckIDto = new SqlConnection(connectionString);
+                SqlCommand cmdCheckIDto = new SqlCommand(sqlForPlaceIDTo, connCheckIDto);
+                using (connCheckIDto)
+                {
+                    connCheckIDto.Open();
+                    SqlDataReader rdr = cmdCheckIDto.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        idto = rdr["ID"].ToString();
+                        customer.DriverTO = Int32.Parse(idto);
+                    }
+                    connCheckIDto.Close();
+                }
+                int DriverFROM = customer.DriverFROM;
+                int DriverTO = customer.DriverTO;
                 int checkUtaraSelatan = DriverFROM - DriverTO;
 
                 String sql;
                 if (checkUtaraSelatan < 0)
                 {
-                    sql = "SELECT RSA_NAME,Country_Code,RSA_Type,RSA_Status FROM POI WHERE " +
-                               "(RSA_Type = 'NB') AND " +
-                               "(RSA_Status = 'ON') AND " +
-                               "((Country_Code >= " + DriverFROM + ") and(Country_Code <= " + DriverTO + "))";
+                    sql = "select place_name from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ") order by id asc";
                 }
                 else
                 {
-                    sql = "SELECT RSA_NAME, Country_Code, RSA_Type, RSA_Status FROM POI WHERE " +
-                            "(RSA_Type = 'SB') AND " +
-                            "(RSA_Status = 'ON') AND " +
-                            "((Country_Code >= " + DriverFROM + ") and(Country_Code <= " + DriverTO + "))";
+                    sql = "select place_name from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverTO + " and id < " + DriverFROM  + ") order by id desc";
                 }
 
-                String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
-
-
                 SqlConnection conn2 = new SqlConnection(connectionString);
-
                 SqlCommand cmd2 = new SqlCommand(sql, conn2);
 
                 var model2 = customer.ListRSA.ToList();
@@ -126,7 +160,7 @@ namespace journey.Controllers
                     {
                         var customer2 = new Student();
 
-                        customer2.FirstName = rdr["RSA_NAME"].ToString();
+                        customer2.FirstName = rdr["PLACE_NAME"].ToString();
                         //customer2.LastName = rdr["LastName"].ToString();
                         //customer.Class = rdr["Class"].ToString();
 

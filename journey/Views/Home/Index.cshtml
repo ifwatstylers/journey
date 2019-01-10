@@ -323,8 +323,15 @@
                 </h4>
             </div>
             <div class="col-md-3">
+                @*<div style="display:none">
+                    @Html.DropDownList("DesiredDropDownListName", new SelectList(Model.ListTolFromTo))
+                </div>*@
                 <h4>
-                    ORIGIN<br />
+                    ORIGIN
+                    <br />
+                    @*THE CORRECT ONE FOR LOAD TOLPLAZA FROM DB BUT DISABLE COZ TIME LIMIT
+                    @Html.DropDownList("From", new SelectList(Model.ListTolFromTo))*@
+
                     @Html.DropDownListFor(m => m.From, new List<SelectListItem>
                                { new SelectListItem{Text="JOHOR", Value="1"},
                                  new SelectListItem{Text="MELAKA", Value="2"},
@@ -384,7 +391,7 @@
 
         <div class="row" id="SecondDiv" style="display:none; text-align: center">
             @*FOR TESTING ONLY*@
-            <div id="testing" style="display:none;">
+            <div id="testing" style="display:block;">
                 <table>
                     <tr>
                         <th>List RSA from DB</th>

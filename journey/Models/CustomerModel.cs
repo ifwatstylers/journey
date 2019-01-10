@@ -57,11 +57,15 @@ namespace journey.Models
       
         public List<string> NameLIST = new List<string>();
         public List<string> ListRSA = new List<string>();
+        public List<string> ListTolFromTo = new List<string>();
 
-
+        public int DriverFROM;
+        public int DriverTO;
 
         public string Gender { get; set; }
         public string DateSelected { get; set; }
+
+        
     }
     
 
