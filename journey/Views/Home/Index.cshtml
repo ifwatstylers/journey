@@ -130,6 +130,9 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+        function redirect(dropDownValue) {
+            window.location.href = '/Home/Index';// + dropDownValue;
+        }
 
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -138,30 +141,21 @@
                 var jsto = document.forms['ifwatForm'].jsTo.value;
                 //var jsdate = document.forms['ifwatForm'].jsDate.value;
 
-                var SBorNB = jsfrom - jsto;
-                
-               
-                if (SBorNB == 1 || SBorNB == -1) {
-                    $("#LabelTime").text("7:00 pm");
-                    $("#Time").val("7:00 pm");
+                //var SBorNB = jsfrom - jsto;
+                //if (SBorNB == 1 || SBorNB == -1) {
+                //    $("#LabelTime").text("7:00 pm");
+                //    $("#Time").val("7:00 pm");
                     
 
-                }
-                else if (SBorNB == 2 || SBorNB == -2) {
-                    $("#LabelTime").text("12:00 pm");
-                    $("#Time").val("12:00 pm");
+                //}
+                //else if (SBorNB == 2 || SBorNB == -2) {
+                //    $("#LabelTime").text("12:00 pm");
+                //    $("#Time").val("12:00 pm");
 
-                }
-                else if (SBorNB >= 3 || SBorNB <= -3) {
-                    $("#LabelTime").text("7:00 am");
-                    $("#Time").val("7:00 am");
-                }
-                
-                //function fnNext() {
-                //    var frm = document.forms[0];
-                //    frm.selecteditem.value = "Next";
-                //    Javascriptfunction();
-                //    return true;
+                //}
+                //else if (SBorNB >= 3 || SBorNB <= -3) {
+                //    $("#LabelTime").text("7:00 am");
+                //    $("#Time").val("7:00 am");
                 //}
 
                 //FOR LABEL RESULT FROM TO TO IN 2ND PAGE
@@ -316,23 +310,20 @@
                     @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
                            { new SelectListItem{Text="PRE CNY", Value="PRECNY"},
                              new SelectListItem{Text="POST CNY", Value="POSTCNY"}},
-                      "Please Select", new { @class = "form-control selectpicker",
-                          @id = "jsTypeJourney",
-                          @placeholder = "PRE CNY"
-                      })
+                       new { @class = "form-control selectpicker",
+                           @id = "jsTypeJourney",
+                           style = "width: 100%;"
+                       })
                 </h4>
             </div>
             <div class="col-md-3">
-                @*<div style="display:none">
-                    @Html.DropDownList("DesiredDropDownListName", new SelectList(Model.ListTolFromTo))
-                </div>*@
                 <h4>
                     ORIGIN
                     <br />
-                    @*THE CORRECT ONE FOR LOAD TOLPLAZA FROM DB BUT DISABLE COZ TIME LIMIT
-                    @Html.DropDownList("From", new SelectList(Model.ListTolFromTo))*@
+                    @*THE CORRECT ONE FOR LOAD TOLPLAZA FROM DB BUT DISABLE COZ TIME LIMIT*@
+                    @Html.DropDownListFor(m => m.From, new SelectList(Model.ListTolFromTo), new { @class = "form-control input-md", @id = "jsFrom", style = "width: 100%;" })
 
-                    @Html.DropDownListFor(m => m.From, new List<SelectListItem>
+                    @*@Html.DropDownListFor(m => m.From, new List<SelectListItem>
                                { new SelectListItem{Text="JOHOR", Value="1"},
                                  new SelectListItem{Text="MELAKA", Value="2"},
                                  new SelectListItem{Text="SEREMBAN", Value="3"},
@@ -341,26 +332,28 @@
                                  new SelectListItem{Text="PENANG", Value="6"}},
                           "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom",
                               data_show_subtext = "true",
-                              data_live_search = "true",
-                              @placeholder = "JOHOR"
-                          })
+                              data_live_search = "true"
+                              // onchange = "redirect(this.value)"
+                          })*@
                 </h4>
             </div>
             <div class="col-md-4">
                 <h4>
                     DESTINATION<br />
-                    @Html.DropDownListFor(m => m.To, new List<SelectListItem>
-                              { new SelectListItem{Text="JOHOR", Value="1"},
-                                     new SelectListItem{Text="MELAKA", Value="2"},
-                                     new SelectListItem{Text="SEREMBAN", Value="3"},
-                                     new SelectListItem{Text="KUALA LUMPUR", Value="4"},
-                                     new SelectListItem{Text="IPOH", Value="5"},
-                                     new SelectListItem{Text="PENANG", Value="6"}},
-                                "Please Select", new { @class = "form-control input-md", @id = "jsTo",
-                                    data_show_subtext = "true",
-                                    data_live_search = "true",
-                                    @placeholder = "PENANG"
-                                })
+                    @Html.DropDownListFor(m => m.To, new SelectList(Model.ListTolFromTo) , new { @class = "form-control input-md", @id = "jsTo" })
+
+                            @*@Html.DropDownListFor(m => m.To, new List<SelectListItem>
+                            { new SelectListItem{Text="JOHOR", Value="1"},
+                                   new SelectListItem{Text="MELAKA", Value="2"},
+                                   new SelectListItem{Text="SEREMBAN", Value="3"},
+                                   new SelectListItem{Text="KUALA LUMPUR", Value="4"},
+                                   new SelectListItem{Text="IPOH", Value="5"},
+                                   new SelectListItem{Text="PENANG", Value="6"}},
+                              "Please Select", new { @class = "form-control input-md", @id = "jsTo",
+                                  data_show_subtext = "true",
+                                  data_live_search = "true",
+                                  @placeholder = "PENANG"
+                              })*@
                 </h4>
             </div>
             @*<div class="col-md-3" style="display:none">
@@ -382,7 +375,7 @@
 
             <div class="col-md-2">
                 <br />
-                @*<input type="button" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
+                @*<input type="submit" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
                 <img src="~/images/btnPlanNow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
             </div>
             <br/>
@@ -434,9 +427,10 @@
 
             <h4>You recomended to start journey on:</h4>
             @*@Html.LabelFor(m => m.Time, new { id = "Time", Value = "JS Calculation Error" })*@
-            @Html.LabelFor(m => m.Time, new { id = "LabelTime" })
+
+            @Html.LabelFor(m => m.Time, (string)@ViewBag.displayTimeText)
             <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
-                @Html.TextBoxFor(m => m.Time, new { id = "Time" })
+                @Html.TextBoxFor(m => m.Time)
             </div>
             <br />
             @Html.AntiForgeryToken()
@@ -446,7 +440,7 @@
             <br />
             <br />
             <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" id="CheckEmailDateTime" />
-            <input type="submit" value="BACK " class="btn btn-warning" />
+            <input type="submit" value="BACK " class="btn btn-warning" onclick="redirect(this.value)" />
             <br />
             <br />
             @*<br/>

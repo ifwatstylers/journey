@@ -38,9 +38,6 @@ namespace journey.Models
         public string Date { get; set; }
 
         public string Time { get; set; }
-        //public string Time2 { get; set; }
-        //public string Time3 { get; set; }
-        //public string Time4 { get; set; }
 
         public string Period { get; set; }
 
@@ -61,6 +58,8 @@ namespace journey.Models
 
         public int DriverFROM;
         public int DriverTO;
+        public int DriverFROMGroudID;
+        public int DriverTOGroupID;
 
         public string Gender { get; set; }
         public string DateSelected { get; set; }
