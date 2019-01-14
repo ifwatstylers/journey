@@ -87,11 +87,11 @@ namespace journey.Controllers
 
             //if (customer.From != null || customer.To != null || customer.Period != null)
             #region load RSA here
-            if (customer.From != null) //for testing need to change to == // for dev need to change to !=
+            if (customer.From == null) //for testing need to change to == // for dev need to change to !=
             {
                 //dummy
-                //customer.From = "PAGOH";
-                //customer.To = "SEREMBAN";
+                customer.From = "SUBANG JAYA";
+                customer.To = "PENANG";
                 //dummy
 
                 String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
@@ -168,21 +168,22 @@ namespace journey.Controllers
                 String sql;
                 if (DriverFROM < DriverTO)//if (checkUtaraSelatan < 0)
                 {
-                    sql = "select place_name from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ") order by id asc";
+                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ") order by id asc";
                 }
                 else if (DriverFROM == DriverTO)
                 {
-                    sql = "select place_name from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ")";
+                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ")";
                 }
                 else
                 {
-                    sql = "select place_name from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverTO + " and id < " + DriverFROM  + ") order by id desc";
+                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverTO + " and id < " + DriverFROM  + ") order by id desc";
                 }
 
                 SqlConnection conn2 = new SqlConnection(connectionString);
                 SqlCommand cmd2 = new SqlCommand(sql, conn2);
 
                 var model2 = customer.ListRSA.ToList();
+                var modelForNameRSa = customer.ListRSA.ToList();
 
                 using (conn2)
                 {
@@ -193,37 +194,30 @@ namespace journey.Controllers
                     {
                         var customer2 = new Student();
 
-                        customer2.FirstName = rdr["PLACE_NAME"].ToString();
+                        //customer2.FirstName = rdr["PLACE_NAME"].ToString();
+                        customer2.FirstName = rdr["image_url"].ToString();
+                        customer2.LastName = rdr["PLACE_NAME"].ToString();
                         //customer2.LastName = rdr["LastName"].ToString();
                         //customer.Class = rdr["Class"].ToString();
 
 
                         model2.Add(customer2.FirstName.ToString());
+                        modelForNameRSa.Add(customer2.LastName.ToString());
+
                     }
 
                 }
 
 
                 customer.ListRSA = model2;
+                customer.ListRSAName = modelForNameRSa;
             }
 
             #endregion end load RSA here
             //}
 
             string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
-
-            //if (customer.From == "Jalan Duta" && customer.To == "Sg Besi")
-            //{
-            //    customer.ListMerchant = "Utara";
-            //    customer.ListRSA = "Utara";
-            //}
-            //else
-            //{
-            //    customer.ListMerchant = null;
-            //    customer.ListRSA = null;
-            //}
-
+           
             using (SqlConnection conn = new SqlConnection(constr))
             {
                 try
@@ -284,10 +278,10 @@ namespace journey.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> IndexAsync(CustomerModel customer)
         {
-            customer.FromName = "";
-            customer.Message = "";
+            //customer.FromName = "";
+            //customer.Message = "";
             customer.FromEmail = customer.Email;
-            //if (ModelState.IsValid)
+           // if (ModelState.IsValid)
             if (customer.FromEmail != null)
             {
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
@@ -387,6 +381,30 @@ namespace journey.Controllers
 
                 message.Body = htmlBody;
 
+                //using (var smtp = new SmtpClient())
+                //{
+                //    var credential = new NetworkCredential
+                //    {
+                //        UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
+                //        Password = "T@hun2018"  // replace with valid value
+                //    };
+                //    smtp.Credentials = credential;
+                //    smtp.Host = "smtp-mail.outlook.com";
+                //   smtp.Port = 465;
+                //    smtp.EnableSsl = true;
+                //    try
+                //    {
+                //        await smtp.SendMailAsync(message);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        string error = ex.ToString();
+                //    }
+
+                //    //await smtp.SendMailAsync(message);
+                //    //return RedirectToAction("Sent");
+                //    return View(customer);
+                //}
                 using (var smtp = new SmtpClient())
                 {
                     var credential = new NetworkCredential
@@ -399,7 +417,6 @@ namespace journey.Controllers
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
                     await smtp.SendMailAsync(message);
-                    //await smtp.SendMailAsync(message);
                     return RedirectToAction("Sent");
                 }
             }

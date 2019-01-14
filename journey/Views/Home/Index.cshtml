@@ -133,6 +133,8 @@
         function redirect(dropDownValue) {
             window.location.href = '/Home/Index';// + dropDownValue;
         }
+        
+
 
         $(document).ready(function () {
             $("#hide").click(function () {
@@ -384,16 +386,15 @@
 
         <div class="row" id="SecondDiv" style="display:none; text-align: center">
             @*FOR TESTING ONLY*@
-            <div id="testing" style="display:block;">
+            <div id="testing" style="display:none;">
                 <table>
                     <tr>
                         <th>List RSA from DB</th>
                     </tr>
                     @foreach (var rsa in Model.ListRSA)
                     {
-                        <tr>
-                            <td>@rsa</td>
-                        </tr>
+                            <td> <img width="100%" src="~/images/@rsa" /> <a href="#">More Info</a></td>
+                            
                     }
                 </table>
             </div>
@@ -452,25 +453,38 @@
         <div class="row" id="ThirdDiv" style="display:none; text-align: center">
             <div class="col-md-12">
                 <h4>AS YOU TRAVEL WITH US, YOU CAN HAVE A BREAK AT OUR SELECTED REST AREA. CLICK TO FIND OUT WHAT IS WHAT WE HAVE AT OUR REST AREA</h4>
-                @*@Html.DisplayTextFor(m => m.ListRSA)*@
-                @*@Html.DropDownListFor(m => m.ListRSA, new List<SelectListItem>
-                               { new SelectListItem{Text="Tapah", Value="Tapah"},
-                                 new SelectListItem{Text="Ipoh", Value="Ipoh"},
-                                 new SelectListItem{Text="Sg Perak", Value="Sg Perak"}},
-                                "Please Select")*@
                 <table style="width:100%" cellspacing="3">
                     <tr>
-                        <td>
-                            <img src="~/images/rsa_tapah.jpg" width="100%" />
-                        </td>
-                        <td>
-                            <img src="~/images/rsa_sgbuloh.jpg"  width="100%" />
-                        </td>
-                        <td>
-                            <img src="~/images/rsa_seremban.jpg"  width="100%" />
-                        </td>
+                        @foreach (var rsa in Model.ListRSA)
+                        {
+                            <td style="padding:0 5px 0 5px;"><a href="~/images/DetailsRSA/@rsa" target="_blank"><img width="100%" src="~/images/@rsa" /></a></td>
+                        }
+                        </tr>
+                    <tr>
+                        @foreach (var rsaName in Model.ListRSAName)
+                        {
+                            <td style="padding:0 5px 0 5px;">@rsaName</td>
+                        }
+                    </tr>
+                    <tr>
+                        @*@for (var i = 10; i < 21; i++)
+                        {
+                            <td style="padding:0 5px 0 5px;">i</td>
+                        }*@
                     </tr>
                 </table>
+                @*<table>
+                    @{
+                        var items = Model.ListRSA;
+                        const int colCount = 2;
+                    }
+                        @for (var i = 0; i < items.Count(); i += colCount)
+                        {
+
+                            <td style="padding:0 5px 0 5px;"> <img width="100%" src="~/images/@items" /> <a href="#@items">More Info</a></td>
+
+                        }
+                    </table>*@
                 <br/>
                 <br/>
                 <h4><b>PARTNER PROMOTIONS</b></h4>
