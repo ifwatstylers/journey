@@ -1,14 +1,26 @@
-﻿using System;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Web;
+//using System.Web.Mvc;
+//using journey.Models;
+//using System.Data.SqlClient;
+//using System.Net;
+//using System.Net.Mail;
+//using System.Threading.Tasks;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using journey.Models;
-
-using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Web;
+using System.IO;
 
 namespace journey.Controllers
 {
@@ -281,7 +293,8 @@ namespace journey.Controllers
             //customer.FromName = "";
             //customer.Message = "";
             customer.FromEmail = customer.Email;
-           // if (ModelState.IsValid)
+            
+            // if (ModelState.IsValid)
             if (customer.FromEmail != null)
             {
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
@@ -380,33 +393,10 @@ namespace journey.Controllers
                             "</html>";
 
                 message.Body = htmlBody;
-
-                //using (var smtp = new SmtpClient())
-                //{
-                //    var credential = new NetworkCredential
-                //    {
-                //        UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
-                //        Password = "T@hun2018"  // replace with valid value
-                //    };
-                //    smtp.Credentials = credential;
-                //    smtp.Host = "smtp-mail.outlook.com";
-                //   smtp.Port = 465;
-                //    smtp.EnableSsl = true;
-                //    try
-                //    {
-                //        await smtp.SendMailAsync(message);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        string error = ex.ToString();
-                //    }
-
-                //    //await smtp.SendMailAsync(message);
-                //    //return RedirectToAction("Sent");
-                //    return View(customer);
-                //}
+                
                 using (var smtp = new SmtpClient())
                 {
+                    //SmtpClient SmtpServer = new SmtpClient(smtp.ToString());
                     var credential = new NetworkCredential
                     {
                         UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
@@ -416,13 +406,14 @@ namespace journey.Controllers
                     smtp.Host = "smtp-mail.outlook.com";
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
+                    try { await smtp.SendMailAsync(message); }
+                    catch (Exception ex)
+                    { string error = ex.ToString();}
+                    //return RedirectToAction("Sent");
+                    return Redirect("~/about");
                 }
             }
-
             return View(customer);
-            
         }
 
         public ActionResult About()
