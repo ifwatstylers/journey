@@ -154,12 +154,16 @@
     <Content Include="images\btnNext.png" />
     <Content Include="images\btnPlanNow.png" />
     <Content Include="images\btnPlanNow1.png" />
+    <Content Include="images\btn_plannow.png" />
+    <Content Include="images\btn_register.png" />
+    <Content Include="images\btn_setreminder.png" />
     <Content Include="images\cny-1feb.jpg" />
     <Content Include="images\cny-2feb.png" />
     <Content Include="images\cny-31jan.jpg" />
     <Content Include="images\cny-7feb.png" />
     <Content Include="images\cny-8feb.png" />
     <Content Include="images\cny-9feb.png" />
+    <Content Include="images\CNY-Twin-Pack-700x200px.jpg" />
     <Content Include="images\cny_bg.jpg" />
     <Content Include="images\promo_secretrecipe.jpg" />
     <Content Include="images\rsa_seremban.jpg" />
@@ -180,6 +184,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Server.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

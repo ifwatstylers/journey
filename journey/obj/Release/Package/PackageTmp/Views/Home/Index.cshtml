@@ -1,489 +1,521 @@
 ﻿@model journey.Models.CustomerModel
-    
-@*@{
-    
-    IEnumerable<Student> students = ViewData["Students"] as IEnumerable<Student>;
-}*@
-@*@model IEnumerable<journey.Models.CustomerModel>*@
-
 @{
     ViewBag.Title = "Home Page";
 }
+@*@{
+    var db = Database.Open("SmallBakery");
+}*@
+    <head>
+        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <script src="~/jquery/searchbox.js"></script>*@
+        <style type="text/css">
+            .searchbox {
+                border: 1px solid #456879;
+                border-radius: 6px;
+                height: 22px;
+                width: 150px;
+                margin-top: 5px;
+            }
 
-<head>
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="~/jquery/searchbox.js"></script>*@
-    <style type="text/css">
-        .searchbox {
-            border: 1px solid #456879;
-            border-radius: 6px;
-            height: 22px;
-            width: 150px;
-            margin-top: 5px;
-        }
-
-        .LabelStyle {
-            /*background-color: White;
+            .LabelStyle {
+                /*background-color: White;
             color: black;
             border-style: solid;
             text-space-collapse: collapse;*/
-        }
-    </style>
-    <style type="text/css">
-        .cc-selector input {
-            margin: 0;
-            padding: 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        .cc-selector-2 input {
-            position: absolute;
-            z-index: 999;
-        }
-
-        .visa {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-31jan.jpg);
-        }
-
-        .mastercard {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-1feb.jpg);
-        }
-
-        .mastercard2 {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-2feb.png);
-        }
-
-        .visapost {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-7feb.png);
-        }
-
-        .mastercardpost {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-8feb.png);
-        }
-
-        .mastercard2post {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-9feb.png);
-        }
-
-        .cc-selector-2 input:active + .drinkcard-cc, .cc-selector input:active + .drinkcard-cc {
-            opacity: .9;
-        }
-
-        .cc-selector-2 input:checked + .drinkcard-cc, .cc-selector input:checked + .drinkcard-cc {
-            -webkit-filter: none;
-            -moz-filter: none;
-            filter: none;
-        }
-
-        .drinkcard-cc {
-            cursor: pointer;
-            background-size: contain;
-            background-repeat: no-repeat;
-            display: inline-block;
-            width: 100px;
-            height: 70px;
-            -webkit-transition: all 100ms ease-in;
-            -moz-transition: all 100ms ease-in;
-            transition: all 100ms ease-in;
-            -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-            -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-            filter: brightness(1.8) grayscale(1) opacity(.7);
-        }
-
-            .drinkcard-cc:hover {
-                -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-                -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
-                filter: brightness(1.2) grayscale(.5) opacity(.9);
+            }
+        </style>
+        <style type="text/css">
+            .cc-selector input {
+                margin: 0;
+                padding: 0;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
             }
 
-        /* Extras */
-        a:visited {
-            color: #888
-        }
+            .cc-selector-2 input {
+                position: absolute;
+                z-index: 999;
+            }
 
-        a {
-            color: #444;
-            text-decoration: none;
-        }
+            .visa {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-31jan.jpg);
+            }
 
-        p {
-            margin-bottom: .3em;
-        }
+            .mastercard {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-1feb.jpg);
+            }
 
-        * {
-            /*font-family: monospace;*/
-        }
+            .mastercard2 {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-2feb.png);
+            }
 
-        .cc-selector-2 input {
-            margin: 5px 0 0 12px;
-        }
+            .visapost {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-7feb.png);
+            }
 
-        .cc-selector-2 label {
-            margin-left: 7px;
-        }
+            .mastercardpost {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-8feb.png);
+            }
 
-        span.cc {
-            color: #6d84b4
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
+            .mastercard2post {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-9feb.png);
+            }
 
-        $(document).ready(function () {
-            $("#hide").click(function () {
+            .cc-selector-2 input:active + .drinkcard-cc, .cc-selector input:active + .drinkcard-cc {
+                opacity: .9;
+            }
 
-                var jsfrom = document.forms['ifwatForm'].jsFrom.value;
-                var jsto = document.forms['ifwatForm'].jsTo.value;
-                //var jsdate = document.forms['ifwatForm'].jsDate.value;
+            .cc-selector-2 input:checked + .drinkcard-cc, .cc-selector input:checked + .drinkcard-cc {
+                -webkit-filter: none;
+                -moz-filter: none;
+                filter: none;
+            }
 
-                var SBorNB = jsfrom - jsto;
-                
-               
-                if (SBorNB == 1 || SBorNB == -1) {
-                    $("#LabelTime").text("7:00 pm");
-                    $("#Time").val("7:00 pm");
-                    
+            .drinkcard-cc {
+                cursor: pointer;
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: inline-block;
+                width: 100px;
+                height: 70px;
+                -webkit-transition: all 100ms ease-in;
+                -moz-transition: all 100ms ease-in;
+                transition: all 100ms ease-in;
+                -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+                -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+                filter: brightness(1.8) grayscale(1) opacity(.7);
+            }
 
+                .drinkcard-cc:hover {
+                    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+                    -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+                    filter: brightness(1.2) grayscale(.5) opacity(.9);
                 }
-                else if (SBorNB == 2 || SBorNB == -2) {
-                    $("#LabelTime").text("12:00 pm");
-                    $("#Time").val("12:00 pm");
 
-                }
-                else if (SBorNB >= 3 || SBorNB <= -3) {
-                    $("#LabelTime").text("7:00 am");
-                    $("#Time").val("7:00 am");
-                }
-                
-                //function fnNext() {
-                //    var frm = document.forms[0];
-                //    frm.selecteditem.value = "Next";
-                //    Javascriptfunction();
-                //    return true;
-                //}
+            /* Extras */
+            a:visited {
+                color: #888
+            }
 
-                //FOR LABEL RESULT FROM TO TO IN 2ND PAGE
+            a {
+                color: #444;
+                text-decoration: none;
+            }
 
-                var jsfromText = $("#jsFrom option:selected").text()
-                var jstoText = $("#jsTo option:selected").text()
+            p {
+                margin-bottom: .3em;
+            }
 
-                var lblFromToTo = " " + jsfromText + " - " + jstoText + " ";
-                $("#lblFromTo").text(lblFromToTo);
-                //END LABEL FROM TO TO
+            * {
+                /*font-family: monospace;*/
+            }
 
-                //DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
-                var JourneyDateToDisplay = document.forms['ifwatForm'].jsTypeJourney.value;
-                if (JourneyDateToDisplay == "PRECNY") { $("#preDateList").show(); $("#postDateList").hide(); }
-                else if (JourneyDateToDisplay == "POSTCNY") { $("#preDateList").hide(); $("#postDateList").show(); }
-                //END PART FOR DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
+            .cc-selector-2 input {
+                margin: 5px 0 0 12px;
+            }
+
+            .cc-selector-2 label {
+                margin-left: 7px;
+            }
+
+            span.cc {
+                color: #6d84b4
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        @*<script src="~/Scripts/Server.js"></script>*@
+        <script>
+            function redirect(dropDownValue) {
+                window.location.href = '/Home/About';// + dropDownValue;
+            }
+            function redirectPlusMiles() {
+                window.location.href = '/Home/About'
+            }
 
 
-                if (jsfrom == null || jsfrom == "" || jsto == null || jsto == "") {
-                    alert("Please fill all required field");
-                    return false;
-                }
-                else {
+
+            $(document).ready(function () {
+                $("#hide").click(function () {
+
+                    var jsfrom = document.forms['ifwatForm'].jsFrom.value;
+                    var jsto = document.forms['ifwatForm'].jsTo.value;
+
+                    //TEST NEW
+                    //var e = document.getElementById("jsFrom");
+                    //var strUser = e.options[e.selectedIndex].value;
+                    //$("#lblFromNew").text(strUser);
+
+                    //LOAD ID FROM DB BASED ON SELECTED DROPDOWN
+
+                    //tx.executeSql('select * from poi2 where PLACE_NAME = ' + jsfrom + ' ');
+                    //var dbID = document.getElementById('n');
+                    //var dbGroupID = document.getElementById('a');
+                    //var dbPlaceName = document.getElementById('p');
+                    //$("#lblFromNew").text(dbID)
+                    //tx.executeSql('INSERT INTO DEMO (sname ,saddress ,sphone) VALUES ('"+name.value+"','"+address.value+"','"+phone.value+"')');
+
+                    //
+                    //END TEST
+
+                    //var jsdate = document.forms['ifwatForm'].jsDate.value;
+                    //var SBorNB = jsfrom - jsto;
+                    //if (SBorNB == 1 || SBorNB == -1) {
+                    //    $("#LabelTime").text("7:00 pm");
+                    //    $("#Time").val("7:00 pm");
+
+
+                    //}
+                    //else if (SBorNB == 2 || SBorNB == -2) {
+                    //    $("#LabelTime").text("12:00 pm");
+                    //    $("#Time").val("12:00 pm");
+
+                    //}
+                    //else if (SBorNB >= 3 || SBorNB <= -3) {
+                    //    $("#LabelTime").text("7:00 am");
+                    //    $("#Time").val("7:00 am");
+                    //}
+
+                    //FOR LABEL RESULT FROM TO TO IN 2ND PAGE
+
+                    var jsfromText = $("#jsFrom option:selected").text()
+                    var jstoText = $("#jsTo option:selected").text()
+
+                    var lblFromToTo = " " + jsfromText + " - " + jstoText + " ";
+                    $("#lblFromTo").text(lblFromToTo);
+                    //END LABEL FROM TO TO
+
+
+
+                    //DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
+                    var JourneyDateToDisplay = document.forms['ifwatForm'].jsTypeJourney.value;
+                    if (JourneyDateToDisplay == "PRECNY") { $("#preDateList").show(); $("#postDateList").hide(); }
+                    else if (JourneyDateToDisplay == "POSTCNY") { $("#preDateList").hide(); $("#postDateList").show(); }
+                    //END PART FOR DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
+
+
+                    if (jsfrom == null || jsfrom == "" || jsto == null || jsto == "") {
+                        alert("Please fill all required field");
+                        return false;
+                    }
+                    else {
+                        $("#MainDiv").hide();
+                        $("#SecondDiv").show();
+                        $("#ThirdDiv").show();
+                    }
+                });
+                $("#back").click(function () {
+                    $("#MainDiv").show();
+                    $("#SecondDiv").hide();
+                    $("#ThirdDiv").hide();
+                });
+                $("#hideAgain").click(function () {
+                    //if (document.forms['ifwatForm'].jsTime.value == null) {
+                    //    document.forms['ifwatForm'].jsTime.value
+                    //}
+                    //var jstime = document.forms['ifwatForm'].jsTime.value;
+                    //if (jstime == null || jstime == "") {
+                    //    alert("Please select all required field");
+                    //    return false;
+                    //}
                     $("#MainDiv").hide();
-                    $("#SecondDiv").show();
+                    $("#SecondDiv").hide();
                     $("#ThirdDiv").show();
-                }
-            });
-            $("#back").click(function () {
-                $("#MainDiv").show();
-                $("#SecondDiv").hide();
-                $("#ThirdDiv").hide();
-            });
-            $("#hideAgain").click(function () {
-                //if (document.forms['ifwatForm'].jsTime.value == null) {
-                //    document.forms['ifwatForm'].jsTime.value
-                //}
-                //var jstime = document.forms['ifwatForm'].jsTime.value;
-                //if (jstime == null || jstime == "") {
-                //    alert("Please select all required field");
-                //    return false;
-                //}
-                $("#MainDiv").hide();
-                $("#SecondDiv").hide();
-                $("#ThirdDiv").show();
-            });
-            $("#show").click(function () {
-                $("#MainDiv").show();
-                $("#SecondDiv").hide();
-                $("#ThirdDiv").hide();
-            });
-            $("#CheckEmailDateTime").click(function () {
-                var checkEmail = document.forms['ifwatForm'].jsEmail.value;
-                var checkTime = document.forms['ifwatForm'].Time.value;
-                //var checkDate = document.forms['ifwatForm'].DateSelected.value;
-                //if (checkDate == null || checkDate == "") {
-                //    alert("Please select your prefer date for journey")
-                //    return false;
-                //}
+                });
+                $("#show").click(function () {
+                    $("#MainDiv").show();
+                    $("#SecondDiv").hide();
+                    $("#ThirdDiv").hide();
+                });
+                $("#CheckEmailDateTime").click(function () {
+                    var checkEmail = document.forms['ifwatForm'].jsEmail.value;
+                    var checkTime = document.forms['ifwatForm'].Time.value;
+                    //var checkDate = document.forms['ifwatForm'].DateSelected.value;
+                    //if (checkDate == null || checkDate == "") {
+                    //    alert("Please select your prefer date for journey")
+                    //    return false;
+                    //}
 
-                if (checkTime == null || checkTime == "") {
-                    alert("Time not available. Please back and reselect your destination!")
-                    return false;
-                }
+                    if (checkTime == null || checkTime == "") {
+                        alert("Time not available. Please back and reselect your destination!")
+                        return false;
+                    }
 
-                if (checkEmail == null || checkEmail == "" ) {
-                    alert("Please fill up an email");
-                    return false;
-                }
+                    if (checkEmail == null || checkEmail == "") {
+                        alert("Please fill up an email");
+                        return false;
+                    }
 
-                
+
+                });
+
             });
-            
-        });
-    </script>
-</head>
-<body>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:whitesmoke;">
-        @*<ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>*@
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <br/>
-                <img src="~/images/banner3.jpg" alt="ASP.NET" class="img-responsive" style="width:100%;" />
-                @*<div class="carousel-caption" role="option">
-                        <p>
-                            Chinese New Year 2019
-                        </p>
-                    </div>*@
-            </div>
-            @*<div class="item">
-                            <img src="~/images/banner1.jpg" alt="Visual Studio" class="img-responsive" />
-                            <div class="carousel-caption" role="option">
+        </script>
+    </head>
+    <body>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:white;">
+            @*<ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>*@
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <br />
+                    <img src="~/images/bnr_1024px_b.jpg" alt="ASP.NET" class="img-responsive" style="width:100%;" />
+                    @*<div class="carousel-caption" role="option">
+                            <p>
+                                Chinese New Year 2019
+                            </p>
+                        </div>*@
+                </div>
+                @*<div class="item">
+                                <img src="~/images/banner1.jpg" alt="Visual Studio" class="img-responsive" />
+                                <div class="carousel-caption" role="option">
+                                        <p>
+                                            There are powerful new features in Visual Studio for building modern web apps.
+                                            <a class="btn btn-default" href="#https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
+                                                Learn More
+                                            </a>
+                                        </p>
+                                    </div>
+                            </div>
+                    <div class="item">
+                                <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
+                                <div class="carousel-caption" role="option">
                                     <p>
-                                        There are powerful new features in Visual Studio for building modern web apps.
-                                        <a class="btn btn-default" href="#https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
+                                        Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
+                                        <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
                                             Learn More
                                         </a>
                                     </p>
                                 </div>
-                        </div>
-                <div class="item">
-                            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-                            <div class="carousel-caption" role="option">
-                                <p>
-                                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                                        Learn More
-                                    </a>
-                                </p>
-                            </div>
-                        </div>*@
+                            </div>*@
 
+            </div>
+            @*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>*@
         </div>
-        @*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>*@
-    </div>
 
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))
-    {
-        <div class="row" id="MainDiv" style="background-color:whitesmoke; text-align:center;">
-            @*FOR TESTING ONLY*@
-            
-            @*END OF TESTING PART*@
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))
+        {
+            <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
+                @*FOR TESTING ONLY*@
 
-            <h2 style="text-align: center">
-                PLAN YOUR 2019 CHINESE NEW YEAR TRIP!
-            </h2>
-            <br />
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <h4 style="text-align: center">
-                        SELECT YOUR ORIGIN &Aacute; DESTINATION CITY/TOWN TO VIEW OUR RECOMENDED DATE &Aacute; TIME WHEN YOU SHOULD LEAVE FOR YOUR DESTINATION DURING CNY PERIOD THIS YEAR.
+                @*END OF TESTING PART*@
+
+                <h2 style="text-align: center; color: #d0021b;">
+                    PLAN YOUR 2019 CHINESE NEW YEAR TRIP!
+                </h2>
+                <br />
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h4 style="text-align: center">
+                            SELECT YOUR ORIGIN &Aacute; DESTINATION CITY/TOWN TO VIEW OUR RECOMENDED DATE &Aacute; TIME WHEN YOU SHOULD LEAVE FOR YOUR DESTINATION DURING CNY PERIOD THIS YEAR.
+                        </h4>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="col-md-3">
+                    <h4>
+                        PERIOD<br />
+                        @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
+                               { new SelectListItem{Text="PRE CNY", Value="PRECNY"},
+                                 new SelectListItem{Text="POST CNY", Value="POSTCNY"}},
+                           new { @class = "form-control selectpicker",
+                               @id = "jsTypeJourney",
+                               style = "width: 100%;"
+                           })
                     </h4>
                 </div>
-                <div class="col-md-2"></div>
-            </div>
-            <br />
-            <div class="col-md-3">
-                <h4>
-                    PERIOD<br/>
-                    @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
-                           { new SelectListItem{Text="PRE CNY", Value="PRECNY"},
-                             new SelectListItem{Text="POST CNY", Value="POSTCNY"}},
-                      "Please Select", new { @class = "form-control selectpicker",
-                          @id = "jsTypeJourney",
-                          @placeholder = "PRE CNY"
-                      })
-                </h4>
-            </div>
-            <div class="col-md-3">
-                <h4>
-                    ORIGIN<br />
-                    @Html.DropDownListFor(m => m.From, new List<SelectListItem>
-                               { new SelectListItem{Text="JOHOR", Value="1"},
-                                 new SelectListItem{Text="MELAKA", Value="2"},
-                                 new SelectListItem{Text="SEREMBAN", Value="3"},
-                                 new SelectListItem{Text="KUALA LUMPUR", Value="4"},
-                                 new SelectListItem{Text="IPOH", Value="5"},
-                                 new SelectListItem{Text="PENANG", Value="6"}},
-                          "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom",
-                              data_show_subtext = "true",
-                              data_live_search = "true",
-                              @placeholder = "JOHOR"
-                          })
-                </h4>
-            </div>
-            <div class="col-md-4">
-                <h4>
-                    DESTINATION<br />
-                    @Html.DropDownListFor(m => m.To, new List<SelectListItem>
-                              { new SelectListItem{Text="JOHOR", Value="1"},
-                                     new SelectListItem{Text="MELAKA", Value="2"},
-                                     new SelectListItem{Text="SEREMBAN", Value="3"},
-                                     new SelectListItem{Text="KUALA LUMPUR", Value="4"},
-                                     new SelectListItem{Text="IPOH", Value="5"},
-                                     new SelectListItem{Text="PENANG", Value="6"}},
-                                "Please Select", new { @class = "form-control input-md", @id = "jsTo",
-                                    data_show_subtext = "true",
-                                    data_live_search = "true",
-                                    @placeholder = "PENANG"
-                                })
-                </h4>
-            </div>
-            @*<div class="col-md-3" style="display:none">
-                <h4>
-                    Date
-                </h4>
-                @Html.DropDownListFor(m => m.Date, new List<SelectListItem>
-                          { new SelectListItem{Text="31 JAN", Value="31 JAN", Selected=true},
-                            new SelectListItem{Text="1 FEB", Value="1 FEB"},
-                            new SelectListItem{Text="2 FEB", Value="2 FEB"},
-                            new SelectListItem{Text="3 FEB", Value="3 FEB"},
-                            new SelectListItem{Text="7 FEB", Value="7 FEB"},
-                            new SelectListItem{Text="8 FEB", Value="8 FEB"},
-                            new SelectListItem{Text="9 FEB", Value="9 FEB"},
-                            new SelectListItem{Text="10 FEB", Value="10 FEB"}},
-                            "Please select", new { @id = "jsDate"})
+                <div class="col-md-3">
+                    <h4>
+                        ORIGIN
+                        <br />
+                        @*THE CORRECT ONE FOR LOAD TOLPLAZA FROM DB BUT DISABLE COZ TIME LIMIT*@
+                        @Html.DropDownListFor(m => m.From, new SelectList(Model.ListTolFromTo), new { @class = "form-control input-md", @id = "jsFrom", style = "width: 100%;" })
 
-            </div>*@
+                        @*@Html.DropDownListFor(m => m.From, new List<SelectListItem>
+                                 { new SelectListItem{Text="JOHOR", Value="1"},
+                                   new SelectListItem{Text="MELAKA", Value="2"},
+                                   new SelectListItem{Text="SEREMBAN", Value="3"},
+                                   new SelectListItem{Text="KUALA LUMPUR", Value="4"},
+                                   new SelectListItem{Text="IPOH", Value="5"},
+                                   new SelectListItem{Text="PENANG", Value="6"}},
+                            "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom",
+                                data_show_subtext = "true",
+                                data_live_search = "true"
+                                // onchange = "redirect(this.value)"
+                            })*@
+                    </h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>
+                        DESTINATION<br />
+                        @Html.DropDownListFor(m => m.To, new SelectList(Model.ListTolFromTo), new { @class = "form-control input-md", @id = "jsTo" })
 
-            <div class="col-md-2">
+                        @*@Html.DropDownListFor(m => m.To, new List<SelectListItem>
+                            { new SelectListItem{Text="JOHOR", Value="1"},
+                                   new SelectListItem{Text="MELAKA", Value="2"},
+                                   new SelectListItem{Text="SEREMBAN", Value="3"},
+                                   new SelectListItem{Text="KUALA LUMPUR", Value="4"},
+                                   new SelectListItem{Text="IPOH", Value="5"},
+                                   new SelectListItem{Text="PENANG", Value="6"}},
+                              "Please Select", new { @class = "form-control input-md", @id = "jsTo",
+                                  data_show_subtext = "true",
+                                  data_live_search = "true",
+                                  @placeholder = "PENANG"
+                              })*@
+                    </h4>
+                </div>
+                @*<div class="col-md-3" style="display:none">
+                        <h4>
+                            Date
+                        </h4>
+                        @Html.DropDownListFor(m => m.Date, new List<SelectListItem>
+                                  { new SelectListItem{Text="31 JAN", Value="31 JAN", Selected=true},
+                                    new SelectListItem{Text="1 FEB", Value="1 FEB"},
+                                    new SelectListItem{Text="2 FEB", Value="2 FEB"},
+                                    new SelectListItem{Text="3 FEB", Value="3 FEB"},
+                                    new SelectListItem{Text="7 FEB", Value="7 FEB"},
+                                    new SelectListItem{Text="8 FEB", Value="8 FEB"},
+                                    new SelectListItem{Text="9 FEB", Value="9 FEB"},
+                                    new SelectListItem{Text="10 FEB", Value="10 FEB"}},
+                                    "Please select", new { @id = "jsDate"})
+
+                    </div>*@
+
+                <div class="col-md-2">
+                    <br />
+                    @*<input type="submit" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
+                    <img src="~/images/btnPlanNow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
+                </div>
                 <br />
-                @*<input type="button" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
-                <img src="~/images/btnPlanNow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
+                <br />
             </div>
-            <br/>
-            <br/>
-        </div>
 
-        <div class="row" id="SecondDiv" style="display:none; text-align: center">
-            @*FOR TESTING ONLY*@
-            <div id="testing" style="display:none;">
-                <table>
-                    <tr>
-                        <th>List RSA from DB</th>
-                    </tr>
-                    @foreach (var rsa in Model.ListRSA)
-                    {
+            <div class="row" id="SecondDiv" style="display:none; text-align: center">
+                @*FOR TESTING ONLY*@
+                <div id="testing" style="display:none;">
+                    @Html.LabelFor(m => m.valueDrpFrom, new { id = "lblFromNew", Value = "TESTING", @class = "LabelStyle" })
+                    @*<table>
+                            <tr>
+                                <th>List RSA from DB</th>
+                            </tr>
+                            @foreach (var rsa in Model.ListRSA)
+                            {
+                                <td> <img width="100%" src="~/images/@rsa" /> <a href="#">More Info</a></td>
+
+                            }
+                        </table>*@
+                </div>
+                @*END OF TESTING PART*@
+                <br />
+                <h4>
+                    BELOW ARE RECOMENDED DATE &Aacute; TIME FOR YOU TO START YOUR JOURNEY. SELECT DATE TO CREATE/SET REMINDER
+                    <br />
+                    <br />
+                    @Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })
+                </h4>
+
+                <div class="cc-selector" id="preDateList" style="display:none;">
+                    @*<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />*@
+                    <label class="drinkcard-cc visa" for="visa">@Html.RadioButton("DateSelected", "31hb")</label>
+                    @*<input id="mastercard" type="radio" name="credit-card" value="mastercard" />*@
+                    <label class="drinkcard-cc mastercard" for="1hb">@Html.RadioButton("DateSelected", "1hb")</label>
+                    @*<input id="visa" type="radio" name="credit-card" value="mastercard2" />*@
+                    <label class="drinkcard-cc mastercard2" for="2hb">@Html.RadioButton("DateSelected", "2hb", isChecked: true)</label>
+                </div>
+                <div class="cc-selector" id="postDateList" style="display:none;">
+
+                    @*<input checked="checked" id="visapost" type="radio" name="credit-card" value="visapost" />*@
+                    <label class="drinkcard-cc visapost" for="visapost">@Html.RadioButton("DateSelected", "7hb")</label>
+                    @*<input id="mastercardpost" type="radio" name="credit-card" value="mastercardpost" />*@
+                    <label class="drinkcard-cc mastercard" for="mastercardpost">@Html.RadioButton("DateSelected", "8hb")</label>
+                    @*<input id="mastercard2post" type="radio" name="credit-card" value="mastercard2post" />*@
+                    <label class="drinkcard-cc mastercard2post" for="mastercard2post">@Html.RadioButton("DateSelected", "9hb")</label>
+                </div>
+                <br />
+
+                <h4>You recomended to start journey on:</h4>
+                @*@Html.LabelFor(m => m.Time, new { id = "Time", Value = "JS Calculation Error" })*@
+
+                @Html.LabelFor(m => m.Time, (string)@ViewBag.displayTimeText)
+                <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
+                    @Html.TextBoxFor(m => m.Time)
+                </div>
+                <br />
+                @Html.AntiForgeryToken()
+                <h4>Email</h4>
+                @Html.TextBoxFor(m => m.Email, new { id = "jsEmail" })
+                @Html.ValidationMessageFor(m => m.Email)
+                <br />
+                <br />
+                <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" id="CheckEmailDateTime" onclick="redirectPlusMiles(this.value)" />
+                <input type="submit" value="BACK " class="btn btn-warning" onclick="redirect(this.value)" />
+                <br />
+                <br />
+                @*<br/>
+                    <br/>
+                    <img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">
+                    <img src="~/images/btnNext.png" alt="ASP.NET" class="img-responsive" id="hideAgain" />*@
+
+            </div>
+            <div class="row" id="ThirdDiv" style="display:none; text-align: center">
+                <div class="col-md-12">
+                    <h4>AS YOU TRAVEL WITH US, YOU CAN HAVE A BREAK AT OUR SELECTED REST AREA. CLICK TO FIND OUT WHAT IS WHAT WE HAVE AT OUR REST AREA</h4>
+                    <table style="width:100%" cellspacing="3">
                         <tr>
-                            <td>@rsa</td>
+                            @foreach (var rsa in Model.ListRSA)
+                            {
+                                <td style="padding:0 5px 0 5px;"><a href="~/images/DetailsRSA/@rsa" target="_blank"><img width="100%" src="~/images/@rsa" /></a></td>
+                            }
                         </tr>
-                    }
-                </table>
+                        <tr>
+                            @foreach (var rsaName in Model.ListRSAName)
+                            {
+                                <td style="padding:0 5px 0 5px;">@rsaName</td>
+                            }
+                        </tr>
+                        <tr>
+                            @*@for (var i = 10; i < 21; i++)
+                {
+                    <td style="padding:0 5px 0 5px;">i</td>
+                }*@
+                        </tr>
+                    </table>
+                    @*<table>
+        @{
+            var items = Model.ListRSA;
+            const int colCount = 2;
+        }
+            @for (var i = 0; i < items.Count(); i += colCount)
+            {
+
+                <td style="padding:0 5px 0 5px;"> <img width="100%" src="~/images/@items" /> <a href="#@items">More Info</a></td>
+
+            }
+        </table>*@
+                    <br />
+                    <br />
+                    <h4><b>PARTNER PROMOTIONS</b></h4>
+                    <img src="~/images/promo_secretrecipe.jpg" width="100%" />
+                    <br/>
+                    <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
+
+
+                </div>
             </div>
-            @*END OF TESTING PART*@
-            <br />
-            <h4>
-                BELOW ARE RECOMENDED DATE &Aacute; TIME FOR YOU TO START YOUR JOURNEY. SELECT DATE TO CREATE/SET REMINDER
-                <br />
-                <br />
-                @Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })
-            </h4>
 
-            <div class="cc-selector" id="preDateList" style="display:none;">
-                @*<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />*@
-                <label class="drinkcard-cc visa" for="visa">@Html.RadioButton("DateSelected", "31hb")</label>
-                @*<input id="mastercard" type="radio" name="credit-card" value="mastercard" />*@
-                <label class="drinkcard-cc mastercard" for="1hb">@Html.RadioButton("DateSelected", "1hb")</label>
-                @*<input id="visa" type="radio" name="credit-card" value="mastercard2" />*@
-                <label class="drinkcard-cc mastercard2" for="2hb">@Html.RadioButton("DateSelected", "2hb", isChecked: true)</label>
-            </div>
-            <div class="cc-selector" id="postDateList" style="display:none;">
 
-                @*<input checked="checked" id="visapost" type="radio" name="credit-card" value="visapost" />*@
-                <label class="drinkcard-cc visapost" for="visapost">@Html.RadioButton("DateSelected", "7hb")</label>
-                @*<input id="mastercardpost" type="radio" name="credit-card" value="mastercardpost" />*@
-                <label class="drinkcard-cc mastercard" for="mastercardpost">@Html.RadioButton("DateSelected", "8hb")</label>
-                @*<input id="mastercard2post" type="radio" name="credit-card" value="mastercard2post" />*@
-                <label class="drinkcard-cc mastercard2post" for="mastercard2post">@Html.RadioButton("DateSelected", "9hb")</label>
-            </div>
-            <br />
-
-            <h4>You recomended to start journey on:</h4>
-            @*@Html.LabelFor(m => m.Time, new { id = "Time", Value = "JS Calculation Error" })*@
-            @Html.LabelFor(m => m.Time, new { id = "LabelTime" })
-            <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
-                @Html.TextBoxFor(m => m.Time, new { id = "Time" })
-            </div>
-            <br />
-            @Html.AntiForgeryToken()
-            <h4>Email</h4>
-            @Html.TextBoxFor(m => m.Email, new { id = "jsEmail" })
-            @Html.ValidationMessageFor(m => m.Email)
-            <br />
-            <br />
-            <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" id="CheckEmailDateTime" />
-            <input type="submit" value="BACK " class="btn btn-warning" />
-            <br />
-            <br />
-            @*<br/>
-        <br/>
-        <img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">
-        <img src="~/images/btnNext.png" alt="ASP.NET" class="img-responsive" id="hideAgain" />*@
-
-        </div>
-        <div class="row" id="ThirdDiv" style="display:none; text-align: center">
-            <div class="col-md-12">
-                <h4>AS YOU TRAVEL WITH US, YOU CAN HAVE A BREAK AT OUR SELECTED REST AREA. CLICK TO FIND OUT WHAT IS WHAT WE HAVE AT OUR REST AREA</h4>
-                @*@Html.DisplayTextFor(m => m.ListRSA)*@
-                @*@Html.DropDownListFor(m => m.ListRSA, new List<SelectListItem>
-                               { new SelectListItem{Text="Tapah", Value="Tapah"},
-                                 new SelectListItem{Text="Ipoh", Value="Ipoh"},
-                                 new SelectListItem{Text="Sg Perak", Value="Sg Perak"}},
-                                "Please Select")*@
-                <table style="width:100%" cellspacing="3">
-                    <tr>
-                        <td>
-                            <img src="~/images/rsa_tapah.jpg" width="100%" />
-                        </td>
-                        <td>
-                            <img src="~/images/rsa_sgbuloh.jpg"  width="100%" />
-                        </td>
-                        <td>
-                            <img src="~/images/rsa_seremban.jpg"  width="100%" />
-                        </td>
-                    </tr>
-                </table>
-                <br/>
-                <br/>
-                <h4><b>PARTNER PROMOTIONS</b></h4>
-                <img src="~/images/promo_secretrecipe.jpg" width="100%"/>
-                @*<h2>LIST MERCHANT</h2>
-                @Html.DropDownListFor(m => m.ListMerchant, new List<SelectListItem>
-               { new SelectListItem{Text="Tapah", Value="Tapah"},
-                                 new SelectListItem{Text="Ipoh", Value="Ipoh"},
-                                 new SelectListItem{Text="Sg Perak", Value="Sg Perak"}},
-                                "Please Select")*@
-
-            </div>
-        </div>
-
-        
-    }   @*END FORM*@
-</body>
+        }   @*END FORM*@
+    </body>
