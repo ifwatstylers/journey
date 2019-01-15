@@ -410,7 +410,8 @@ namespace journey.Controllers
                     catch (Exception ex)
                     { string error = ex.ToString();}
                     //return RedirectToAction("Sent");
-                    return Redirect("~/about");
+                    //return View("/Home/About");
+                    return Json(new { redirectToUrl = Url.Action("Index", "About") });
                 }
             }
             return View(customer);

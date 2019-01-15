@@ -65,7 +65,9 @@ namespace journey.Models
         public string Gender { get; set; }
         public string DateSelected { get; set; }
 
-        
+        public string valueDrpFrom { get; set; }
+
+
     }
     
 
