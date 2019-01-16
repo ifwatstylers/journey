@@ -151,6 +151,7 @@
     <Content Include="images\banner3-1.jpg" />
     <Content Include="images\banner3.jpg" />
     <Content Include="images\banner3.svg" />
+    <Content Include="images\banner3crop.jpg" />
     <Content Include="images\bnr_1024px_b.jpg" />
     <Content Include="images\btnBack.png" />
     <Content Include="images\btnNext.png" />

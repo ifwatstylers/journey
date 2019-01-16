@@ -63,12 +63,12 @@ namespace journey.Controllers
         //END LOAD RSA HERE
 
         
-
-        public ActionResult Index(CustomerModel customer)
+        public ActionResult Index(CustomerModel customer, FormCollection formcollection, string projectName)
         {
+            
             #region LOAD TOL INTO DROPDOWNLIST
-                //load TOL from to here
-                String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            //load TOL from to here
+            String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
                 String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
 
@@ -99,11 +99,11 @@ namespace journey.Controllers
 
             //if (customer.From != null || customer.To != null || customer.Period != null)
             #region load RSA here
-            if (customer.From == null) //for testing need to change to == // for dev need to change to !=
+            if (customer.From != null) //for testing need to change to == // for dev need to change to !=
             {
                 //dummy
-                customer.From = "SUBANG JAYA";
-                customer.To = "PENANG";
+                //customer.From = "SUBANG JAYA";
+                //customer.To = "BIDOR";
                 //dummy
 
                 String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
@@ -161,19 +161,19 @@ namespace journey.Controllers
                 {
                     //7 pm
                     customer.Time = "7:00pm";
-                    ViewBag.displayTimeText = "7:00pm";
+                    ViewBag.displayTimeText = " After 7:00pm";
                 }
                 else if (ansForClusterDiff == 2 || ansForClusterDiff == -2)
                 {
                     //12pm
                     customer.Time = "12:00pm";
-                    ViewBag.displayTimeText = "12:00pm";
+                    ViewBag.displayTimeText = "After 12:00pm";
                 }
                 else if (ansForClusterDiff >= 3 || ansForClusterDiff <= -3)
                 {
                     //7:00am
                     customer.Time = "7:00am";
-                    ViewBag.displayTimeText = "7:00am";
+                    ViewBag.displayTimeText = "Before 7:00am";
                 }
                 #endregion
 
@@ -282,8 +282,8 @@ namespace journey.Controllers
             //FOR SENDING EMAIL FUNCTION
              IndexAsync(customer);
             //END FOR SENDING EMAIL FUNCTION
-
-            return View(customer);
+            
+            return View();// View(customer);
         }
 
         [HttpPost]
@@ -411,11 +411,14 @@ namespace journey.Controllers
                     { string error = ex.ToString();}
                     //return RedirectToAction("Sent");
                     //return View("/Home/About");
-                    return Json(new { redirectToUrl = Url.Action("Index", "About") });
+                    //return Json(new { redirectToUrl = Url.Action("Index", "About") });
+                    
                 }
             }
-            return View(customer);
+            //
+            return View();
         }
+        
 
         public ActionResult About()
         {
