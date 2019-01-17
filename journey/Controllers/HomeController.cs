@@ -30,238 +30,221 @@ namespace journey.Controllers
         //{
         //    return View();
         //}
-        
-        public ActionResult Index(CustomerModel customer, FormCollection formcollection, string projectName)
-        {
+
+        //public ActionResult Index(CustomerModel customer, FormCollection formcollection, string projectName)
+        //{
+
+        //    #region LOAD TOL INTO DROPDOWNLIST
             
-            #region LOAD TOL INTO DROPDOWNLIST
-            //load TOL from to here
-            String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //    String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-                String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
+        //    String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
 
-                SqlConnection conn3 = new SqlConnection(connectionString3);
+        //    SqlConnection conn3 = new SqlConnection(connectionString3);
 
-                SqlCommand cmd3 = new SqlCommand(sql3, conn3);
+        //    SqlCommand cmd3 = new SqlCommand(sql3, conn3);
 
-                var model3 = customer.ListTolFromTo.ToList();
+        //    var model3 = customer.ListTolFromTo.ToList();
 
-                using (conn3)
-                {
-                    conn3.Open();
-                    SqlDataReader rdr = cmd3.ExecuteReader();
+        //    using (conn3)
+        //    {
+        //        conn3.Open();
+        //        SqlDataReader rdr = cmd3.ExecuteReader();
 
-                    while (rdr.Read())
-                    {
-                        var TolPlaza = new Student();
-                        TolPlaza.FirstName = rdr["PLACE_NAME"].ToString();
+        //        while (rdr.Read())
+        //        {
+        //            var TolPlaza = new Student();
+        //            TolPlaza.FirstName = rdr["PLACE_NAME"].ToString();
 
-                        model3.Add(TolPlaza.FirstName.ToString());
-                    }
+        //            model3.Add(TolPlaza.FirstName.ToString());
+        //        }
 
-                }
-                customer.ListTolFromTo = model3;
+        //    }
+        //    customer.ListTolFromTo = model3;
 
-            //end load TOL from to
-            #endregion
+            
+        //    #endregion
 
-            //if (customer.From != null || customer.To != null || customer.Period != null)
-            #region load RSA here
-            if (customer.From != null) //for testing need to change to == // for dev need to change to !=
-            {
-                //dummy
-                //customer.From = "SUBANG JAYA";
-                //customer.To = "BIDOR";
-                //dummy
-
-                String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            
+        //    #region load RSA here
+        //    if (customer.From != null) 
+        //    {
                 
-                String sqlForPlaceIDFrom = "select * from poi2 where PLACE_NAME = '" + customer.From + "' and PLACE_CAT = 'tp'";
-                String sqlForPlaceIDTo = "select * from poi2 where PLACE_NAME = '" + customer.To + "' and PLACE_CAT = 'tp'";
-                //int DriverFROM = 70;// Int32.Parse(customer.From);
-                //int DriverTO = 10;// Int32.Parse(customer.To);
-               string idFrom;
-                string idto;
-                string idFromGroup;
-                string idtoGroup;
 
-                SqlConnection connCheckIDFrom = new SqlConnection(connectionString);
-                SqlCommand cmdCheckIDfrom = new SqlCommand(sqlForPlaceIDFrom, connCheckIDFrom);
-                using (connCheckIDFrom)
-                {
-                    connCheckIDFrom.Open();
+        //        String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        //        String sqlForPlaceIDFrom = "select * from poi2 where PLACE_NAME = '" + customer.From + "' and PLACE_CAT = 'tp'";
+        //        String sqlForPlaceIDTo = "select * from poi2 where PLACE_NAME = '" + customer.To + "' and PLACE_CAT = 'tp'";
+                
+        //        string idFrom;
+        //        string idto;
+        //        string idFromGroup;
+        //        string idtoGroup;
+
+        //        SqlConnection connCheckIDFrom = new SqlConnection(connectionString);
+        //        SqlCommand cmdCheckIDfrom = new SqlCommand(sqlForPlaceIDFrom, connCheckIDFrom);
+        //        using (connCheckIDFrom)
+        //        {
+        //            connCheckIDFrom.Open();
+
+        //            SqlDataReader rdr = cmdCheckIDfrom.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                idFrom = rdr["ID"].ToString();
+        //                customer.DriverFROM = Int32.Parse(idFrom);
+        //                idFromGroup = rdr["GROUP_ID"].ToString();
+        //                customer.DriverFROMGroudID = Int32.Parse(idFromGroup);
+        //            }
+        //            connCheckIDFrom.Close();
+        //        }
+
+        //        SqlConnection connCheckIDto = new SqlConnection(connectionString);
+        //        SqlCommand cmdCheckIDto = new SqlCommand(sqlForPlaceIDTo, connCheckIDto);
+        //        using (connCheckIDto)
+        //        {
+        //            connCheckIDto.Open();
+        //            SqlDataReader rdr = cmdCheckIDto.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                idto = rdr["ID"].ToString();
+        //                customer.DriverTO = Int32.Parse(idto);
+        //                idtoGroup = rdr["GROUP_ID"].ToString();
+        //                customer.DriverTOGroupID = Int32.Parse(idtoGroup);
+        //            }
+        //            connCheckIDto.Close();
+        //        }
+        //        int DriverFROM = customer.DriverFROM;
+        //        int DriverTO = customer.DriverTO;
+
+        //        #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
+        //        int DriverFROMforGroup = customer.DriverFROMGroudID;
+        //        int DriverTOforGroup = customer.DriverTOGroupID;
+
+        //        int ansForClusterDiff = DriverFROMforGroup - DriverTOforGroup;
+        //        if (ansForClusterDiff == 1 || ansForClusterDiff == -1)
+        //        {
                     
-                    SqlDataReader rdr = cmdCheckIDfrom.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        idFrom = rdr["ID"].ToString();
-                        customer.DriverFROM = Int32.Parse(idFrom);
-                        idFromGroup = rdr["GROUP_ID"].ToString();
-                        customer.DriverFROMGroudID = Int32.Parse(idFromGroup);
-                    }
-                    connCheckIDFrom.Close();
-                }
+        //            customer.Time = "7:00pm";
+        //            ViewBag.displayTimeText = " After 7:00pm";
+        //        }
+        //        else if (ansForClusterDiff == 2 || ansForClusterDiff == -2)
+        //        {
+                    
+        //            customer.Time = "12:00pm";
+        //            ViewBag.displayTimeText = "After 12:00pm";
+        //        }
+        //        else if (ansForClusterDiff >= 3 || ansForClusterDiff <= -3)
+        //        {
+                    
+        //            customer.Time = "7:00am";
+        //            ViewBag.displayTimeText = "Before 7:00am";
+        //        }
+        //        #endregion
 
-                SqlConnection connCheckIDto = new SqlConnection(connectionString);
-                SqlCommand cmdCheckIDto = new SqlCommand(sqlForPlaceIDTo, connCheckIDto);
-                using (connCheckIDto)
-                {
-                    connCheckIDto.Open();
-                    SqlDataReader rdr = cmdCheckIDto.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        idto = rdr["ID"].ToString();
-                        customer.DriverTO = Int32.Parse(idto);
-                        idtoGroup = rdr["GROUP_ID"].ToString();
-                        customer.DriverTOGroupID = Int32.Parse(idtoGroup);
-                    }
-                    connCheckIDto.Close();
-                }
-                int DriverFROM = customer.DriverFROM;
-                int DriverTO = customer.DriverTO;
+        //        String sql;
+        //        if (DriverFROM < DriverTO)
+        //        {
+        //            sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ") order by id asc";
+        //        }
+        //        else if (DriverFROM == DriverTO)
+        //        {
+        //            sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ")";
+        //        }
+        //        else
+        //        {
+        //            sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverTO + " and id < " + DriverFROM + ") order by id desc";
+        //        }
 
-                #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
-                int DriverFROMforGroup = customer.DriverFROMGroudID;
-                int DriverTOforGroup = customer.DriverTOGroupID;
+        //        SqlConnection conn2 = new SqlConnection(connectionString);
+        //        SqlCommand cmd2 = new SqlCommand(sql, conn2);
 
-                int ansForClusterDiff = DriverFROMforGroup - DriverTOforGroup;
-                if (ansForClusterDiff == 1 || ansForClusterDiff == -1)
-                {
-                    //7 pm
-                    customer.Time = "7:00pm";
-                    ViewBag.displayTimeText = " After 7:00pm";
-                }
-                else if (ansForClusterDiff == 2 || ansForClusterDiff == -2)
-                {
-                    //12pm
-                    customer.Time = "12:00pm";
-                    ViewBag.displayTimeText = "After 12:00pm";
-                }
-                else if (ansForClusterDiff >= 3 || ansForClusterDiff <= -3)
-                {
-                    //7:00am
-                    customer.Time = "7:00am";
-                    ViewBag.displayTimeText = "Before 7:00am";
-                }
-                #endregion
+        //        var model2 = customer.ListRSA.ToList();
+        //        var modelForNameRSa = customer.ListRSA.ToList();
 
-                String sql;
-                if (DriverFROM < DriverTO)//if (checkUtaraSelatan < 0)
-                {
-                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ") order by id asc";
-                }
-                else if (DriverFROM == DriverTO)
-                {
-                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverFROM + " and id < " + DriverTO + ")";
-                }
-                else
-                {
-                    sql = "select * from poi2 where PLACE_CAT = 'rsa' and(id > " + DriverTO + " and id < " + DriverFROM  + ") order by id desc";
-                }
+        //        using (conn2)
+        //        {
+        //            conn2.Open();
+        //            SqlDataReader rdr = cmd2.ExecuteReader();
 
-                SqlConnection conn2 = new SqlConnection(connectionString);
-                SqlCommand cmd2 = new SqlCommand(sql, conn2);
-
-                var model2 = customer.ListRSA.ToList();
-                var modelForNameRSa = customer.ListRSA.ToList();
-
-                using (conn2)
-                {
-                    conn2.Open();
-                    SqlDataReader rdr = cmd2.ExecuteReader();
-
-                    while (rdr.Read())
-                    {
-                        var customer2 = new Student();
-
-                        //customer2.FirstName = rdr["PLACE_NAME"].ToString();
-                        customer2.FirstName = rdr["image_url"].ToString();
-                        customer2.LastName = rdr["PLACE_NAME"].ToString();
-                        //customer2.LastName = rdr["LastName"].ToString();
-                        //customer.Class = rdr["Class"].ToString();
-
-
-                        model2.Add(customer2.FirstName.ToString());
-                        modelForNameRSa.Add(customer2.LastName.ToString());
-
-                    }
-
-                }
-
-
-                customer.ListRSA = model2;
-                customer.ListRSAName = modelForNameRSa;
-            }
-
-            #endregion end load RSA here
-            //}
-
-            string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-           
-            using (SqlConnection conn = new SqlConnection(constr))
-            {
-                try
-                {
-                    conn.Open(); // throws if invalid
-                }
-                catch (Exception ex)
-                {
-                    ex.ToString();
-                }
-
-            }
-            if (customer.Email == null)
-            {
-                //string messagetodisplay = "please fill up email";
-            }
-            else
-            {
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    customer.Date = customer.DateSelected;
-                    //string query = "INSERT INTO Customers(Name, Country) VALUES(@Name, @Country)";
-                    string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
-                    query += " SELECT SCOPE_IDENTITY()";
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
+        //            while (rdr.Read())
+        //            {
+        //                var customer2 = new Student();
                         
-                        cmd.Parameters.AddWithValue("@Email", customer.Email);
-                        cmd.Parameters.AddWithValue("@From", customer.FromTextBox);
-                        cmd.Parameters.AddWithValue("@To", customer.ToTextBox);
-                        cmd.Parameters.AddWithValue("@Date", customer.Date);
-                        cmd.Parameters.AddWithValue("@Time", customer.Time);
-                        cmd.ExecuteScalar();
-                        //customer.CustomerId = Convert.ToInt32(cmd.ExecuteScalar());
-                        con.Close();
-                    }
-                }
-
-            }
+        //                customer2.FirstName = rdr["image_url"].ToString();
+        //                customer2.LastName = rdr["PLACE_NAME"].ToString();
 
 
-            //FOR SENDING EMAIL FUNCTION
-            if (customer.From != null) //for testing need to change to == // for dev need to change to !=
-            {
-                //IndexAsync(customer);
-                EmailFormModel model2;
-               
+        //                model2.Add(customer2.FirstName.ToString());
+        //                modelForNameRSa.Add(customer2.LastName.ToString());
 
-                 SentEmail();
-            }
-            //END FOR SENDING EMAIL FUNCTION
-            if (customer.Email != null)
-            {
-                return RedirectToAction("ThankYou", "Home");
-            }
-            else
-                return View(customer);
-        }
+        //            }
+
+        //        }
+
+
+        //        customer.ListRSA = model2;
+        //        customer.ListRSAName = modelForNameRSa;
+        //    }
+
+        //    #endregion end load RSA here
+
+        //    string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        //    using (SqlConnection conn = new SqlConnection(constr))
+        //    {
+        //        try
+        //        {
+        //            conn.Open(); 
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.ToString();
+        //        }
+
+        //    }
+        //    if (customer.Email == null)
+        //    {
+        //    }
+        //    else
+        //    {
+        //        using (SqlConnection con = new SqlConnection(constr))
+        //        {
+        //            customer.Date = customer.DateSelected;
+        //            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
+        //            query += " SELECT SCOPE_IDENTITY()";
+        //            using (SqlCommand cmd = new SqlCommand(query))
+        //            {
+        //                cmd.Connection = con;
+        //                con.Open();
+
+        //                cmd.Parameters.AddWithValue("@Email", customer.Email);
+        //                cmd.Parameters.AddWithValue("@From", customer.FromTextBox);
+        //                cmd.Parameters.AddWithValue("@To", customer.ToTextBox);
+        //                cmd.Parameters.AddWithValue("@Date", customer.Date);
+        //                cmd.Parameters.AddWithValue("@Time", customer.Time);
+        //                cmd.ExecuteScalar();
+        //                con.Close();
+        //            }
+        //        }
+
+        //    }
+
+            
+        //    if (customer.From != null) 
+        //    {
+        //        IndexAsync(customer);
+        //    }
+        //    if (customer.Email != null)
+        //    {
+        //        return RedirectToAction("ThankYou", "Home");
+        //    }
+        //    else
+        //        return View(customer);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> IndexAsync(CustomerModel customer)
+        public async Task<ActionResult> IndexLamaAsync(CustomerModel customer)
         {
             //customer.FromName = "";
             //customer.Message = "";
@@ -280,10 +263,10 @@ namespace journey.Controllers
 
                 string htmlBody;
 
-                string from = customer.From;// "Jalan Duta";
-                string to = customer.To; // "Bukit Kayu Hitam";
-                string date = customer.Date;// "2 Feb 2019";
-                string time = customer.Time;// "09:00 am";
+                string from = "Jalan Duta";
+                string to ="Bukit Kayu Hitam";
+                string date = "2 Feb 2019";
+                string time = "09:00 am";
                 string traffic = "Peak";
 
                 htmlBody = "<!DOCTYPE html>" +
@@ -420,6 +403,13 @@ namespace journey.Controllers
             return View();
         }
 
+        public ActionResult Index()
+        {
+            ViewBag.Message = "New Home Page";
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SentEmail(EmailFormModel model)
@@ -540,34 +530,192 @@ namespace journey.Controllers
             }
             return View(model);
         }
-        //public async Task<ActionResult> SentEmail(EmailFormModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-        //        var message = new MailMessage();
-        //        message.To.Add(new MailAddress("ifwat.ibrahim@gmail.com"));  // replace with valid value 
-        //        message.From = new MailAddress("ifwat.ibrahim@plus.uemnet.com");  // replace with valid value
-        //        message.Subject = "Your email subject";
-        //        message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
-        //        message.IsBodyHtml = true;
 
-        //        using (var smtp = new SmtpClient())
-        //        {
-        //            var credential = new NetworkCredential
-        //            {
-        //                UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
-        //                Password = "T@hun2018"  // replace with valid value
-        //            };
-        //            smtp.Credentials = credential;
-        //            smtp.Host = "smtp-mail.outlook.com";
-        //            smtp.Port = 587;
-        //            smtp.EnableSsl = true;
-        //            await smtp.SendMailAsync(message);
-        //            return RedirectToAction("ThankYou");
-        //        }
-        //    }
-        //    return View(model);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Index(DriverModel model)
+        {
+            if (model.Email != null)
+            {
+                #region Save Driver Info to Database
+                string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                using (SqlConnection conn = new SqlConnection(constr))
+                {
+                    try
+                    {
+                        conn.Open(); // throws if invalid
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+                }
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
+                    query += " SELECT SCOPE_IDENTITY()";
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+
+                        cmd.Parameters.AddWithValue("@Email", model.Email);
+                        cmd.Parameters.AddWithValue("@From", model.FromTextBox);
+                        cmd.Parameters.AddWithValue("@To", model.ToTextBox);
+                        cmd.Parameters.AddWithValue("@Date", model.DateSelected);
+                        cmd.Parameters.AddWithValue("@Time", model.Time);
+                        cmd.ExecuteScalar();
+                        con.Close();
+                    }
+                }
+                #endregion
+
+                #region Sent Email to Driver
+                if (ModelState.IsValid)
+                {
+                    var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(model.Email));  // replace with valid value 
+                    message.From = new MailAddress("ifwat.ibrahim@plus.uemnet.com");  // replace with valid value
+                    message.Subject = "Thank you for planning your Chinese New Year trip with PLUS";
+                    message.Body = string.Format(body, model.From, model.Email, model.lblFromTo);
+                    message.IsBodyHtml = true;
+
+                    string htmlBody;
+
+                    string from = model.FromTextBox.ToString();
+                    string to = model.ToTextBox.ToString();
+                    string date = model.DateSelected;
+                    string time = model.Time;
+
+                    htmlBody =  "<body bgcolor=\"#eaeaea\">" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#ffffff\">" +
+                                "<tbody>" +
+                                "<tr>" +
+                                "<td>" +
+                                "<img src=\"~/images/festive_planner_banner.png\" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 25px; color: #e3282b; line-height: 60px; padding-left: 20px; margin-top: 10px; padding-right: 20px;\" align=\"center\"><strong>TRAVEL ITINERARY</strong></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; padding-left: 20px; margin-top: -30px; padding-right: 20px; padding-bottom:10px;\" align=\"center\">Thank you for planning your Chinese New Year trip with us, below is your recommended date and time for you to start your journey to your destination.</p>" +
+                                "</td>" +
+                                "</tr>" +
+                                "</tbody>" +
+                                "</table>" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#FFFFFF\">" +
+                                "<tbody>" +
+                                "<tr>" +
+                                "<td align=\"center\">" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #000000; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + from.ToString() + " - " + to.ToString() + "</strong></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #000000; padding-left: 20px; margin-top: -20px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + date.ToString() + " 2019, " + time.ToString() +" </strong></p>" +
+                                "</td>" +
+                                "</tr>" +
+                                "</tbody>" +
+                                "</table>" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#FFFFFF\">" +
+                                "<tbody>" +
+                                "<tr>" +
+                                "<td align=\"center\">" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"><a href=\"http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip\"><img src=\"~/images/btn_savethedate.jpg\" width=\"200\" alt=\"Update Profile Button\"/></a></p>" +
+                                "</td>" +
+                                "</tr>" +
+                                "</tbody>" +
+                                "</table>" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
+                                "          <tr>" +
+                                "            <td width=\"250\" valign=\"top\"><img src=\"~/images/buah_tangan.png\" width=\"250\" height=\"250\" alt=\"Buah Tangan Bag\" /></td>" +
+                                "            <td align=\"left\" valign=\"top\">" +
+                                "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
+                                "              <tr>" +
+                                "                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* “Buah Tangan” Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
+                                "              </tr>" +
+                                "              <tr>" +
+                                "                <td>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 10px; color: #FFFFFF; padding-left: 25px; margin-top: 10px; padding-right: 25px; padding-bottom:10px;\"><em>" +
+                                "*Redemption period: 31st Jan to 4th Feb 2019, 9am - 9pm" +
+                                "</br>*While stocks last." +
+                                "</br>*Valid for purchases at all R&R including food stalls and retail outlets except Tobacco & Fuel products." +
+                                "</br>*Redemption booths at Pagoh R&R north & south bound, Ayer Keroh R&R north bound, Tapah R&R north & south bound, Bukit Gantang R&R north bound.</em></p>" +
+                                "</td>" +
+                                "              </tr>" +
+                                "            </table></td>" +
+                                "          </tr>" +
+                                "        </table>" +
+                                "" +
+                                "<!-- 4 Columns -->" +
+                                "" +
+                                "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#363636\">" +
+                                "  <tr>" +
+                                "  <td>" +
+                                "  <table width=\"90%\" border=\"0\" cellpadding=\"10\" cellspacing=\"0\" align=\"center\" style=\"margin:0 auto;\">" +
+                                "  <tr>" +
+                                "  <td>" +
+                                "  <table width=\"60%\" cellpadding=\"0\" cellspacing=\"0\"  border=\"0\" align=\"left\">" +
+                                "  <tr>" +
+                                "  <td valign=\"top\" style=\"font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px\" class=\"center\">" +
+                                "Disclaimer: Our travel time advisory above is based on the traffic insights during Chinese New Year period for the past 5 years." +
+                                "  <br/><br/>" +
+                                "PLUS Malaysia Berhad (923639-A)" +
+                                "  <a href=\"http://www.plus.com.my\" style=\"color:#999;text-decoration:underline;\">www.plus.com.my</a>" +
+                                "  </td>" +
+                                "</tr>" +
+                                "<tr>" +
+                                "  <td valign=\"center\" style=\"font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:5px\" class=\"center\">" +
+                                "  <img src=\"~/images/plus_app _thumb.png\" width=\"18\"> Download PLUS App: <a href=\"https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8\" style=\"color:#999;text-decoration:underline;\">iOS</a>&nbsp; | &nbsp;<a href=\"https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true\" style=\"color:#999;text-decoration:underline;\">Android</a> </p>" +
+                                "  </td>" +
+                                "</tr>" +
+                                "  </table>" +
+                                "" +
+                                "  <table width=\"30%\" cellpadding=\"0\" cellspacing=\"0\"  border=\"0\" align=\"right\" class=\"deviceWidth\">" +
+                                "  <tr>" +
+                                "  <td valign=\"top\" style=\"font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right\" class=\"center\">" +
+                                "  <a href=\"https://www.facebook.com/MYPLUSMiles\" target=\"_blank\"><img src=\"~/images/facebook.png\" width=\"30\" height=\"30\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a>" +
+                                "  <a href=\"https://www.instagram.com/plus_malaysia/\" target=\"_blank\"><img src=\"~/images/instagram.png\" width=\"30\" height=\"30\" alt=\"Instagram\" title=\"Instagram\" border=\"0\" /></a>" +
+                                "  <a href=\"https://twitter.com/plus2u\" target=\"_blank\"><img src=\"~/images/twitter.png\" width=\"30\" height=\"30\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a>" +
+                                "  </br>" +
+                                "  <a href=\"http://www.plus.com.my\"><img src=\"~/images/plus_logo.png\" alt=\"\" border=\"0\" width=\"70\" style=\"padding-top: 5px;\" /></a><br/>" +
+                                "  </td>" +
+                                "  </tr>" +
+                                "  </table>" +
+                                "  </td>" +
+                                "  </tr>" +
+                                "  </table>" +
+                                "    </td>" +
+                                "  </tr>" +
+                                "</table><!-- End 4 Columns -->" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#ffffff\">" +
+                                "<tbody>" +
+                                "<tr>" +
+                                "<td>" +
+                                "<img src=\"~/images/footer_bar.jpg\" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "</td>" +
+                                "</tr>" +
+                                "</tbody>" +
+                                "</table>" +
+                                "</body>";
+
+                    message.Body = htmlBody;
+
+                    using (var smtp = new SmtpClient())
+                    {
+                        var credential = new NetworkCredential
+                        {
+                            UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
+                            Password = "T@hun2018"  // replace with valid value
+                        };
+                        smtp.Credentials = credential;
+                        smtp.Host = "smtp-mail.outlook.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        await smtp.SendMailAsync(message);
+                        return RedirectToAction("ThankYou");
+                    }
+                }
+                #endregion
+                return RedirectToAction("ThankYou");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
     }
 }

@@ -1,35 +1,17 @@
-﻿@model journey.Models.CustomerModel
+﻿@model journey.Models.DriverModel
 @{
-    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="~/jquery/searchbox.js"></script>*@
 
+<head>
     @*FOR CAROSEL*@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @*END CAROSEL*@
 
-    @*<style type="text/css">
-        .searchbox {
-            border: 1px solid #456879;
-            border-radius: 6px;
-            height: 22px;
-            width: 150px;
-            margin-top: 5px;
-        }
 
-        .LabelStyle {
-            background-color: White;
-            color: black;
-            border-style: solid;
-            text-space-collapse: collapse;
-        }
-    </style>*@
     <style type="text/css">
         .cc-selector input {
             margin: 0;
@@ -131,20 +113,16 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    @*<script src="~/Scripts/Server.js"></script>*@
     <script>
-       
+
         $(document).ready(function () {
             $("#hide").click(function () {
 
-                //var jsfromFromhardcodeDrpDown = $('#jsFrom').val();
-                //var sfoakjfklsaj = $("#jsFrom").children("option").filter(":selected").text()
                 var jsfrom = document.forms['ifwatForm'].jsFrom.value;
                 var jsto = document.forms['ifwatForm'].jsTo.value;
 
-                //NOT LONGER USE DATE // var jsdate = document.forms['ifwatForm'].jsDate.value;
                 var SBorNB = jsfrom - jsto;
-                if (SBorNB <= 1 || SBorNB <= -1) {
+                if (SBorNB == 1 || SBorNB == -1) {
                     $("#LabelTime").text("After 5:00 pm");
                     $("#Time").val("5:00 pm");
 
@@ -164,7 +142,6 @@
                     $("#Time").val("7:00 am");
                 }
 
-                //FOR LABEL RESULT FROM TO TO IN 2ND PAGE
 
                 var jsfromText = $("#jsFrom option:selected").text()
                 var jstoText = $("#jsTo option:selected").text()
@@ -174,15 +151,11 @@
 
                 $("#FromTextBox").val($("#jsFrom option:selected").text());
                 $("#ToTextBox").val($("#jsTo option:selected").text());
-                //END LABEL FROM TO TO
 
 
-
-                //DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
                 var JourneyDateToDisplay = document.forms['ifwatForm'].jsTypeJourney.value;
                 if (JourneyDateToDisplay == "PRECNY") { $("#preDateList").show(); $("#postDateList").hide(); }
                 else if (JourneyDateToDisplay == "POSTCNY") { $("#preDateList").hide(); $("#postDateList").show(); }
-                //END PART FOR DISPLAY AND HIDE DATE LIST FOR PRE OR POST DATE SELECTION
 
 
                 if (jsfrom == null || jsfrom == "" || jsto == null || jsto == "") {
@@ -194,6 +167,7 @@
                     $("#SecondDiv").show();
                     $("#SecondDivPointOne").show();
                     $("#ThirdDiv").show();
+                    $("#ThankYouDiv").hide();
                 }
             });
             $("#back").click(function () {
@@ -201,20 +175,14 @@
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").hide();
+                $("#ThankYouDiv").hide();
             });
             $("#hideAgain").click(function () {
-                //if (document.forms['ifwatForm'].jsTime.value == null) {
-                //    document.forms['ifwatForm'].jsTime.value
-                //}
-                //var jstime = document.forms['ifwatForm'].jsTime.value;
-                //if (jstime == null || jstime == "") {
-                //    alert("Please select all required field");
-                //    return false;
-                //}
                 $("#MainDiv").hide();
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").show();
+                $("#ThankYouDiv").hide();
             });
             $("#show").click(function () {
                 $("#MainDiv").show();
@@ -225,11 +193,6 @@
             $("#CheckEmailDateTime").click(function () {
                 var checkEmail = document.forms['ifwatForm'].jsEmail.value;
                 var checkTime = document.forms['ifwatForm'].Time.value;
-                //var checkDate = document.forms['ifwatForm'].DateSelected.value;
-                //if (checkDate == null || checkDate == "") {
-                //    alert("Please select your prefer date for journey")
-                //    return false;
-                //}
 
                 if (checkTime == null || checkTime == "") {
                     alert("Time not available. Please reselect your destination!")
@@ -249,74 +212,30 @@
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").hide();
-
-
+                $("#ThankYouDiv").show();
             });
 
         });
     </script>
 </head>
-    <body>
+<body>
 
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:#e04d53;">
-            @*<ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>*@
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <br />
-                    <img src="~/images/bnr_1024px_b.jpg" alt="ASP.NET" class="img-responsive" style="width:100%;" />
-                    @*<div class="carousel-caption" role="option">
-                        <p>
-                            Chinese New Year 2019
-                        </p>
-                    </div>*@
-                </div>
-                @*<div class="item">
-                            <img src="~/images/banner1.jpg" alt="Visual Studio" class="img-responsive" />
-                            <div class="carousel-caption" role="option">
-                                    <p>
-                                        There are powerful new features in Visual Studio for building modern web apps.
-                                        <a class="btn btn-default" href="#https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                                            Learn More
-                                        </a>
-                                    </p>
-                                </div>
-                        </div>
-                <div class="item">
-                            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-                            <div class="carousel-caption" role="option">
-                                <p>
-                                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                                        Learn More
-                                    </a>
-                                </p>
-                            </div>
-                        </div>*@
-
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:#e04d53;">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="~/images/bnr_1024px_b.jpg" alt="ASP.NET" class="img-responsive" style="width:100%;" />
             </div>
-            @*<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>*@
         </div>
+    </div>
 
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))
-        {
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))
+    {
+        @Html.AntiForgeryToken()
+
         <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
-            @*FOR TESTING ONLY*@
-
-            @*END OF TESTING PART*@
 
             <h2 style=" color: #d0021b;">
-                <b>ENJOY A SMOOTHER TRAVEL ON PLUS HIGHWAY THIS CHINESE NEW YEAR<br />PLAN YOUR TRIP!</b>
+                <b>ENJOY A SMOOTHER TRAVEL ON PLUS HIGHWAY THIS CHINESE NEW YEAR.<br />PLAN YOUR TRIP!</b>
             </h2>
             <br />
             <div class="row">
@@ -345,11 +264,6 @@
                 <h4 style="text-align:left;">
                     Origin
                     <br />
-                    <div style="display:none;">
-                        @*THE CORRECT ONE FOR LOAD TOLPLAZA FROM DB BUT DISABLE COZ TIME LIMIT*@
-                        @*@Html.DropDownListFor(m => m.From, new SelectList(Model.ListTolFromTo), new { @class = "form-control input-md", @id = "jsFrom", style = "width: 100%;" })*@
-                        <input type="hidden" id="hdnProjectName" name="ProjectName" />
-                    </div>
                     @Html.DropDownListFor(m => m.From, new List<SelectListItem>
              {new SelectListItem{Text="JOHOR BAHRU", Value="1"},
                      new SelectListItem{Text="KULAI", Value="1"},
@@ -430,9 +344,6 @@
             <div class="col-md-3">
                 <h4 style="text-align:left;">
                     Destination<br />
-                    <div style="display:none;">
-                        @*@Html.DropDownListFor(m => m.To, new SelectList(Model.ListTolFromTo), new { @class = "form-control input-md", @id = "jsTo" })*@
-                    </div>
                     @Html.DropDownListFor(m => m.To, new List<SelectListItem>
                   {
                      new SelectListItem{Text="JOHOR BAHRU", Value="1"},
@@ -510,28 +421,9 @@
         })
                 </h4>
             </div>
-            @*<div class="col-md-3" style="display:none">
-            <h4>
-                Date
-            </h4>
-            @Html.DropDownListFor(m => m.Date, new List<SelectListItem>
-                      { new SelectListItem{Text="31 JAN", Value="31 JAN", Selected=true},
-                        new SelectListItem{Text="1 FEB", Value="1 FEB"},
-                        new SelectListItem{Text="2 FEB", Value="2 FEB"},
-                        new SelectListItem{Text="3 FEB", Value="3 FEB"},
-                        new SelectListItem{Text="7 FEB", Value="7 FEB"},
-                        new SelectListItem{Text="8 FEB", Value="8 FEB"},
-                        new SelectListItem{Text="9 FEB", Value="9 FEB"},
-                        new SelectListItem{Text="10 FEB", Value="10 FEB"}},
-                        "Please select", new { @id = "jsDate"})
-        </div>*@
 
             <div class="col-md-2" style="text-align:left;">
                 <br />
-                @*<input type="submit" value="PLAN NOW! " class="btn btn-warning" id="hide" />*@
-                @*<a href="@Url.Action("/Index", new { Model.From })" title="Edit">
-            <img src="~/images/btn_plannow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
-        </a>*@
                 <img src="~/images/btn_plannow.png" alt="ASP.NET" class="img-responsive" id="hide" style="width:100%;" />
 
             </div>
@@ -540,21 +432,6 @@
             <br />
         </div>
         <div class="row" id="SecondDiv" style="display:none; text-align: center">
-            @*FOR TESTING ONLY*@
-            <div id="testing" style="display:none;">
-                @Html.LabelFor(m => m.valueDrpFrom, new { id = "lblFromNew", Value = "TESTING", @class = "LabelStyle" })
-                @*<table>
-                <tr>
-                    <th>List RSA from DB</th>
-                </tr>
-                @foreach (var rsa in Model.ListRSA)
-                {
-                    <td> <img width="100%" src="~/images/@rsa" /> <a href="#">More Info</a></td>
-
-                }
-            </table>*@
-            </div>
-            @*END OF TESTING PART*@
             <br />
             <h4>
                 This is the recommended date &amp; time for you to start your journey. We can also help to alert and remind you of this trip by giving us your email address.
@@ -597,8 +474,6 @@
         <div class="row" id="SecondDivPointOne" style="display:none; text-align: center">
             <div class="col-md-3"></div>
             <div class="col-md-6" style="display:table-cell; vertical-align:middle; text-align:center">
-
-                @Html.AntiForgeryToken()
                 @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email)
                 <br />
@@ -606,81 +481,58 @@
                 <input type="submit" value="BACK " class="btn btn-success" @*onclick="redirect(this.value)"*@ />
             </div>
             <div class="col-md-3">
-                
-                @*<img src="~/images/btn_setreminder.png" alt="ASP.NET" class="img-responsive" id="CheckEmailDateTime" style="width:100%;" />*@
-                @*<img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">
-                <img src="~/images/btnNext.png" alt="ASP.NET" class="img-responsive" id="hideAgain" />*@
             </div>
-            @*<div class="col-md-3"></div>*@
         </div>
-            <br />
-            <div class="row" id="ThirdDiv" style="display:none; text-align: center">
-                <div class="col-md-12">
-                    <h4>As you travel, you can always take a break at these rest areas (R&amp;R).</h4>
-                    <div class="container">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                            </ol>
+        <br />
+        <div class="row" id="ThirdDiv" style="display:none; text-align: center">
+            <div class="col-md-12">
+                <h4>As you travel, you can always take a break at these rest areas (R&amp;R).</h4>
+                <div class="container">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="~/images/rsalist.png" alt="" style="width:100%;">
-                                </div>
-
-                                <div class="item">
-                                    <img src="~/images/rsalist.png" alt="" style="width:100%;">
-                                </div>
-
-                                <div class="item">
-                                    <img src="~/images/rsalist.png" alt="" style="width:100%;">
-                                </div>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="~/images/rsalist.png" alt="" style="width:100%;">
                             </div>
 
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                            <div class="item">
+                                <img src="~/images/rsalist.png" alt="" style="width:100%;">
+                            </div>
+
+                            <div class="item">
+                                <img src="~/images/rsalist.png" alt="" style="width:100%;">
+                            </div>
                         </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    @*<table style="width:100%" cellspacing="3">
-                        <tr>
-                            @foreach (var rsa in Model.ListRSA)
-                            {
-                                <td style="padding:0 5px 0 5px;"><a href="~/images/DetailsRSA/@rsa" target="_blank"><img width="50%" src="~/images/@rsa" /></a></td>
-                            }
-                        </tr>
-                        <tr>
-                            @foreach (var rsaName in Model.ListRSAName)
-                            {
-                                <td style="padding:0 5px 0 5px;">@rsaName</td>
-                            }
-                        </tr>
-                    </table>*@
-                    <br />
-                    <br />
-                    <h4><b>PARTNER PROMOTIONS</b></h4>
-                    <img src="~/images/promoDunkinDonut.jpg" width="100%" />
-                    <br />
-                    <br />
-                    <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
-
-
                 </div>
-                <br>
+                <br />
+                <br />
+                <h4><b>PARTNER PROMOTIONS</b></h4>
+                <img src="~/images/promoDunkinDonut.jpg" width="100%" />
+                <br />
+                <br />
+                <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
             </div>
-            @*<div>
-                
-            </div>*@
+            <br>
+        </div>
 
-            }   @*END FORM*@
+    }
+
 </body>
