@@ -24,7 +24,7 @@ namespace journey.Models
     public class CustomerModel
     {
         public int CustomerId { get; set; }
-
+        [EmailAddress]
         public string Email { get; set; }
 
        // public string ListRSA { get; set; }
@@ -32,8 +32,10 @@ namespace journey.Models
         public string ListMerchant { get; set; }
 
         public string From { get; set; }
+        public string FromTextBox { get; set; }
 
         public string To { get; set; }
+        public string ToTextBox { get; set; }
 
         public string Date { get; set; }
 

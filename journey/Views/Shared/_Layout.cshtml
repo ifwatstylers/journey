@@ -11,6 +11,15 @@
             background-color: #e04d53;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-25335550-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-25335550-2');
+    </script>
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,11 +42,50 @@
             </div>
         </div>
     </div>*@
-    <div class="container body-content" style="background-color:white; width:93%;">
+    <div class="container body-content" style="background-color:white; width:100%;">
         @RenderBody()
-        <hr />
+        <br />
         <footer>
-            <p>&copy; PLUS @DateTime.Now.Year - This travel time advisory is recomended based on our traffic insights during CNY in the last 5 years</p>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#363636;">
+                <tr>
+                    <td>
+                        <table width="90%" border="0" cellpadding="10" cellspacing="0" align="center" style="margin:0 auto;">
+                            <tr>
+                                <td>
+                                    <table width="60%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                        <tr><br /></tr>
+                                        <tr>
+                                            <td valign="top" style="font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px" class="center">
+                                                Disclaimer: Our travel time advisory above is based on the traffic insights during Chinese New Year period for the past 5 years.
+                                                <br /><br />
+                                                PLUS Malaysia Berhad (923639-A)
+                                                <a href="http://www.plus.com.my" style="color:#999;text-decoration:underline;">www.plus.com.my</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="center" style="font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:5px" class="center">
+                                                <img src="~/images/plus_app _thumb.png" width="18"> Download PLUS App: <a href="https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8" style="color:#999;text-decoration:underline;">iOS</a>&nbsp; | &nbsp;<a href="https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true" style="color:#999;text-decoration:underline;">Android</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table width="30%" cellpadding="0" cellspacing="0" border="0" align="right" class="deviceWidth">
+                                        <tr>
+                                            <td valign="top" style="font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right" class="center">
+                                                <a href="https://www.facebook.com/MYPLUSMiles" target="_blank"><img src="~/images/facebook.png" width="30" height="30" alt="Facebook" title="Facebook" border="0" /></a>
+                                                <a href="https://www.instagram.com/plus_malaysia/" target="_blank"><img src="~/images/instagram.png" width="30" height="30" alt="Instagram" title="Instagram" border="0" /></a>
+                                                <a href="https://twitter.com/plus2u" target="_blank"><img src="~/images/twitter.png" width="30" height="30" alt="Twitter" title="Twitter" border="0" /></a>
+                                                <br />
+                                                <a href="http://www.plus.com.my"><img src="~/images/plus_logo.png" alt="" border="0" width="70" style="padding-top: 5px;" /></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </footer>
     </div>
 

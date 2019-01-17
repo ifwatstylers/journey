@@ -2,9 +2,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@*@{
-    var db = Database.Open("SmallBakery");
-}*@
 <head>
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="~/jquery/searchbox.js"></script>*@
@@ -17,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @*END CAROSEL*@
 
-    <style type="text/css">
+    @*<style type="text/css">
         .searchbox {
             border: 1px solid #456879;
             border-radius: 6px;
@@ -27,12 +24,12 @@
         }
 
         .LabelStyle {
-            /*background-color: White;
+            background-color: White;
             color: black;
             border-style: solid;
-            text-space-collapse: collapse;*/
+            text-space-collapse: collapse;
         }
-    </style>
+    </style>*@
     <style type="text/css">
         .cc-selector input {
             margin: 0;
@@ -174,6 +171,9 @@
 
                 var lblFromToTo = " " + jsfromText + " - " + jstoText + " ";
                 $("#lblFromTo").text(lblFromToTo);
+
+                $("#FromTextBox").val($("#jsFrom option:selected").text());
+                $("#ToTextBox").val($("#jsTo option:selected").text());
                 //END LABEL FROM TO TO
 
 
@@ -194,7 +194,6 @@
                     $("#SecondDiv").show();
                     $("#SecondDivPointOne").show();
                     $("#ThirdDiv").show();
-                    $("#ThankYouDiv").hide();
                 }
             });
             $("#back").click(function () {
@@ -202,7 +201,6 @@
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").hide();
-                $("#ThankYouDiv").hide();
             });
             $("#hideAgain").click(function () {
                 //if (document.forms['ifwatForm'].jsTime.value == null) {
@@ -217,7 +215,6 @@
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").show();
-                $("#ThankYouDiv").hide();
             });
             $("#show").click(function () {
                 $("#MainDiv").show();
@@ -235,7 +232,7 @@
                 //}
 
                 if (checkTime == null || checkTime == "") {
-                    alert("Time not available. Please back and reselect your destination!")
+                    alert("Time not available. Please reselect your destination!")
                     return false;
                 }
 
@@ -243,12 +240,15 @@
                     alert("Please fill up an email");
                     return false;
                 }
+                function validateEmail(checkEmail) {
+                    var re = /\S+\.\S+/;
+                    return re.test(checkEmail);
+                }
 
                 $("#MainDiv").hide();
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
                 $("#ThirdDiv").hide();
-                $("#ThankYouDiv").show();
 
 
             });
@@ -316,14 +316,14 @@
             @*END OF TESTING PART*@
 
             <h2 style=" color: #d0021b;">
-                <b>PLAN YOUR 2019 CHINESE NEW YEAR TRIP!</b>
+                <b>ENJOY A SMOOTHER TRAVEL ON PLUS HIGHWAY THIS CHINESE NEW YEAR<br />PLAN YOUR TRIP!</b>
             </h2>
             <br />
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <h4 style="text-align: center; color:#9b9b9b">
-                        SELECT YOUR ORIGIN &amp; DESTINATION CITY/TOWN TO VIEW OUR RECOMENDED DATE &amp; TIME WHEN YOU SHOULD LEAVE FOR YOUR DESTINATION DURING CNY PERIOD THIS YEAR.
+                        Select your Origin &amp; Destination cities/towns (based on highway entry and exit points) and find out the best time to take the highway this CNY holiday.
                     </h4>
                 </div>
                 <div class="col-md-2"></div>
@@ -557,7 +557,7 @@
             @*END OF TESTING PART*@
             <br />
             <h4>
-                BELOW ARE RECOMENDED DATE &amp; TIME FOR YOU TO START YOUR JOURNEY. SELECT DATE TO CREATE/SET REMINDER
+                This is the recommended date &amp; time for you to start your journey. We can also help to alert and remind you of this trip by giving us your email address.
                 <br />
                 <br />
                 @Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })
@@ -587,36 +587,36 @@
             @* THIS IS TIME FROM BACKEND
                 <h2>@Html.LabelFor(m => m.Time, (string)@ViewBag.displayTimeText)</h2>*@
             <h2>@Html.LabelFor(m => m.Time, new { id = "LabelTime" }) </h2>
-            <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:block;">
+            <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
                 @Html.TextBoxFor(m => m.Time)
+                @Html.TextBoxFor(m => m.FromTextBox)
+                @Html.TextBoxFor(m => m.ToTextBox)
             </div>
             <br />
         </div>
-            <div class="row" id="SecondDivPointOne" style="display:none; text-align: center">
-                <div class="col-md-4"></div>
-                <div class="col-md-2">
-                    <h4>
-                        Email:<br />
-                        @Html.AntiForgeryToken()
-                        @Html.TextBoxFor(m => m.Email, new { id = "jsEmail" })
-                        @Html.ValidationMessageFor(m => m.Email)
-                    </h4>
-                </div>
-                <div class="col-md-2" style="display:table-cell; vertical-align:middle; text-align:center">
-                    <br />
-                    @*<img src="~/images/btn_setreminder.png" alt="ASP.NET" class="img-responsive" id="CheckEmailDateTime" style="width:100%;" />*@
+        <div class="row" id="SecondDivPointOne" style="display:none; text-align: center">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="display:table-cell; vertical-align:middle; text-align:center">
 
-                    <input type="submit" name="answer" value="SET REMINDER " class="btn btn-warning" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ />
-                    @*<input type="submit" value="BACK " class="btn btn-warning" onclick="redirect(this.value)" />*@
-                    @*<img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">
-                <img src="~/images/btnNext.png" alt="ASP.NET" class="img-responsive" id="hideAgain" />*@
-                </div>
-                <div class="col-md-4"></div>
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email)
+                <br />
+                <input type="submit" name="answer" value="SET REMINDER " class="btn btn-success" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ />
+                <input type="submit" value="BACK " class="btn btn-success" @*onclick="redirect(this.value)"*@ />
             </div>
+            <div class="col-md-3">
+                
+                @*<img src="~/images/btn_setreminder.png" alt="ASP.NET" class="img-responsive" id="CheckEmailDateTime" style="width:100%;" />*@
+                @*<img src="/images/btnBack.png" alt="ASP.NET" class="img-responsive" id="back">
+                <img src="~/images/btnNext.png" alt="ASP.NET" class="img-responsive" id="hideAgain" />*@
+            </div>
+            @*<div class="col-md-3"></div>*@
+        </div>
             <br />
             <div class="row" id="ThirdDiv" style="display:none; text-align: center">
                 <div class="col-md-12">
-                    <h4>AS YOU TRAVEL WITH US, YOU CAN HAVE A BREAK AT OUR SELECTED REST AREA. CLICK TO FIND OUT WHAT IS WHAT WE HAVE AT OUR REST AREA</h4>
+                    <h4>As you travel, you can always take a break at these rest areas (R&amp;R).</h4>
                     <div class="container">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
@@ -669,7 +669,7 @@
                     <br />
                     <br />
                     <h4><b>PARTNER PROMOTIONS</b></h4>
-                    <img src="~/images/promo_secretrecipe.jpg" width="100%" />
+                    <img src="~/images/promoDunkinDonut.jpg" width="100%" />
                     <br />
                     <br />
                     <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
@@ -678,22 +678,9 @@
                 </div>
                 <br>
             </div>
-            <div class="row" id="ThankYouDiv" style="display:none; text-align: center">
-                <div class="col-md-12">
-                    <h2 style="text-align: center; color: #d0021b;">HAVE A SAFE JOURNEY</h2>
-                    <br />
-                    <br />
-                    <h4>
-                        Thank you for planning your trip home this Chinese New Year with us!
-                        <br /><br />If you follow the selected date &amp; time, you will earn <b>8X PLUSMILES</b> points.
-                        <br /><br />Be a <b>PLUSMILES</b> member and register your Touch and Go card today.
-                    </h4>
-                    <br /><br />
-                    <a href="https://plusmiles.com.my/login"><img src="~/images/btn_register.png" /></a>
-                    <br />
-                </div>
-                <br>
-            </div>
+            @*<div>
+                
+            </div>*@
 
             }   @*END FORM*@
 </body>

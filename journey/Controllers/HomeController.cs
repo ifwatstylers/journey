@@ -30,38 +30,6 @@ namespace journey.Controllers
         //{
         //    return View();
         //}
-
-
-        //LOAD RSA FROM DATABASE BASED ON FROM & TO LOCATION
-        //public ActionResult Students(CustomerModel customer)
-        //{
-        //    String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        //    String sql = "SELECT * FROM students";
-
-        //    SqlConnection conn = new SqlConnection(connectionString);
-
-        //    SqlCommand cmd = new SqlCommand(sql, conn);
-        //    var model = new List<Student>();
-        //    using (conn)
-        //    {
-        //        conn.Open();
-        //        SqlDataReader rdr = cmd.ExecuteReader();
-        //        while (rdr.Read())
-        //        {
-        //            var student = new Student();
-        //            student.FirstName = rdr["FirstName"].ToString();
-        //            student.LastName = rdr["LastName"].ToString();
-        //            student.Class = rdr["Class"].ToString();
-
-        //            model.Add(student);
-        //        }
-
-        //    }
-
-        //    return View(model);
-        //}
-        //END LOAD RSA HERE
-
         
         public ActionResult Index(CustomerModel customer, FormCollection formcollection, string projectName)
         {
@@ -260,8 +228,8 @@ namespace journey.Controllers
                         con.Open();
                         
                         cmd.Parameters.AddWithValue("@Email", customer.Email);
-                        cmd.Parameters.AddWithValue("@From", customer.From);
-                        cmd.Parameters.AddWithValue("@To", customer.To);
+                        cmd.Parameters.AddWithValue("@From", customer.FromTextBox);
+                        cmd.Parameters.AddWithValue("@To", customer.ToTextBox);
                         cmd.Parameters.AddWithValue("@Date", customer.Date);
                         cmd.Parameters.AddWithValue("@Time", customer.Time);
                         cmd.ExecuteScalar();
@@ -271,19 +239,24 @@ namespace journey.Controllers
                 }
 
             }
-            //try
-            //{
-            //    customer.Gender.ToString();
-            //    customer.DateSelected.ToString();
-            //}
-            //catch
-            //{ }
+
 
             //FOR SENDING EMAIL FUNCTION
-             IndexAsync(customer);
+            if (customer.From != null) //for testing need to change to == // for dev need to change to !=
+            {
+                //IndexAsync(customer);
+                EmailFormModel model2;
+               
+
+                 SentEmail();
+            }
             //END FOR SENDING EMAIL FUNCTION
-            
-            return View();// View(customer);
+            if (customer.Email != null)
+            {
+                return RedirectToAction("ThankYou", "Home");
+            }
+            else
+                return View(customer);
         }
 
         [HttpPost]
@@ -415,8 +388,7 @@ namespace journey.Controllers
                     
                 }
             }
-            //
-            return View();
+                return View(customer);
         }
         
 
@@ -434,11 +406,168 @@ namespace journey.Controllers
             return View();
         }
 
-        public ActionResult Index2()
+        public ActionResult ThankYou()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your Thank You page.";
 
             return View();
         }
+
+        public ActionResult SentEmail()
+        {
+            ViewBag.Message = "Page for Sent Email.";
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SentEmail(EmailFormModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("ifwat.ibrahim@plus.uemnet.com"));  // replace with valid value 
+                message.From = new MailAddress("ifwat.ibrahim@plus.uemnet.com");  // replace with valid value
+                message.Subject = "Your email subject";
+                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+                message.IsBodyHtml = true;
+
+                string htmlBody;
+
+                string from = "Jalan Duta";
+                string to =  "Bukit Kayu Hitam";
+                string date =  "2 Feb 2019";
+                string time =  "09:00 am";
+                string traffic = "Peak";
+
+                htmlBody = "<!DOCTYPE html>" +
+                            "<html>" +
+                            "<head>" +
+                            "<meta name=\"viewport\" content=\"width = device - width, initial - scale = 1.0\">" +
+                                    "<style>" +
+                                    "* {" +
+                                    "  box-sizing: border-box;" +
+                                    "}" +
+                                    ".menu {" +
+                                    "  float: left;" +
+                                    "  width: 20%;" +
+                                    "}" +
+                                    ".menuitem {" +
+                                    "  padding: 8px;" +
+                            "  margin-top: 7px;" +
+                            "  border-bottom: 1px solid #f1f1f1;" +
+                            "}" +
+                            ".main {" +
+                            "  float: left;" +
+                            "  width: 60%;" +
+                            "  padding: 0 20px;" +
+                            "  overflow: hidden;" +
+                            "}" +
+                            ".right {" +
+                            "  background-color: lightblue;" +
+                            "  float: left;" +
+                            "  width: 20%;" +
+                            "  padding: 10px 15px;" +
+                            "  margin-top: 7px;" +
+                            "}" +
+                            "" +
+                            "@media only screen and (max-width:800px) {" +
+                            "  /* For tablets: */" +
+                            "  .main {" +
+                            "    width: 80%;" +
+                            "    padding: 0;" +
+                            "  }" +
+                            "  .right {" +
+                            "    width: 100%;" +
+                            "  }" +
+                            "}" +
+                            "@media only screen and (max-width:500px) {" +
+                            "  /* For mobile phones: */" +
+                            "  .menu, .main, .right {" +
+                            "    width: 100%;" +
+                            "  }" +
+                            "}" +
+                            "</style>" +
+                            "</head>" +
+                            "<body style=\"font-family:Verdana;\">" +
+                            "" +
+                            "<div style=\"background-color:#f1f1f1;padding:15px;\">" +
+                            "  <h1>PLUS MALAYSIA BERHAD</h1>" +
+                            "  <h3>Chinese New Year 2019</h3>" +
+                            "</div>" +
+                            "" +
+                            "<div style=\"overflow:auto\">" +
+                            "  <div class=\"main\">" +
+                            "    <h2 style=\"align:center\">Win The \"Buah Tangan\"</h2>" +
+                            "    <p style=\"align:center\">The walk from Monterosso to Riomaggiore will take you approximately two hours, give or take an hour depending on the weather conditions and your physical shape.</p>" +
+                            "    <img src=\"https://journeyplus.azurewebsites.net/images/bnr_1024px_b.jpg \" style=\"width:100%; align:center;\">" +
+                            "  </div>" +
+                            "" +
+                            "  <div class=\"right\">" +
+                            "    <h2> Your Journey </h2> " +
+                            "    <p> From: " + from.ToString() + "<br/> To: " + to.ToString() + " </p>" +
+                            "    <h2>Travel Date & Time</h2>" +
+                            "    <p> " + date.ToString() + " " + time.ToString() + " </p>" +
+                            "    <h2>Traffic Estimated</h2>" +
+                            "    <p> " + traffic.ToString() + "</p>" +
+                            "  </div>" +
+                            "</div>" +
+                            "" +
+                            "" +
+                            "<div style=\"background-color:#f1f1f1;text-align:center;padding:10px;margin-top:7px;font-size:12px;\"> This web page is a part of a demonstration of fluid web design made by plus.com</div>" +
+                            "" +
+                            "</body>" +
+                            "</html>";
+
+                message.Body = htmlBody;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
+                        Password = "T@hun2018"  // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp-mail.outlook.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("ThankYou");
+                }
+            }
+            return View(model);
+        }
+        //public async Task<ActionResult> SentEmail(EmailFormModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+        //        var message = new MailMessage();
+        //        message.To.Add(new MailAddress("ifwat.ibrahim@gmail.com"));  // replace with valid value 
+        //        message.From = new MailAddress("ifwat.ibrahim@plus.uemnet.com");  // replace with valid value
+        //        message.Subject = "Your email subject";
+        //        message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+        //        message.IsBodyHtml = true;
+
+        //        using (var smtp = new SmtpClient())
+        //        {
+        //            var credential = new NetworkCredential
+        //            {
+        //                UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
+        //                Password = "T@hun2018"  // replace with valid value
+        //            };
+        //            smtp.Credentials = credential;
+        //            smtp.Host = "smtp-mail.outlook.com";
+        //            smtp.Port = 587;
+        //            smtp.EnableSsl = true;
+        //            await smtp.SendMailAsync(message);
+        //            return RedirectToAction("ThankYou");
+        //        }
+        //    }
+        //    return View(model);
+        //}
     }
 }
