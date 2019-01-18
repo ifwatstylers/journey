@@ -154,6 +154,7 @@
     <Content Include="images\banner3.jpg" />
     <Content Include="images\banner3.svg" />
     <Content Include="images\banner3crop.jpg" />
+    <Content Include="images\banner_CNY.jpg" />
     <Content Include="images\bnr_1024px_b.jpg" />
     <Content Include="images\btnBack.png" />
     <Content Include="images\btnNext.png" />
@@ -167,6 +168,7 @@
     <Content Include="images\buah_tangan.png" />
     <Content Include="images\cny-1feb.png" />
     <Content Include="images\cny-2feb.png" />
+    <Content Include="images\cny-31jan-white.png" />
     <Content Include="images\cny-31jan.png" />
     <Content Include="images\cny-7feb.png" />
     <Content Include="images\cny-8feb.png" />
@@ -179,11 +181,16 @@
     <Content Include="images\facebook.png" />
     <Content Include="images\festive_planner_banner.png" />
     <Content Include="images\footer_bar.jpg" />
+    <Content Include="images\icn_restarea_a1.png" />
+    <Content Include="images\icn_restarea_a2.png" />
+    <Content Include="images\icn_restarea_b1.png" />
+    <Content Include="images\icn_restarea_b2.png" />
     <Content Include="images\instagram.png" />
     <Content Include="images\Plus mobile apps-01.jpg" />
-    <Content Include="images\plus_app _thumb.png" />
+    <Content Include="images\plus_app_thumb.png" />
     <Content Include="images\plus_logo.png" />
     <Content Include="images\promoDunkinDonut.jpg" />
+    <Content Include="images\promo_news.jpg" />
     <Content Include="images\promo_secretrecipe.jpg" />
     <Content Include="images\rsa_seremban.jpg" />
     <Content Include="images\rsa_sgbuloh.jpg" />

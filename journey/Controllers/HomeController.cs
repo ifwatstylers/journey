@@ -576,7 +576,7 @@ namespace journey.Controllers
                     var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
                     var message = new MailMessage();
                     message.To.Add(new MailAddress(model.Email));  // replace with valid value 
-                    message.From = new MailAddress("ifwat.ibrahim@plus.uemnet.com");  // replace with valid value
+                    message.From = new MailAddress("plusmiles@plus.uemnet.com");  // replace with valid value
                     message.Subject = "Thank you for planning your Chinese New Year trip with PLUS";
                     message.Body = string.Format(body, model.From, model.Email, model.lblFromTo);
                     message.IsBodyHtml = true;
@@ -588,12 +588,14 @@ namespace journey.Controllers
                     string date = model.DateSelected;
                     string time = model.Time;
 
-                    htmlBody =  "<body bgcolor=\"#eaeaea\">" +
+                    string GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip";
+
+                    htmlBody = "<body bgcolor=\"#eaeaea\">" +
                                 "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#ffffff\">" +
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td>" +
-                                "<img src=\"~/images/festive_planner_banner.png\" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<img src=\"https://journeyplus.azurewebsites.net/images/festive_planner_banner.png \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 25px; color: #e3282b; line-height: 60px; padding-left: 20px; margin-top: 10px; padding-right: 20px;\" align=\"center\"><strong>TRAVEL ITINERARY</strong></p>" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; padding-left: 20px; margin-top: -30px; padding-right: 20px; padding-bottom:10px;\" align=\"center\">Thank you for planning your Chinese New Year trip with us, below is your recommended date and time for you to start your journey to your destination.</p>" +
                                 "</td>" +
@@ -605,7 +607,7 @@ namespace journey.Controllers
                                 "<tr>" +
                                 "<td align=\"center\">" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #000000; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + from.ToString() + " - " + to.ToString() + "</strong></p>" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #000000; padding-left: 20px; margin-top: -20px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + date.ToString() + " 2019, " + time.ToString() +" </strong></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #000000; padding-left: 20px; margin-top: -20px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + date.ToString() + " 2019 -" + " " + time.ToString() + " </strong></p>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +
@@ -614,14 +616,14 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td align=\"center\">" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"><a href=\"http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip\"><img src=\"~/images/btn_savethedate.jpg\" width=\"200\" alt=\"Update Profile Button\"/></a></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"><a href=" + GoogleCalendarLink.ToString() + "><img src=\"https://journeyplus.azurewebsites.net/images/btn_savethedate.jpg\" width=\"200\" alt=\"Update Profile Button\"/></a></p>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +
                                 "</table>" +
                                 "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
-                                "          <tr>" +
-                                "            <td width=\"250\" valign=\"top\"><img src=\"~/images/buah_tangan.png\" width=\"250\" height=\"250\" alt=\"Buah Tangan Bag\" /></td>" +
+                                "          <tr><td><br /></td></tr> <tr>" +
+                                "            <td width=\"250\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"250\" height=\"250\" alt=\"Buah Tangan Bag\" /></td>" +
                                 "            <td align=\"left\" valign=\"top\">" +
                                 "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
                                 "              <tr>" +
@@ -659,7 +661,7 @@ namespace journey.Controllers
                                 "</tr>" +
                                 "<tr>" +
                                 "  <td valign=\"center\" style=\"font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:5px\" class=\"center\">" +
-                                "  <img src=\"~/images/plus_app _thumb.png\" width=\"18\"> Download PLUS App: <a href=\"https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8\" style=\"color:#999;text-decoration:underline;\">iOS</a>&nbsp; | &nbsp;<a href=\"https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true\" style=\"color:#999;text-decoration:underline;\">Android</a> </p>" +
+                                "  <img src=\"https://journeyplus.azurewebsites.net/images/plus_app_thumb.png \" width=\"18\"> Download PLUS App: <a href=\"https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8\" style=\"color:#999;text-decoration:underline;\">iOS</a>&nbsp; | &nbsp;<a href=\"https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true\" style=\"color:#999;text-decoration:underline;\">Android</a> </p>" +
                                 "  </td>" +
                                 "</tr>" +
                                 "  </table>" +
@@ -667,11 +669,11 @@ namespace journey.Controllers
                                 "  <table width=\"30%\" cellpadding=\"0\" cellspacing=\"0\"  border=\"0\" align=\"right\" class=\"deviceWidth\">" +
                                 "  <tr>" +
                                 "  <td valign=\"top\" style=\"font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right\" class=\"center\">" +
-                                "  <a href=\"https://www.facebook.com/MYPLUSMiles\" target=\"_blank\"><img src=\"~/images/facebook.png\" width=\"30\" height=\"30\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a>" +
-                                "  <a href=\"https://www.instagram.com/plus_malaysia/\" target=\"_blank\"><img src=\"~/images/instagram.png\" width=\"30\" height=\"30\" alt=\"Instagram\" title=\"Instagram\" border=\"0\" /></a>" +
-                                "  <a href=\"https://twitter.com/plus2u\" target=\"_blank\"><img src=\"~/images/twitter.png\" width=\"30\" height=\"30\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a>" +
+                                "  <a href=\"https://www.facebook.com/MYPLUSMiles\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/facebook.png \" width=\"30\" height=\"30\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a>" +
+                                "  <a href=\"https://www.instagram.com/plus_malaysia/\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/instagram.png \" width=\"30\" height=\"30\" alt=\"Instagram\" title=\"Instagram\" border=\"0\" /></a>" +
+                                "  <a href=\"https://twitter.com/plus2u\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/twitter.png \" width=\"30\" height=\"30\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a>" +
                                 "  </br>" +
-                                "  <a href=\"http://www.plus.com.my\"><img src=\"~/images/plus_logo.png\" alt=\"\" border=\"0\" width=\"70\" style=\"padding-top: 5px;\" /></a><br/>" +
+                                "  <a href=\"http://www.plus.com.my\"><img src=\"https://journeyplus.azurewebsites.net/images/plus_logo.png \" alt=\"\" border=\"0\" width=\"70\" style=\"padding-top: 5px;\" /></a><br/>" +
                                 "  </td>" +
                                 "  </tr>" +
                                 "  </table>" +
@@ -685,7 +687,7 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td>" +
-                                "<img src=\"~/images/footer_bar.jpg\" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<img src=\"https://journeyplus.azurewebsites.net/images/footer_bar.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +
@@ -698,8 +700,8 @@ namespace journey.Controllers
                     {
                         var credential = new NetworkCredential
                         {
-                            UserName = "ifwat.ibrahim@plus.uemnet.com",  // replace with valid value
-                            Password = "T@hun2018"  // replace with valid value
+                            UserName = "plusmiles@plus.uemnet.com",  // replace with valid value
+                            Password = "Plus1234"  // replace with valid value
                         };
                         smtp.Credentials = credential;
                         smtp.Host = "smtp-mail.outlook.com";
