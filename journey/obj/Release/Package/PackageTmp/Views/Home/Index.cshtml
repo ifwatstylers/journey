@@ -4,108 +4,110 @@
 }
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     @*FOR CAROSEL*@
     @*<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
     @*END CAROSEL*@
 
 
-    <style type="text/css">
-        .cc-selector input {
-            margin: 0;
-            padding: 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
+    @*<style type="text/css">
+            .cc-selector input {
+                margin: 0;
+                padding: 0;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
 
-        .cc-selector-2 input {
-            position: absolute;
-            z-index: 999;
-        }
+            .cc-selector-2 input {
+                position: absolute;
+                z-index: 999;
+            }
 
-        .visa {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-31jan.png);
-        }
+            .visa {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-31jan.png);
+            }
 
-        .mastercard {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-1feb.png);
-        }
+            .mastercard {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-1feb.png);
+            }
 
-        .mastercard2 {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-2feb.png);
-        }
+            .mastercard2 {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-2feb.png);
+            }
 
-        .visapost {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-7feb.png);
-        }
+            .visapost {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-7feb.png);
+            }
 
-        .mastercardpost {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-8feb.png);
-        }
+            .mastercardpost {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-8feb.png);
+            }
 
-        .mastercard2post {
-            background-image: url(https://journeyplus.azurewebsites.net/images/cny-9feb.png);
-        }
+            .mastercard2post {
+                background-image: url(https://journeyplus.azurewebsites.net/images/cny-9feb.png);
+            }
 
-        .cc-selector-2 input:active + .drinkcard-cc, .cc-selector input:active + .drinkcard-cc {
-            opacity: 1.9;
-        }
+            .cc-selector-2 input:active + .drinkcard-cc, .cc-selector input:active + .drinkcard-cc {
+                opacity: 1.9;
+            }
 
-        .cc-selector-2 input:checked + .drinkcard-cc, .cc-selector input:checked + .drinkcard-cc {
-            -webkit-filter: none;
-            -moz-filter: none;
-            filter: none;
-        }
+            .cc-selector-2 input:checked + .drinkcard-cc, .cc-selector input:checked + .drinkcard-cc {
+                -webkit-filter: none;
+                -moz-filter: none;
+                filter: none;
+            }
 
-        .drinkcard-cc {
-            cursor: pointer;
-            background-size: contain;
-            background-repeat: no-repeat;
-            display: inline-block;
-            width: 300px;
-            height: 70px;
-            -webkit-transition: all 100ms ease-in;
-            -moz-transition: all 100ms ease-in;
-            transition: all 100ms ease-in;
-            -webkit-filter: brightness(1.2) grayscale(.5) opacity(1.9);
-            -moz-filter: brightness(1.2) grayscale(.5) opacity(1.9);
-            filter: brightness(1.2) grayscale(.5) opacity(1.9);
-        }
-            .drinkcard-cc:hover {
+            .drinkcard-cc {
+                cursor: pointer;
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: inline-block;
+                width: 300px;
+                height: 70px;
+                -webkit-transition: all 100ms ease-in;
+                -moz-transition: all 100ms ease-in;
+                transition: all 100ms ease-in;
                 -webkit-filter: brightness(1.2) grayscale(.5) opacity(1.9);
                 -moz-filter: brightness(1.2) grayscale(.5) opacity(1.9);
                 filter: brightness(1.2) grayscale(.5) opacity(1.9);
             }
+                .drinkcard-cc:hover {
+                    -webkit-filter: brightness(1.2) grayscale(.5) opacity(1.9);
+                    -moz-filter: brightness(1.2) grayscale(.5) opacity(1.9);
+                    filter: brightness(1.2) grayscale(.5) opacity(1.9);
+                }
 
-        a:visited {
-            color: #888
-        }
+            a:visited {
+                color: #888
+            }
 
-        a {
-            color: #444;
-            text-decoration: none;
-        }
+            a {
+                color: #444;
+                text-decoration: none;
+            }
 
-        p {
-            margin-bottom: .3em;
-        }
+            p {
+                margin-bottom: .3em;
+            }
 
-        .cc-selector-2 input {
-            margin: 5px 0 0 12px;
-        }
+            .cc-selector-2 input {
+                margin: 5px 0 0 12px;
+            }
 
-        .cc-selector-2 label {
-            margin-left: 7px;
-        }
+            .cc-selector-2 label {
+                margin-left: 7px;
+            }
 
-        span.cc {
-            color: #6d84b4
-        }
-    </style>
+            span.cc {
+                color: #6d84b4
+            }
+        </style>*@
     <style type="text/css">
+
         /* HIDE RADIO */
         [type=radio] {
             position: absolute;
@@ -138,9 +140,9 @@
                 if (SBorNB == 1 || SBorNB == -1) {
                     $("#LabelTime").text("After 5:00 pm");
                     $("#Time").val("5:00 pm");
-                    
+
                 }
-                else if (SBorNB == 0 ) {
+                else if (SBorNB == 0) {
                     $("#LabelTime").text("After 5:00 pm");
                     $("#Time").val("5:00 pm");
 
@@ -164,7 +166,7 @@
                 var jsfromText = $("#jsFrom option:selected").text()
                 var jstoText = $("#jsTo option:selected").text()
 
-                
+
 
                 var lblFromToTo = " " + jsfromText + " - " + jstoText + " ";
                 $("#lblFromTo").text(lblFromToTo);
@@ -220,7 +222,7 @@
                 //    alert("Please select date");
                 //    return false;
                 //}
-                    
+
                 if (checkTime == null || checkTime == "") {
                     alert("Time not available. Please reselect your destination!")
                     return false;
@@ -235,7 +237,7 @@
                     return re.test(checkEmail);
                 }
 
-               
+
 
                 $("#MainDiv").hide();
                 $("#SecondDiv").hide();
@@ -249,12 +251,15 @@
 </head>
 <body>
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:#e04d53;">
+    @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000" style="background-color:#e04d53;">
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-responsive" style="width:100%;" />
+                <img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-responsive" style="max-width: 100%; min-width: 300px; height: auto;" />
             </div>
         </div>
+    </div>*@
+    <div id="myCarousel">
+        <img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-fluid" />
     </div>
 
     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))

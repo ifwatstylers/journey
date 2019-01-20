@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".well-known\pki-validation\godaddy.html" />
+    <Content Include=".well-known\pki-validation\slider.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
