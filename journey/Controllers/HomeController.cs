@@ -590,6 +590,68 @@ namespace journey.Controllers
 
                     string GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip";
 
+                    if (time == "7:00 am")
+                    {
+                        if (date == "31 Jan")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "1 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T230000Z%2F20190131T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "2 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T230000Z%2F20190201T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "7 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190206T230000Z%2F20190206T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "8 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T230000Z%2F20190207T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "9 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T230000Z%2F20190208T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                    }
+                    else if (time == "11:00 am")
+                    {
+                        if (date == "31 Jan")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T030000Z%2F20190131T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "1 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T030000Z%2F20190201T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "2 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T030000Z%2F20190202T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "7 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T030000Z%2F20190207T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "8 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T030000Z%2F20190208T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "9 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T030000Z%2F20190209T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                    }
+                    else if (time == "3:00 pm")
+                    {
+                        if (date == "31 Jan")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T070000Z%2F20190131T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "1 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T070000Z%2F20190201T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "2 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T070000Z%2F20190202T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "7 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T070000Z%2F20190207T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "8 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T070000Z%2F20190208T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "9 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T070000Z%2F20190209T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                    }
+                    else if (time == "7:00 pm")
+                    {
+                        if (date == "31 Jan")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T110000Z%2F20190131T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "1 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T110000Z%2F20190201T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "2 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T110000Z%2F20190202T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "7 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T110000Z%2F20190207T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "8 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T110000Z%2F20190208T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        else if (date == "9 Feb")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T110000Z%2F20190209T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                    }
+                    else { GoogleCalendarLink = ""; }
+
                     htmlBody = "<body bgcolor=\"#eaeaea\">" +
                                 "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#ffffff\">" +
                                 "<tbody>" +

@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festive Travel Planner</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -23,28 +22,28 @@
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Index2", "Index2", "Home")</li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Index2", "Index2", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
-    <div class="container body-content" style="background-color:white; width:100%;">
+        </div>*@
+    @*<div class="container body-content" style="width:100%;">*@
+    <div class="container-fluid body-content">
         @RenderBody()
-        <br />
         <footer>
             <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#363636;">
                 <tr>
@@ -56,7 +55,7 @@
                                         <tr><br /></tr>
                                         <tr>
                                             <td valign="top" style="font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px" class="center">
-                                                Disclaimer: Our travel time advisory above is based on the traffic insights during Chinese New Year period for the past 5 years.
+                                                Disclaimer: Our travel time advisory above is based on the traffic insights during Chinese New Year period for the past 3 years.
                                                 <br /><br />
                                                 PLUS Malaysia Berhad (923639-A)
                                                 <a href="http://www.plus.com.my" style="color:#999;text-decoration:underline;">www.plus.com.my</a>
@@ -85,10 +84,10 @@
                         </table>
                     </td>
                 </tr>
+                <tr><td> <br /> </td></tr>
             </table>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
