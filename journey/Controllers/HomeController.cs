@@ -657,7 +657,7 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td>" +
-                                "<img src=\"https://journeyplus.azurewebsites.net/images/festive_planner_banner.png \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<img src=\"https://journeyplus.azurewebsites.net/images/bnr_1366px_c.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 25px; color: #e3282b; line-height: 60px; padding-left: 20px; margin-top: 10px; padding-right: 20px;\" align=\"center\"><strong>TRAVEL ITINERARY</strong></p>" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; padding-left: 20px; margin-top: -30px; padding-right: 20px; padding-bottom:10px;\" align=\"center\">Thank you for planning your Chinese New Year trip with us, below is your recommended date and time for you to start your journey to your destination.</p>" +
                                 "</td>" +
@@ -758,20 +758,24 @@ namespace journey.Controllers
 
                     message.Body = htmlBody;
 
-                    using (var smtp = new SmtpClient())
+                    Task.Run(async () =>
                     {
-                        var credential = new NetworkCredential
+                        using (var smtp = new SmtpClient())
                         {
-                            UserName = "plusmiles@plus.uemnet.com",  // replace with valid value
-                            Password = "Plus1234"  // replace with valid value
-                        };
-                        smtp.Credentials = credential;
-                        smtp.Host = "smtp-mail.outlook.com";
-                        smtp.Port = 587;
-                        smtp.EnableSsl = true;
-                        await smtp.SendMailAsync(message);
-                        return RedirectToAction("ThankYou");
-                    }
+                            var credential = new NetworkCredential
+                            {
+                                UserName = "plusmiles@plus.uemnet.com",  // replace with valid value
+                                Password = "Plus1234"  // replace with valid value
+                            };
+                            smtp.Credentials = credential;
+                            smtp.Host = "smtp-mail.outlook.com";
+                            smtp.Port = 587;
+                            smtp.EnableSsl = true;
+                            await smtp.SendMailAsync(message);
+                            //return RedirectToAction("ThankYou");
+                        }
+                    });
+                    return RedirectToAction("ThankYou");
                 }
                 #endregion
                 return RedirectToAction("ThankYou");

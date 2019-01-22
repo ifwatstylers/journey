@@ -99,12 +99,13 @@
                     $("#ThankYouDiv").hide();
                 }
             });
-            $("#back").click(function () {
-                $("#MainDiv").show();
-                $("#SecondDiv").hide();
-                $("#SecondDivPointOne").hide();
-                $("#ThirdDiv").hide();
-                $("#ThankYouDiv").hide();
+            $("#backBtnClick").click(function () {
+                //$("#MainDiv").show();
+                //$("#SecondDiv").hide();
+                //$("#SecondDivPointOne").hide();
+                //$("#ThirdDiv").hide();
+                //$("#ThankYouDiv").hide();
+                $("#MainDiv").load('@Url.Action("Index")');
             });
             $("#hideAgain").click(function () {
                 $("#MainDiv").hide();
@@ -166,25 +167,25 @@
         <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
             <div class="container">
                 <h2 style=" color: #d0021b;">
-                    <b>ENJOY A SMOOTHER TRAVEL ON PLUS HIGHWAY THIS CHINESE NEW YEAR.<br />PLAN YOUR TRIP!</b>
+                    <b>Plan your trip with our Festive Travel Planner today and enjoy a smoother journey on PLUS highway this Chinese New Year!</b>
                 </h2>
                 <br />
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <h4 style="text-align: center; color:#9b9b9b">
-                            Select your Origin &amp; Destination cities/towns (based on highway entry and exit points) and find out the best time to take the highway this Chinese New Year holiday.
+                            Select your from &amp; to and find out the best time to take the highway this Chinese New Year holiday.
                         </h4>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
                 <br />
                 <div class="col-md-3">
-                    <h4 style="text-align:left;">
+                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
                         Period<br />
                         @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
-                               { new SelectListItem{Text="PRE CHINESE NEW YEAR", Value="PRECNY"},
-                                 new SelectListItem{Text="POST CHINESE NEW YEAR", Value="POSTCNY"}},
+                               { new SelectListItem{Text="Before the Chinese New Year", Value="PRECNY"},
+                                 new SelectListItem{Text="After the Chinese New Year", Value="POSTCNY"}},
                            new { @class = "form-control selectpicker",
                                @id = "jsTypeJourney",
                                style = "width: 100%;"
@@ -192,91 +193,11 @@
                     </h4>
                 </div>
                 <div class="col-md-3">
-                    <h4 style="text-align:left;">
-                        Origin
+                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
+                        From
                         <br />
                         @Html.DropDownListFor(m => m.From, new List<SelectListItem>
-                 {new SelectListItem{Text="AYER HITAM", Value="1"},
-                         new SelectListItem{Text="AYER KEROH", Value="2"},
-                         new SelectListItem{Text="ALOR GAJAH", Value="2"},
-                        new SelectListItem{Text="ALOR SETAR", Value="8"},
-                         new SelectListItem{Text="BUKIT GAMBIR", Value="1"},
-                         new SelectListItem{Text="BANGI", Value="4"},
-                        new SelectListItem{Text="BANDAR SERINIA", Value="4"},
-                        new SelectListItem{Text="BANDAR SAUJANA PUTRA", Value="4"},
-                        new SelectListItem{Text="BUKIT BERUNTUNG", Value="5"},
-                        new SelectListItem{Text="BUKIT TAGAR", Value="5"},
-                        new SelectListItem{Text="BEHRANG", Value="5"},
-                        new SelectListItem{Text="BIDOR", Value="5"},
-                        new SelectListItem{Text="BUKIT MERAH", Value="7"},
-                        new SelectListItem{Text="BAGAN SERAI", Value="7"},
-                        new SelectListItem{Text="BUTTERWORTH", Value="7"},
-                        new SelectListItem{Text="BUKIT MERTAJAM", Value="7"},
-                        new SelectListItem{Text="BUKIT RAJA", Value="4"},
-                        new SelectListItem{Text="CANGKAT JERING", Value="6"},
-                        new SelectListItem{Text="DAMANSARA", Value="4"},
-                        new SelectListItem{Text="GOPENG", Value="6"},
-                        new SelectListItem{Text="GURUN", Value="8"},
-                        new SelectListItem{Text="IPOH", Value="6"},
-                        new SelectListItem{Text="JASIN", Value="2"},
-                        new SelectListItem{Text="JALAN DUTA", Value="4"},
-                        new SelectListItem{Text="JURU", Value="7"},
-                        new SelectListItem{Text="JITRA", Value="8"},
-                         new SelectListItem{Text="JOHOR BAHRU", Value="1"},
-                        new SelectListItem{Text="KULAI", Value="1"},
-                        new SelectListItem{Text="KAJANG", Value="4"},
-                        new SelectListItem{Text="KLIA", Value="4"},
-                        new SelectListItem{Text="KOTA DAMANSARA", Value="4"},
-                        new SelectListItem{Text="KUALA KANGSAR", Value="6"},
-                        new SelectListItem{Text="KEPALA BATAS", Value="8"},
-                        new SelectListItem{Text="LEMBAH BERINGIN", Value="5"},
-                         new SelectListItem{Text="MACHAP", Value="1"},
-                         new SelectListItem{Text="NILAI", Value="3"},
-                        new SelectListItem{Text="NIBONG TEBAL", Value="7"},
-                        new SelectListItem{Text="PAGOH", Value="1"},
-                         new SelectListItem{Text="PEDAS LINGGI", Value="2"},
-                         new SelectListItem{Text="PORT DICKSON", Value="3"},
-                         new SelectListItem{Text="PUTRA MAHKOTA", Value="4"},
-                        new SelectListItem{Text="PUTRA JAYA", Value="4"},
-                        new SelectListItem{Text="PUTRA HEIGHT", Value="4"},
-                        new SelectListItem{Text="PARIT BUNTAR", Value="7"},
-                        new SelectListItem{Text="PENANG", Value="7"},
-                        new SelectListItem{Text="PENDANG", Value="8"},
-                        new SelectListItem{Text="RAWANG", Value="4"},
-                         new SelectListItem{Text="SEDENAK", Value="1"},
-                         new SelectListItem{Text="SIMPANG RENGGAM", Value="1"},
-                         new SelectListItem{Text="SENAWANG", Value="3"},
-                         new SelectListItem{Text="SEREMBAN", Value="3"},
-                         new SelectListItem{Text="SG BESI", Value="4"},
-                         new SelectListItem{Text="SUBANG JAYA", Value="4"},
-                        new SelectListItem{Text="SETIA ALAM", Value="4"},
-                        new SelectListItem{Text="SHAH ALAM", Value="4"},
-                        new SelectListItem{Text="SUBANG", Value="4"},
-                        new SelectListItem{Text="SG BULOH", Value="4"},
-                        new SelectListItem{Text="SUNGAI BUAYA", Value="5"},
-                        new SelectListItem{Text="SIMPANG PULAI", Value="6"},
-                        new SelectListItem{Text="SLIM RIVER", Value="5"},
-                        new SelectListItem{Text="SUNGKAI", Value="5"},
-                        new SelectListItem{Text="SIMPANG AMPAT", Value="7"},
-                        new SelectListItem{Text="SG PETANI", Value="8"},
-                         new SelectListItem{Text="TANGKAK", Value="1"},
-                         new SelectListItem{Text="TAIPING", Value="6"},
-                        new SelectListItem{Text="TANJUNG MALIM", Value="5"},
-                        new SelectListItem{Text="TAPAH", Value="6"},
-                        new SelectListItem{Text="UPM", Value="4"},
-                        new SelectListItem{Text="USJ", Value="4"}},
-            "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom",
-                data_show_subtext = "true",
-                data_live_search = "true"
-                // onchange = "redirect(this.value)"
-            })
-                    </h4>
-                </div>
-                <div class="col-md-3">
-                    <h4 style="text-align:left;">
-                        Destination<br />
-                        @Html.DropDownListFor(m => m.To, new List<SelectListItem>
-                      {
+                 {      /*new SelectListItem{Text="Please Select", Value="0", Selected=true},*/
                        new SelectListItem{Text="AYER HITAM", Value="1"},
                          new SelectListItem{Text="AYER KEROH", Value="2"},
                          new SelectListItem{Text="ALOR GAJAH", Value="2"},
@@ -346,10 +267,90 @@
                         new SelectListItem{Text="TAPAH", Value="6"},
                         new SelectListItem{Text="UPM", Value="4"},
                         new SelectListItem{Text="USJ", Value="4"}},
-            "Please Select", new { @class = "form-control input-md", @id = "jsTo",
-                data_show_subtext = "true",
-                data_live_search = "true"
+            "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom"
             })
+                    </h4>
+                </div>
+                <div class="col-md-3">
+                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
+                        To<br />
+                        @Html.DropDownListFor(m => m.To, new List<SelectListItem>
+                      {
+                       //new SelectListItem{Text="Please Select", Value="0", Selected=true},
+                       new SelectListItem{Text="AYER HITAM", Value="1"},
+                         new SelectListItem{Text="AYER KEROH", Value="2"},
+                         new SelectListItem{Text="ALOR GAJAH", Value="2"},
+                        new SelectListItem{Text="ALOR SETAR", Value="8"},
+                         new SelectListItem{Text="BUKIT GAMBIR", Value="1"},
+                         new SelectListItem{Text="BANGI", Value="4"},
+                        new SelectListItem{Text="BANDAR SERINIA", Value="4"},
+                        new SelectListItem{Text="BANDAR SAUJANA PUTRA", Value="4"},
+                        new SelectListItem{Text="BUKIT BERUNTUNG", Value="5"},
+                        new SelectListItem{Text="BUKIT TAGAR", Value="5"},
+                        new SelectListItem{Text="BEHRANG", Value="5"},
+                        new SelectListItem{Text="BIDOR", Value="5"},
+                        new SelectListItem{Text="BUKIT MERAH", Value="7"},
+                        new SelectListItem{Text="BAGAN SERAI", Value="7"},
+                        new SelectListItem{Text="BUTTERWORTH", Value="7"},
+                        new SelectListItem{Text="BUKIT MERTAJAM", Value="7"},
+                        new SelectListItem{Text="BUKIT RAJA", Value="4"},
+                        new SelectListItem{Text="CANGKAT JERING", Value="6"},
+                        new SelectListItem{Text="DAMANSARA", Value="4"},
+                        new SelectListItem{Text="GOPENG", Value="6"},
+                        new SelectListItem{Text="GURUN", Value="8"},
+                        new SelectListItem{Text="IPOH", Value="6"},
+                        new SelectListItem{Text="JASIN", Value="2"},
+                        new SelectListItem{Text="JALAN DUTA", Value="4"},
+                        new SelectListItem{Text="JURU", Value="7"},
+                        new SelectListItem{Text="JITRA", Value="8"},
+                         new SelectListItem{Text="JOHOR BAHRU", Value="1"},
+                        new SelectListItem{Text="KULAI", Value="1"},
+                        new SelectListItem{Text="KAJANG", Value="4"},
+                        new SelectListItem{Text="KLIA", Value="4"},
+                        new SelectListItem{Text="KOTA DAMANSARA", Value="4"},
+                        new SelectListItem{Text="KUALA KANGSAR", Value="6"},
+                        new SelectListItem{Text="KEPALA BATAS", Value="8"},
+                        new SelectListItem{Text="LEMBAH BERINGIN", Value="5"},
+                         new SelectListItem{Text="MACHAP", Value="1"},
+                         new SelectListItem{Text="NILAI", Value="3"},
+                        new SelectListItem{Text="NIBONG TEBAL", Value="7"},
+                        new SelectListItem{Text="PAGOH", Value="1"},
+                         new SelectListItem{Text="PEDAS LINGGI", Value="2"},
+                         new SelectListItem{Text="PORT DICKSON", Value="3"},
+                         new SelectListItem{Text="PUTRA MAHKOTA", Value="4"},
+                        new SelectListItem{Text="PUTRA JAYA", Value="4"},
+                        new SelectListItem{Text="PUTRA HEIGHT", Value="4"},
+                        new SelectListItem{Text="PARIT BUNTAR", Value="7"},
+                        new SelectListItem{Text="PENANG", Value="7"},
+                        new SelectListItem{Text="PENDANG", Value="8"},
+                        new SelectListItem{Text="RAWANG", Value="4"},
+                         new SelectListItem{Text="SEDENAK", Value="1"},
+                         new SelectListItem{Text="SIMPANG RENGGAM", Value="1"},
+                         new SelectListItem{Text="SENAWANG", Value="3"},
+                         new SelectListItem{Text="SEREMBAN", Value="3"},
+                         new SelectListItem{Text="SG BESI", Value="4"},
+                         new SelectListItem{Text="SUBANG JAYA", Value="4"},
+                        new SelectListItem{Text="SETIA ALAM", Value="4"},
+                        new SelectListItem{Text="SHAH ALAM", Value="4"},
+                        new SelectListItem{Text="SUBANG", Value="4"},
+                        new SelectListItem{Text="SG BULOH", Value="4"},
+                        new SelectListItem{Text="SUNGAI BUAYA", Value="5"},
+                        new SelectListItem{Text="SIMPANG PULAI", Value="6"},
+                        new SelectListItem{Text="SLIM RIVER", Value="5"},
+                        new SelectListItem{Text="SUNGKAI", Value="5"},
+                        new SelectListItem{Text="SIMPANG AMPAT", Value="7"},
+                        new SelectListItem{Text="SG PETANI", Value="8"},
+                         new SelectListItem{Text="TANGKAK", Value="1"},
+                         new SelectListItem{Text="TAIPING", Value="6"},
+                        new SelectListItem{Text="TANJUNG MALIM", Value="5"},
+                        new SelectListItem{Text="TAPAH", Value="6"},
+                        new SelectListItem{Text="UPM", Value="4"},
+                        new SelectListItem{Text="USJ", Value="4"}},
+             "Please Select", new
+             {
+                 @class = "form-control input-md",
+                 @id = "jsTo"
+             })
                     </h4>
                 </div>
 
@@ -374,19 +375,19 @@
                     <label>
                         @*<input type="radio" name="test" value="small">*@
                         @Html.RadioButton("DateSelected", "31 Jan", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-31jan.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-31jan.jpg" style="max-width:300px">
                     </label>
 
                     <label>
                         @*<input type="radio" name="test" value="big">*@
                         @Html.RadioButton("DateSelected", "1 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-1feb.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-1feb.jpg" style="max-width:300px">
                     </label>
 
                     <label>
                         @*<input type="radio" name="test" value="big2">*@
                         @Html.RadioButton("DateSelected", "2 Feb", true, new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg" style="max-width:300px">
                     </label>
 
                     @*<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />*@
@@ -400,19 +401,19 @@
                     <label>
                         @*<input type="radio" name="test" value="small2" checked>*@
                         @Html.RadioButton("DateSelected", "7 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-7feb.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-7feb.jpg" style="max-width:300px">
                     </label>
 
                     <label>
                         @*<input type="radio" name="test" value="big3">*@
                         @Html.RadioButton("DateSelected", "8 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-8feb.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-8feb.jpg" style="max-width:300px">
                     </label>
 
                     <label>
                         @*<input type="radio" name="test" value="big4">*@
                         @Html.RadioButton("DateSelected", "9 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg">
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg" style="max-width:300px">
                     </label>
 
                     @*<input checked="checked" id="visapost" type="radio" name="credit-card" value="visapost" />*@
@@ -447,7 +448,16 @@
             </div>
             <div class="col-md-3">
                 <input type="submit" name="answer" value="SET REMINDER " class="btn btn-success" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ style="width:67%;" />
-                <input type="submit" value="BACK " class="btn btn-success" @*onclick="redirect(this.value)"*@ style="width:30%;" />
+                @*<img src="~/images/btnBack.png" id="backBtnClick" style="width:30%; max-width:150px;" />*@
+                @*<input type="button" value="BACK " class="btn btn-success" id="backBtnClick" style="width:30%;" />*@
+                <input type="button" value="BACK " class="btn btn-success" onclick="backoperation()" style="width:30%;" />
+               
+                <script>
+                    function backoperation()
+                    {
+                    window.location.href = "@Url.Action("Index")";
+                    }
+                </script>
             </div>
             <div class="col-md-3">
             </div>
@@ -460,10 +470,10 @@
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         @*<ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                            </ol>*@
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>*@
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" data-ride="carousel" data-interval="4000">
@@ -502,24 +512,24 @@
 
                         <!-- Left and right controls -->
                         @*<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>*@
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>*@
                     </div>
                 </div>
                 <br />
-
+                <h4><b>Rest Area (R&amp;R) Partner Promotions</b></h4>
+                <img src="~/images/promoDunkinDonut.jpg" width="100%" />
+                <br /><br />
+                <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
+                <br /><br />
+                <img src="~/images/promo_news2.jpg" width="100%" />
+                <br />
             </div>
-            <h4><b>PARTNER PROMOTIONS</b></h4>
-            <img src="~/images/promoDunkinDonut.jpg" width="100%" />
-            <br />
-            <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
-            <br />
-            <img src="~/images/promo_news2.jpg" width="100%" />
         </div>
     }
 

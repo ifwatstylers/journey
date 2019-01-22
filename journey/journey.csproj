@@ -158,11 +158,13 @@
     <Content Include="images\banner3crop.jpg" />
     <Content Include="images\banner_CNY.jpg" />
     <Content Include="images\bnr_1024px_b.jpg" />
+    <Content Include="images\bnr_1366px_c.jpg" />
     <Content Include="images\btnBack.png" />
     <Content Include="images\btnNext.png" />
     <Content Include="images\btnPlanNow.png" />
     <Content Include="images\btnPlanNow1.png" />
     <Content Include="images\btnPlanNow3.png" />
+    <Content Include="images\btn_back.png" />
     <Content Include="images\btn_plannow.png" />
     <Content Include="images\btn_register.png" />
     <Content Include="images\btn_savethedate.jpg" />
