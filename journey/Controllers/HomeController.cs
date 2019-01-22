@@ -389,6 +389,47 @@ namespace journey.Controllers
             return View();
         }
 
+        public ActionResult DriverList(DriverModel Driver)
+        {
+            ViewBag.Message = "Database Result";
+            
+            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+
+            String sql;
+            sql = "select * from Driver order by id asc";
+            
+
+            SqlConnection conn2 = new SqlConnection(connectionString);
+            SqlCommand cmd2 = new SqlCommand(sql, conn2);
+
+            var model2 = Driver.DBDriverEmail.ToList();
+
+            using (conn2)
+            {
+                conn2.Open();
+                SqlDataReader rdr = cmd2.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var customer2 = new Student();
+
+                    customer2.FirstName = rdr["EMAIL"].ToString();
+                    //customer2.ID = rdr["ID"].ToString();
+
+
+                    model2.Add(customer2.FirstName.ToString());
+
+                }
+
+            }
+
+
+            Driver.DBDriverEmail = model2;
+        
+            return View(Driver);
+        }
+
         public ActionResult ThankYou()
         {
             ViewBag.Message = "Your Thank You page.";
@@ -668,7 +709,7 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td align=\"center\">" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #000000; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + from.ToString() + " - " + to.ToString() + "</strong></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #0033A1; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + from.ToString() + " - " + to.ToString() + "</strong></p>" +
                                 "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #000000; padding-left: 20px; margin-top: -20px; padding-right: 20px; padding-bottom:10px;\" align=\"center\"><strong>" + date.ToString() + " 2019 -" + " " + time.ToString() + " </strong></p>" +
                                 "</td>" +
                                 "</tr>" +

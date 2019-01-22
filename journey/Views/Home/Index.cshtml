@@ -171,14 +171,14 @@
         <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
             <div class="container">
                 <h2 style=" color: #d0021b; margin-left:10px; margin-right:10px;">
-                    <b>Plan your trip with our Festive Travel Planner today and enjoy a smoother journey on PLUS highway this Chinese New Year!</b>
+                    <b>Smoother Journey with PLUS  Festive Travel Planner this Chinese New Year!</b>
                 </h2>
                 <br />
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <h4 style="text-align: center; color:#9b9b9b">
-                            Select your from &amp; to and find out the best time to take the highway this Chinese New Year holiday.
+                            Select your departure and arrival destination to plan your best time to travel:-
                         </h4>
                     </div>
                     <div class="col-md-2"></div>
@@ -360,10 +360,10 @@
         </div>
         <div class="row" id="SecondDiv" style="display:none; text-align: center; margin-left:10px; margin-right:10px;">
             <div class="container">
-                <h4>
-                    This is the recommended date &amp; time for you to start your journey. We can also help to alert and remind you of this trip by giving us your email address.
+                <h2>
+                    <b>Here you go!</b>
                     <br />
-                </h4>
+                </h2>
                 <h2 style="color:#0033A1;">@Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })</h2>
 
                 <div class="cc-selector" id="preDateList" style="display:none;">
@@ -420,7 +420,7 @@
                 </div>
                 <br />
 
-                <h4>You are recommended to start journey:</h4>
+                <h4 style="text-align:center;">Recommended departure time</h4>
                 @* THIS IS TIME FROM BACKEND
                     <h2>@Html.LabelFor(m => m.Time, (string)@ViewBag.displayTimeText)</h2>*@
                 <h2>@Html.LabelFor(m => m.Time, new { id = "LabelTime" }) </h2>
@@ -434,8 +434,8 @@
             </div>
         </div>
         <div class="row" id="SecondDivPointOne" style="display:none; margin-left: auto; margin-right: auto; align-content: center; width:80%">
-            <div class="col-md-3"></div>
-            @*<div class="col-md-3" style="display:table-cell; vertical-align:middle; text-align:center">*@
+            <h4 style="text-align:center;">Save this travel time in your calendar now by receiving an email notification from us. Drop your email address today</h4>
+            <div class="col-md-3"> </div>           
             <div class="col-md-3">
                 @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email)
@@ -460,7 +460,7 @@
         <br />
         <div class="row" id="ThirdDiv" style="display:none; text-align: center; margin-left:10px; margin-right:10px;">
             <div class="col-md-12">
-                <h4>As you travel, you can always take a break at our rest areas (R&amp;R).</h4>
+                <h4 style="text-align:center;">Do not drive if you are tired, stop by the nearest R&amp;R to refresh yourself.</h4>
                 <div class="container" id="carosell-RSA">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
@@ -517,10 +517,10 @@
                     </div>
                 </div>
                 <br />
-                <h4><b>Rest Area (R&amp;R) Partner Promotions</b></h4>
+                <h4><b>Special Promotions at R&amp;R</b></h4>
                 <img src="~/images/promoDunkinDonut.jpg" width="100%" />
                 <br /><br />
-                <img src="~/images/CNY-Twin-Pack-700x200px.jpg" width="100%" />
+                <img src="~/images/famousamos.png" width="100%" />
                 <br /><br />
                 <img src="~/images/promo_news2.jpg" width="100%" />
                 <br /><br />

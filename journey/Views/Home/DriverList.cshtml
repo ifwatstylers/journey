@@ -1,0 +1,18 @@
+﻿@model journey.Models.DriverModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Database Report</h2>
+<table>
+    <tr>
+        <th>List of Driver's email</th>
+    </tr>
+        @foreach (var DriverEmail in Model.DBDriverEmail)
+        {
+            <tr>
+                <td>Email:</td>
+                <td>@DriverEmail</td>
+            </tr>
+        }
+</table>
+

@@ -189,6 +189,7 @@
     <Content Include="images\DetailsRSA\rsa_sgbuloh.jpg" />
     <Content Include="images\DetailsRSA\rsa_tapah.jpg" />
     <Content Include="images\facebook.png" />
+    <Content Include="images\famousamos.png" />
     <Content Include="images\festive_planner_banner.png" />
     <Content Include="images\footer_bar.jpg" />
     <Content Include="images\icn_restarea_a1.png" />
@@ -250,6 +251,7 @@
     <Content Include="Views\Home\ThankYou.cshtml" />
     <Content Include="Views\Home\SentEmail.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\DriverList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

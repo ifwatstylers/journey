@@ -16,5 +16,8 @@ namespace journey.Models
         public string FromTextBox { get; set; }
         public string ToTextBox { get; set; }
         public string Email { get; set; }
+
+        public List<string> DBDriverEmail = new List<string>();
+        public List<string> DBDriverID = new List<string>();
     }
 }
