@@ -437,6 +437,19 @@ namespace journey.Controllers
             return View();
         }
 
+        public ActionResult Error()
+        {
+            //if (ErrorMsg != null)
+            //{
+            //    ViewBag.Message = ErrorMsg.ToString();
+            //}
+            //else { 
+            ViewBag.Message = "This page will appear if system run error accidently!"; 
+            
+
+            return View();
+        }
+
         public ActionResult SentEmail()
         {
             ViewBag.Message = "Page for Sent Email.";
@@ -585,29 +598,31 @@ namespace journey.Controllers
                     try
                     {
                         conn.Open(); // throws if invalid
+                        using (SqlConnection con = new SqlConnection(constr))
+                        {
+                            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
+                            query += " SELECT SCOPE_IDENTITY()";
+                            using (SqlCommand cmd = new SqlCommand(query))
+                            {
+                                cmd.Connection = con;
+                                con.Open();
+
+                                cmd.Parameters.AddWithValue("@Email", model.Email);
+                                cmd.Parameters.AddWithValue("@From", model.FromTextBox);
+                                cmd.Parameters.AddWithValue("@To", model.ToTextBox);
+                                cmd.Parameters.AddWithValue("@Date", model.DateSelected);
+                                cmd.Parameters.AddWithValue("@Time", model.Time);
+                                cmd.ExecuteScalar();
+                                con.Close();
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
+                        string errMsg = ex.ToString();
+                        return View("Error");
                     }
 
-                }
-                using (SqlConnection con = new SqlConnection(constr))
-                {
-                    string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
-                    query += " SELECT SCOPE_IDENTITY()";
-                    using (SqlCommand cmd = new SqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-
-                        cmd.Parameters.AddWithValue("@Email", model.Email);
-                        cmd.Parameters.AddWithValue("@From", model.FromTextBox);
-                        cmd.Parameters.AddWithValue("@To", model.ToTextBox);
-                        cmd.Parameters.AddWithValue("@Date", model.DateSelected);
-                        cmd.Parameters.AddWithValue("@Time", model.Time);
-                        cmd.ExecuteScalar();
-                        con.Close();
-                    }
                 }
                 #endregion
 

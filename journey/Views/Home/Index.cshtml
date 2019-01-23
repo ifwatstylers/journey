@@ -9,6 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 
     <style type="text/css">
+        div.center-cropped {
+            min-width: 350px;
+            min-height: 80%;
+            overflow: hidden;
+        }
+
+            div.center-cropped img {
+                height: 100%;
+                min-width: 100%;
+                left: 50%;
+                position: relative;
+                transform: translateX(-50%);
+            }
+
         #planNowBtn a img {
             display: block;
             margin-left: auto;
@@ -162,8 +176,11 @@
     </script>
 </head>
 <body>
-    <img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-fluid" style="width:100%" />
-   
+    <div class="center-cropped">
+        <img src="https://journey.plusmiles.com.my/images/banner_CNY.jpg" alt="" />
+    </div>
+    @*<img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-fluid" style="width:100%" />*@
+
     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "ifwatForm" }))
     {
         @Html.AntiForgeryToken()
@@ -435,7 +452,7 @@
         </div>
         <div class="row" id="SecondDivPointOne" style="display:none; margin-left: auto; margin-right: auto; align-content: center; width:80%">
             <h4 style="text-align:center;">Save this travel time in your calendar now by receiving an email notification from us. Drop your email address today</h4>
-            <div class="col-md-3"> </div>           
+            <div class="col-md-3"> </div>
             <div class="col-md-3">
                 @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email)
@@ -446,7 +463,7 @@
                 @*<img src="~/images/btnBack.png" id="backBtnClick" style="width:30%; max-width:150px;" />*@
                 @*<input type="button" value="BACK " class="btn btn-success" id="backBtnClick" style="width:30%;" />*@
                 <input type="button" value="BACK " class="btn btn-success" onclick="backoperation()" style="width:30%;" />
-               
+
                 <script>
                     function backoperation()
                     {
@@ -465,10 +482,10 @@
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         @*<ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>*@
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>*@
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" data-ride="carousel" data-interval="4000">
@@ -507,13 +524,13 @@
 
                         <!-- Left and right controls -->
                         @*<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>*@
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>*@
                     </div>
                 </div>
                 <br />
