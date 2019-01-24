@@ -389,45 +389,33 @@ namespace journey.Controllers
             return View();
         }
 
-        public ActionResult DriverList(DriverModel Driver)
+        public ActionResult DriverList(DriverModel model)
         {
             ViewBag.Message = "Database Result";
             
             String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        
+            String sql = "SELECT * FROM Driver";
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand(sql, conn);
 
-
-            String sql;
-            sql = "select * from Driver order by id asc";
-            
-
-            SqlConnection conn2 = new SqlConnection(connectionString);
-            SqlCommand cmd2 = new SqlCommand(sql, conn2);
-
-            var model2 = Driver.DBDriverEmail.ToList();
-
-            using (conn2)
+            var model2 = new List<DriverListModel>();
+            using (conn = new SqlConnection(connectionString))
             {
-                conn2.Open();
-                SqlDataReader rdr = cmd2.ExecuteReader();
-
+                conn.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    var customer2 = new Student();
+                    var pemandu = new DriverListModel();
+                    pemandu.DriverID = rdr["id"].ToString();
+                    pemandu.Email = rdr["email"].ToString();
 
-                    customer2.FirstName = rdr["EMAIL"].ToString();
-                    //customer2.ID = rdr["ID"].ToString();
-
-
-                    model2.Add(customer2.FirstName.ToString());
-
+            model2.Add(pemandu);
                 }
 
             }
 
-
-            Driver.DBDriverEmail = model2;
-        
-            return View(Driver);
+            return View(model);
         }
 
         public ActionResult ThankYou()
@@ -739,13 +727,14 @@ namespace journey.Controllers
                                 "</tr>" +
                                 "</tbody>" +
                                 "</table>" +
-                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
-                                "          <tr><td><br /></td></tr> <tr>" +
-                                "            <td width=\"250\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"250\" height=\"250\" alt=\"Buah Tangan Bag\" /></td>" +
-                                "            <td align=\"left\" valign=\"top\">" +
+                                //"<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
+                                //"          <tr><td><br /></td></tr> <tr>" +
+                                //"            <td width=\"100%\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td>" +
+                                //"            <td align=\"left\" valign=\"top\">" +
                                 "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
+                                "<tr><td><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td><tr> " +
                                 "              <tr>" +
-                                "                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* “Buah Tangan” Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
+                                "                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* 'Buah Tangan' Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
                                 "              </tr>" +
                                 "              <tr>" +
                                 "                <td>" +
@@ -754,9 +743,9 @@ namespace journey.Controllers
                                 "</br>*While stocks last." +
                                 "</br>*Valid for purchases at all R&R including food stalls and retail outlets except Tobacco & Fuel products." +
                                 "</br>*Redemption booths at Pagoh R&R north & south bound, Ayer Keroh R&R north bound, Tapah R&R north & south bound, Bukit Gantang R&R north bound.</em></p>" +
-                                "</td>" +
-                                "              </tr>" +
-                                "            </table></td>" +
+                                //"</td>" +
+                                //"              </tr>" +
+                                //"            </table></td>" +
                                 "          </tr>" +
                                 "        </table>" +
                                 "" +

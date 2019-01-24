@@ -131,6 +131,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\DriverListModel.cs" />
     <Compile Include="Models\DriverModel.cs" />
     <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,9 +157,11 @@
     <Content Include="images\banner3.jpg" />
     <Content Include="images\banner3.svg" />
     <Content Include="images\banner3crop.jpg" />
+    <Content Include="images\banner_CNY-01.jpg" />
     <Content Include="images\banner_CNY.jpg" />
     <Content Include="images\bnr_1024px_b.jpg" />
     <Content Include="images\bnr_1366px_c.jpg" />
+    <Content Include="images\bnr_1920px_c.jpg" />
     <Content Include="images\btnBack.png" />
     <Content Include="images\btnNext.png" />
     <Content Include="images\btnPlanNow.png" />
