@@ -588,7 +588,9 @@ namespace journey.Controllers
                         conn.Open(); // throws if invalid
                         using (SqlConnection con = new SqlConnection(constr))
                         {
-                            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime) VALUES (@Email, @From, @To, @Date, @Time)";
+                            DateTime dateTime = DateTime.UtcNow.Date;
+                            string Timestamp = dateTime.ToString("dd/MM/yyyy");
+                            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime, DateKeyIn) VALUES (@Email, @From, @To, @Date, @Time, @DateKeyIn)";
                             query += " SELECT SCOPE_IDENTITY()";
                             using (SqlCommand cmd = new SqlCommand(query))
                             {
@@ -600,6 +602,7 @@ namespace journey.Controllers
                                 cmd.Parameters.AddWithValue("@To", model.ToTextBox);
                                 cmd.Parameters.AddWithValue("@Date", model.DateSelected);
                                 cmd.Parameters.AddWithValue("@Time", model.Time);
+                                cmd.Parameters.AddWithValue("@DateKeyIn", Timestamp);
                                 cmd.ExecuteScalar();
                                 con.Close();
                             }
@@ -727,25 +730,25 @@ namespace journey.Controllers
                                 "</tr>" +
                                 "</tbody>" +
                                 "</table>" +
-                                //"<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
-                                //"          <tr><td><br /></td></tr> <tr>" +
-                                //"            <td width=\"100%\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td>" +
-                                //"            <td align=\"left\" valign=\"top\">" +
-                                "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
-                                "<tr><td><img src=\"https://journeyplus.azurewebsites.net/images/buah_tangan.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td><tr> " +
-                                "              <tr>" +
-                                "                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* 'Buah Tangan' Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
-                                "              </tr>" +
-                                "              <tr>" +
-                                "                <td>" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 10px; color: #FFFFFF; padding-left: 25px; margin-top: 10px; padding-right: 25px; padding-bottom:10px;\"><em>" +
-                                "*Redemption period: 31st Jan to 4th Feb 2019, 9am - 9pm" +
-                                "</br>*While stocks last." +
-                                "</br>*Valid for purchases at all R&R including food stalls and retail outlets except Tobacco & Fuel products." +
-                                "</br>*Redemption booths at Pagoh R&R north & south bound, Ayer Keroh R&R north bound, Tapah R&R north & south bound, Bukit Gantang R&R north bound.</em></p>" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
+                                "          <tr><td><br /></td></tr> <tr>" +
+                                "            <td width=\"100%\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buahtangan_bag.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td>" +
+                                "            <td align=\"left\" valign=\"top\">" +
+                                //"<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
+                                //"              <tr>" +
+                                //"                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* 'Buah Tangan' Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
+                                //"              </tr>" +
+                                //"              <tr>" +
+                                //"                <td>" +
+                                //"<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 10px; color: #FFFFFF; padding-left: 25px; margin-top: 10px; padding-right: 25px; padding-bottom:10px;\"><em>" +
+                                //"*Redemption period: 31st Jan to 4th Feb 2019, 9am - 9pm" +
+                                //"</br>*While stocks last." +
+                                //"</br>*Valid for purchases at all R&R including food stalls and retail outlets except Tobacco & Fuel products." +
+                                //"</br>*Redemption booths at Pagoh R&R north & south bound, Ayer Keroh R&R north bound, Tapah R&R north & south bound, Bukit Gantang R&R north bound.</em></p>" +
                                 //"</td>" +
                                 //"              </tr>" +
-                                //"            </table></td>" +
+                                //"            </table>" +
+                                " </td>" +
                                 "          </tr>" +
                                 "        </table>" +
                                 "" +

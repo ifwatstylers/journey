@@ -172,6 +172,7 @@
     <Content Include="images\btn_register.png" />
     <Content Include="images\btn_savethedate.jpg" />
     <Content Include="images\btn_setreminder.png" />
+    <Content Include="images\buahtangan_bag.png" />
     <Content Include="images\buah_tangan.png" />
     <Content Include="images\cny-1feb.jpg" />
     <Content Include="images\cny-1feb.png" />
@@ -200,6 +201,8 @@
     <Content Include="images\icn_restarea_b1.png" />
     <Content Include="images\icn_restarea_b2.png" />
     <Content Include="images\instagram.png" />
+    <Content Include="images\my_buah_tangan.jpg" />
+    <Content Include="images\promo_petron.jpg" />
     <Content Include="images\photo_1_rsa.jpg" />
     <Content Include="images\photo_2_rsa.jpg" />
     <Content Include="images\photo_3_rsa.jpg" />
