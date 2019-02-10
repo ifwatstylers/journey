@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FestiveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="LocFrom" Type="varchar" MaxLength="255" />
+    <Property Name="LocTo" Type="varchar" MaxLength="255" />
+    <Property Name="DepartDate" Type="varchar" MaxLength="255" />
+    <Property Name="DepartTime" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="DRIVER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="255" />
+    <Property Name="LOCFROM" Type="varchar" MaxLength="255" />
+    <Property Name="LOCTO" Type="varchar" MaxLength="255" />
+    <Property Name="DEPARTDATE" Type="varchar" MaxLength="255" />
+    <Property Name="DEPARTTIME" Type="varchar" MaxLength="255" />
+    <Property Name="DateKeyIn" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="POI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RSA_Name" Type="varchar" MaxLength="255" />
+    <Property Name="RSA_Type" Type="varchar" MaxLength="255" />
+    <Property Name="Country_Code" Type="int" />
+    <Property Name="RSA_Status" Type="varchar" MaxLength="255" />
+    <Property Name="Cluster_Code" Type="int" />
+  </EntityType>
+  <EntityType Name="POI2">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="GROUP_ID" Type="int" />
+    <Property Name="PLACE_NAME" Type="varchar" MaxLength="255" />
+    <Property Name="PLACE_CAT" Type="varchar" MaxLength="255" />
+    <Property Name="PLACE_STATE" Type="varchar" MaxLength="255" />
+    <Property Name="image_url" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'FestiveDB.dbo.STUDENTS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="STUDENTS">
+          <Property Name="FIRSTNAME" Type="varchar" MaxLength="255" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="255" />
+          <Property Name="CLASS" Type="varchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'FestiveDB.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="FestiveDBModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DRIVER" EntityType="Self.DRIVER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="POI" EntityType="Self.POI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="POI2" EntityType="Self.POI2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+      <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

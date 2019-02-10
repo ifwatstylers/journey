@@ -78,3 +78,7 @@ D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\jou
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\obj\Release\journey.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\obj\Release\journey.pdb
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\obj\Release\journey.csprojAssemblyReference.cache
+D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.dll
+D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.SqlServer.dll
+D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.xml
+D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.SqlServer.xml

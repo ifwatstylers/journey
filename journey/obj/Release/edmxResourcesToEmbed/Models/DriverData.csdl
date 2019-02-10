@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FestiveDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LocFrom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LocTo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DepartDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DepartTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DRIVER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LOCFROM" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LOCTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DEPARTDATE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DEPARTTIME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DateKeyIn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="POI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RSA_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RSA_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Country_Code" Type="Int32" />
+    <Property Name="RSA_Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Cluster_Code" Type="Int32" />
+  </EntityType>
+  <EntityType Name="POI2">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="GROUP_ID" Type="Int32" />
+    <Property Name="PLACE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PLACE_CAT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PLACE_STATE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="image_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="FestiveDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="DRIVERs" EntityType="Self.DRIVER" />
+    <EntitySet Name="POIs" EntityType="Self.POI" />
+    <EntitySet Name="POI2" EntityType="Self.POI2" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+  </EntityContainer>
+</Schema>

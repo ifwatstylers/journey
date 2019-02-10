@@ -1,20 +1,21 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*@model List<DriverListModel>
+@model journey.Models.DriverListModel
 
 <h1>Student</h1>
 
 <table>
-    <tr>
-        <th>ID</th>
-        <th>Email</th>
-    </tr>
-    @foreach (var student in Model)
+    @foreach (var driver in Model.DriverID.ToString())
     {
         <tr>
-            <td>@student.ID</td>
-            <td>@student.Email</td>
+            <td>@driver.ToString()</td>
         </tr>
     }
-</table>*@
+    @foreach (var driver in Model.Email.ToString())
+    {
+        <tr>
+            <td>@driver.ToString()</td>
+        </tr>
+    }
+</table>

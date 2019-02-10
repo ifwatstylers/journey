@@ -4,6 +4,17 @@
 }
 
 <head>
+    <!-- IFWAT Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133656386-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-133656386-1');
+    </script>
+
+
     <meta charset="utf-8">
     @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -180,7 +191,7 @@
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -228,8 +239,8 @@
                     <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
                         Period<br />
                         @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
-                               { new SelectListItem{Text="Before the Chinese New Year", Value="PRECNY"},
-                                 new SelectListItem{Text="After the Chinese New Year", Value="POSTCNY"}},
+                               { new SelectListItem{Text="After the Chinese New Year", Value="POSTCNY"},
+                                 new SelectListItem{Text="Before the Chinese New Year", Value="PRECNY"}},
                            new { @class = "form-control selectpicker",
                                @id = "jsTypeJourney",
                                style = "width: 100%;"
@@ -421,7 +432,7 @@
 
                     <label>
                         @*<input type="radio" name="test" value="big2">*@
-                        @Html.RadioButton("DateSelected", "2 Feb", true, new { id = "radDateSelect" })
+                        @Html.RadioButton("DateSelected", "2 Feb", new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg" style="max-width:300px">
                     </label>
 
@@ -447,7 +458,7 @@
 
                     <label>
                         @*<input type="radio" name="test" value="big4">*@
-                        @Html.RadioButton("DateSelected", "9 Feb", new { id = "radDateSelect" })
+                        @Html.RadioButton("DateSelected", "9 Feb", true, new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg" style="max-width:300px">
                     </label>
 
@@ -594,6 +605,8 @@
                 <br />
                 <br />
                 <h4><b>Special Promotions at R&amp;R</b></h4>
+                <img src="~/images/CNYDealPLUS.jpg" width="100%" />
+                <br /><br />
                 <img src="~/images/promo_petron.jpg" width="100%" />
                 <br /><br />
                 <img src="~/images/promoDunkinDonut.jpg" width="100%" />

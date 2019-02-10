@@ -35,7 +35,7 @@ namespace journey.Controllers
         //{
 
         //    #region LOAD TOL INTO DROPDOWNLIST
-            
+
         //    String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         //    String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
@@ -62,25 +62,26 @@ namespace journey.Controllers
         //    }
         //    customer.ListTolFromTo = model3;
 
-            
+
         //    #endregion
 
-            
-        //    #region load RSA here
+
+        #region load RSA here
         //    if (customer.From != null) 
         //    {
-                
 
-        //        String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+
 
         //        String sqlForPlaceIDFrom = "select * from poi2 where PLACE_NAME = '" + customer.From + "' and PLACE_CAT = 'tp'";
         //        String sqlForPlaceIDTo = "select * from poi2 where PLACE_NAME = '" + customer.To + "' and PLACE_CAT = 'tp'";
-                
+
         //        string idFrom;
         //        string idto;
         //        string idFromGroup;
         //        string idtoGroup;
 
+        //        String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         //        SqlConnection connCheckIDFrom = new SqlConnection(connectionString);
         //        SqlCommand cmdCheckIDfrom = new SqlCommand(sqlForPlaceIDFrom, connCheckIDFrom);
         //        using (connCheckIDFrom)
@@ -116,30 +117,30 @@ namespace journey.Controllers
         //        int DriverFROM = customer.DriverFROM;
         //        int DriverTO = customer.DriverTO;
 
-        //        #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
+                #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
         //        int DriverFROMforGroup = customer.DriverFROMGroudID;
         //        int DriverTOforGroup = customer.DriverTOGroupID;
 
         //        int ansForClusterDiff = DriverFROMforGroup - DriverTOforGroup;
         //        if (ansForClusterDiff == 1 || ansForClusterDiff == -1)
         //        {
-                    
+
         //            customer.Time = "7:00pm";
         //            ViewBag.displayTimeText = " After 7:00pm";
         //        }
         //        else if (ansForClusterDiff == 2 || ansForClusterDiff == -2)
         //        {
-                    
+
         //            customer.Time = "12:00pm";
         //            ViewBag.displayTimeText = "After 12:00pm";
         //        }
         //        else if (ansForClusterDiff >= 3 || ansForClusterDiff <= -3)
         //        {
-                    
+
         //            customer.Time = "7:00am";
         //            ViewBag.displayTimeText = "Before 7:00am";
         //        }
-        //        #endregion
+        #endregion
 
         //        String sql;
         //        if (DriverFROM < DriverTO)
@@ -169,7 +170,7 @@ namespace journey.Controllers
         //            while (rdr.Read())
         //            {
         //                var customer2 = new Student();
-                        
+
         //                customer2.FirstName = rdr["image_url"].ToString();
         //                customer2.LastName = rdr["PLACE_NAME"].ToString();
 
@@ -186,7 +187,7 @@ namespace journey.Controllers
         //        customer.ListRSAName = modelForNameRSa;
         //    }
 
-        //    #endregion end load RSA here
+            #endregion end load RSA here
 
         //    string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -229,7 +230,7 @@ namespace journey.Controllers
 
         //    }
 
-            
+
         //    if (customer.From != null) 
         //    {
         //        IndexAsync(customer);
@@ -382,6 +383,11 @@ namespace journey.Controllers
             return View();
         }
 
+        public PartialViewResult Home()
+        {
+            return PartialView("~/Admin/home.cshtml");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -389,31 +395,36 @@ namespace journey.Controllers
             return View();
         }
 
-        public ActionResult DriverList(DriverModel model)
+        public ActionResult DriverList(DriverListModel model)
         {
             ViewBag.Message = "Database Result";
-            
+
             String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        
+
             String sql = "SELECT * FROM Driver";
             SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             var model2 = new List<DriverListModel>();
             using (conn = new SqlConnection(connectionString))
             {
-                conn.Open();
+                
                 SqlDataReader rdr = cmd.ExecuteReader();
+                var pemandu = model.Email.ToList();
                 while (rdr.Read())
                 {
-                    var pemandu = new DriverListModel();
-                    pemandu.DriverID = rdr["id"].ToString();
-                    pemandu.Email = rdr["email"].ToString();
+                    
+                    //pemandu = rdr["id"].ToString();
+                    //pemandu.Email = rdr["email"].ToString();
 
-            model2.Add(pemandu);
+                    //model2.Add(pemandu);
                 }
-
             }
+            //model = model2;
+            //var entities = new DRIVER();
+
+            //return View(entities);
 
             return View(model);
         }
