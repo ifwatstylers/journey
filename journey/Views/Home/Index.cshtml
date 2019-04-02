@@ -108,8 +108,8 @@
 
 
                 var JourneyDateToDisplay = document.forms['ifwatForm'].jsTypeJourney.value;
-                if (JourneyDateToDisplay == "PRECNY") { $("#preDateList").show(); $("#postDateList").hide(); }
-                else if (JourneyDateToDisplay == "POSTCNY") { $("#preDateList").hide(); $("#postDateList").show(); }
+                if (JourneyDateToDisplay == "PRERAYA") { $("#preDateList").show(); $("#postDateList").hide(); }
+                else if (JourneyDateToDisplay == "POSTRAYA") { $("#preDateList").hide(); $("#postDateList").show(); }
 
 
                 if (jsfrom == null || jsfrom == "" || jsto == null || jsto == "") {
@@ -211,7 +211,7 @@
 </head>
 <body>
     <div class="center-cropped">
-        <img src="~/images/banner_CNY-01.jpg" alt="" />
+        <img src="~/images/PLUS Raya Banner.png" alt="" />
     </div>
     @*<img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-fluid" style="width:100%" />*@
 
@@ -222,7 +222,7 @@
         <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
             <div class="container">
                 <h2 style=" color: #d0021b; margin-left:10px; margin-right:10px;">
-                    <b>Smoother Journey with PLUS  Festive Travel Planner this Chinese New Year!</b>
+                    <b>Smoother Journey with PLUS  Festive Travel Planner this Hari Raya!</b>
                 </h2>
                 <br />
                 <div class="row">
@@ -239,8 +239,8 @@
                     <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
                         Period<br />
                         @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
-                               { new SelectListItem{Text="After the Chinese New Year", Value="POSTCNY"},
-                                 new SelectListItem{Text="Before the Chinese New Year", Value="PRECNY"}},
+                               { new SelectListItem{Text="Before Raya", Value="PRERAYA"},
+                                 new SelectListItem{Text="After Raya", Value="POSTRAYA"}},
                            new { @class = "form-control selectpicker",
                                @id = "jsTypeJourney",
                                style = "width: 100%;"
@@ -419,13 +419,11 @@
 
                 <div class="cc-selector" id="preDateList" style="display:none;">
                     <label>
-                        @*<input type="radio" name="test" value="small">*@
                         @Html.RadioButton("DateSelected", "31 Jan", new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-31jan.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @*<input type="radio" name="test" value="big">*@
                         @Html.RadioButton("DateSelected", "1 Feb", new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-1feb.jpg" style="max-width:300px">
                     </label>
@@ -436,50 +434,62 @@
                         <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg" style="max-width:300px">
                     </label>
 
-                    @*<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />*@
-                    @*<label class="drinkcard-cc visa" for="visa">@Html.RadioButton("DateSelected", "31 Jan", new { id = "radDateSelect" })</label>*@
-                    @*<input id="mastercard" type="radio" name="credit-card" value="mastercard" />*@
-                    @*<label class="drinkcard-cc mastercard" for="1hb">@Html.RadioButton("DateSelected", "1 Feb", new { id = "radDateSelect" })</label>*@
-                    @*<input id="visa" type="radio" name="credit-card" value="mastercard2" />*@
-                    @*<label class="drinkcard-cc mastercard2" for="2hb">@Html.RadioButton("DateSelected", "2 Feb", true, new { id = "radDateSelect" })</label>*@
+                    <label>
+                        @Html.RadioButton("DateSelected", "31 Jan", new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-31jan.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "1 Feb", new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-1feb.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @*<input type="radio" name="test" value="big2">*@
+                        @Html.RadioButton("DateSelected", "2 Feb", new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg" style="max-width:300px">
+                    </label>
                 </div>
                 <div class="cc-selector" id="postDateList" style="display:none;">
                     <label>
-                        @*<input type="radio" name="test" value="small2" checked>*@
                         @Html.RadioButton("DateSelected", "7 Feb", new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-7feb.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @*<input type="radio" name="test" value="big3">*@
                         @Html.RadioButton("DateSelected", "8 Feb", new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-8feb.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @*<input type="radio" name="test" value="big4">*@
                         @Html.RadioButton("DateSelected", "9 Feb", true, new { id = "radDateSelect" })
                         <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg" style="max-width:300px">
                     </label>
 
-                    @*<input checked="checked" id="visapost" type="radio" name="credit-card" value="visapost" />*@
-                    @*<label class="drinkcard-cc visapost" for="visapost">@Html.RadioButton("DateSelected", "7 Feb", new { id = "radDateSelect" })</label>*@
-                    @*<input id="mastercardpost" type="radio" name="credit-card" value="mastercardpost" />*@
-                    @*<label class="drinkcard-cc mastercard" for="mastercardpost">@Html.RadioButton("DateSelected", "8 Feb", new { id = "radDateSelect" })</label>*@
-                    @*<input id="mastercard2post" type="radio" name="credit-card" value="mastercard2post" />*@
-                    @*<label class="drinkcard-cc mastercard2post" for="mastercard2post">@Html.RadioButton("DateSelected", "9 Feb", new { id = "radDateSelect" })</label>*@
+                    <label>
+                        @Html.RadioButton("DateSelected", "7 Feb", new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-7feb.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "8 Feb", new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-8feb.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "9 Feb", true, new { id = "radDateSelect" })
+                        <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg" style="max-width:300px">
+                    </label>
+
                 </div>
                 <br />
 
                 <h4 style="text-align:center;">Recommended departure time</h4>
-                @* THIS IS TIME FROM BACKEND
-                    <h2>@Html.LabelFor(m => m.Time, (string)@ViewBag.displayTimeText)</h2>*@
                 <h2>@Html.LabelFor(m => m.Time, new { id = "LabelTime" }) </h2>
                 <div id="THIS-IS-FOR-GET-TIME-VALUE-FROM-LABEL" style="display:none;">
                     @Html.TextBoxFor(m => m.Time)
                     @Html.TextBoxFor(m => m.FromTextBox)
                     @Html.TextBoxFor(m => m.ToTextBox)
-                    @*@Html.TextBoxFor(m => m.DateSelected)*@
                 </div>
                 <br />
             </div>
@@ -494,8 +504,7 @@
             </div>
             <div class="col-md-3">
                 <input type="submit" name="answer" value="SET REMINDER " class="btn btn-success" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ style="width:67%;" />
-                @*<img src="~/images/btnBack.png" id="backBtnClick" style="width:30%; max-width:150px;" />*@
-                @*<input type="button" value="BACK " class="btn btn-success" id="backBtnClick" style="width:30%;" />*@
+              
                 <input type="button" value="BACK " class="btn btn-success" onclick="backoperation()" style="width:30%;" />
 
                 <script>
@@ -601,9 +610,11 @@
                     </div>
                 </div>
                 <br />
-                <img src="~/images/buahtangan_bag.png" width="100%" />
+                <!--BUAH TANGAN IMAGE-->
+                @*<img src="~/images/buahtangan_bag.png" width="100%" />*@
                 <br />
                 <br />
+                <!--SPECIAL PROMOTION BANNER-->
                 <h4><b>Special Promotions at R&amp;R</b></h4>
                 <img src="~/images/CNYDealPLUS.jpg" width="100%" />
                 <br /><br />

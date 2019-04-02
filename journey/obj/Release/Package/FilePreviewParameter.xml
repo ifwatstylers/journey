@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="journeyPLUS" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Users\\ifwat\.ibrahim\\Documents\\OneDrive\ -\ UEM\ Group\ Berhad\\VS\ 2017\\journey\\journey\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^D:\\Users\\ifwat\.ibrahim\\Documents\\OneDrive\ -\ UEM\ Group\ Berhad\\VS\ 2017\\journey\\journey\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="FestiveDBEntities-Web.config Connection String" description="" value="metadata=res://*/Models.DriverData.csdl|res://*/Models.DriverData.ssdl|res://*/Models.DriverData.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=festive.database.windows.net;initial catalog=FestiveDB_staging;user id=admin_festive;password=P@55w0rd2018;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="D:\\Users\\ifwat\.ibrahim\\Documents\\OneDrive\ -\ UEM\ Group\ Berhad\\VS\ 2017\\journey\\journey\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='FestiveDBEntities']/@connectionString" />
+  </parameter>
+</parameters>

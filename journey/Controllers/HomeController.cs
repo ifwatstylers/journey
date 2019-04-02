@@ -383,6 +383,11 @@ namespace journey.Controllers
             return View();
         }
 
+        public ActionResult StayTune()
+        {
+            return View();
+        }
+
         public PartialViewResult Home()
         {
             return PartialView("~/Admin/home.cshtml");
@@ -399,7 +404,7 @@ namespace journey.Controllers
         {
             ViewBag.Message = "Database Result";
 
-            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             String sql = "SELECT * FROM Driver";
             SqlConnection conn = new SqlConnection(connectionString);
@@ -458,7 +463,7 @@ namespace journey.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "New Home Page";
+            ViewBag.Message = "Home Page";
 
             return View();
         }
@@ -591,7 +596,7 @@ namespace journey.Controllers
             if (model.Email != null)
             {
                 #region Save Driver Info to Database
-                string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
                 using (SqlConnection conn = new SqlConnection(constr))
                 {
                     try
@@ -601,7 +606,7 @@ namespace journey.Controllers
                         {
                             DateTime dateTime = DateTime.UtcNow.Date;
                             string Timestamp = dateTime.ToString("dd/MM/yyyy");
-                            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime, DateKeyIn) VALUES (@Email, @From, @To, @Date, @Time, @DateKeyIn)";
+                            string query = "INSERT INTO Driver (Email, LocFrom, LocTo, DepartDate, DepartTime, DateKeyIn, FESTIVE) VALUES (@Email, @From, @To, @Date, @Time, @DateKeyIn, 'RAYA2019')";
                             query += " SELECT SCOPE_IDENTITY()";
                             using (SqlCommand cmd = new SqlCommand(query))
                             {
@@ -635,7 +640,7 @@ namespace journey.Controllers
                     var message = new MailMessage();
                     message.To.Add(new MailAddress(model.Email));  // replace with valid value 
                     message.From = new MailAddress("plusmiles@plus.uemnet.com");  // replace with valid value
-                    message.Subject = "Thank you for planning your Chinese New Year trip with PLUS";
+                    message.Subject = "Thank you for planning your Raya trip with PLUS";
                     message.Body = string.Format(body, model.From, model.Email, model.lblFromTo);
                     message.IsBodyHtml = true;
 

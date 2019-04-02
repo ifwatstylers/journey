@@ -89,15 +89,17 @@ chart.render();
 
 </head>
 <body>
-    <asp:Label ID="lbl31JanDriver" runat="server" Visible="False"></asp:Label>
     <div class="container" runat="server"> 
     <form id="form1" runat="server">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
             </div>
-            <div class="col-md-6">
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
                 <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
                 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
             </div>
@@ -166,7 +168,9 @@ chart.render();
        </asp:GridView>
              </div>
              <div class="col-md-6" runat="server">
-            <h2>Subscribers Email List</h2>
+            <h2>Subscribers Email List -
+                <asp:LinkButton ID="lnkbtnExCSV" runat="server" OnClick="lnkbtnExCSV_Click">Export to CSV</asp:LinkButton>
+                 </h2>
                     
         <asp:GridView ID="GridView1" runat="server" BackColor="White" 
               BorderColor="#3366CC" BorderStyle="None" 

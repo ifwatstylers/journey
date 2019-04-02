@@ -76,7 +76,6 @@ D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\jou
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.SqlServer.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.xml
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\EntityFramework.SqlServer.xml
-D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\obj\Debug\journey.csprojAssemblyReference.cache
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\roslyn\Microsoft.Win32.Primitives.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\roslyn\System.Globalization.Calendars.dll
@@ -86,3 +85,4 @@ D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\jou
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\roslyn\System.Threading.Tasks.Extensions.dll
 D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\bin\Newtonsoft.Json.pdb
+D:\Users\ifwat.ibrahim\Documents\OneDrive - UEM Group Berhad\VS 2017\journey\journey\obj\Debug\journey.csprojAssemblyReference.cache

@@ -283,12 +283,14 @@
     <Content Include="images\famousamos.png" />
     <Content Include="images\festive_planner_banner.png" />
     <Content Include="images\footer_bar.jpg" />
+    <Content Include="images\highway_view.jpg" />
     <Content Include="images\icn_restarea_a1.png" />
     <Content Include="images\icn_restarea_a2.png" />
     <Content Include="images\icn_restarea_b1.png" />
     <Content Include="images\icn_restarea_b2.png" />
     <Content Include="images\instagram.png" />
     <Content Include="images\my_buah_tangan.jpg" />
+    <Content Include="images\PLUS Raya Banner.png" />
     <Content Include="images\promo_petron.jpg" />
     <Content Include="images\photo_1_rsa.jpg" />
     <Content Include="images\photo_2_rsa.jpg" />
@@ -454,7 +456,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DriverList.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Home\IndexLama.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -464,6 +465,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\UCIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
