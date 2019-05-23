@@ -2,7 +2,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <head>
     <!-- IFWAT Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133656386-1"></script>
@@ -20,9 +19,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 
     <style type="text/css">
+        .btn {
+            display: block;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
         div.center-cropped {
             min-width: 250px;
-            min-height: 70%;
+            min-height: 60%;
             overflow: hidden;
         }
 
@@ -108,8 +145,8 @@
 
 
                 var JourneyDateToDisplay = document.forms['ifwatForm'].jsTypeJourney.value;
-                if (JourneyDateToDisplay == "PRECNY") { $("#preDateList").show(); $("#postDateList").hide(); }
-                else if (JourneyDateToDisplay == "POSTCNY") { $("#preDateList").hide(); $("#postDateList").show(); }
+                if (JourneyDateToDisplay == "PRERAYA") { $("#preDateList").show(); $("#postDateList").hide(); }
+                else if (JourneyDateToDisplay == "POSTRAYA") { $("#preDateList").hide(); $("#postDateList").show(); }
 
 
                 if (jsfrom == null || jsfrom == "" || jsto == null || jsto == "") {
@@ -120,23 +157,18 @@
                     $("#MainDiv").hide();
                     $("#SecondDiv").show();
                     $("#SecondDivPointOne").show();
-                    $("#ThirdDiv").show();
+                    $("#ThirdDiv").hide();
                     $("#ThankYouDiv").hide();
                 }
             });
             $("#backBtnClick").click(function () {
-                //$("#MainDiv").show();
-                //$("#SecondDiv").hide();
-                //$("#SecondDivPointOne").hide();
-                //$("#ThirdDiv").hide();
-                //$("#ThankYouDiv").hide();
                 $("#MainDiv").load('@Url.Action("Index")');
             });
             $("#hideAgain").click(function () {
                 $("#MainDiv").hide();
                 $("#SecondDiv").hide();
                 $("#SecondDivPointOne").hide();
-                $("#ThirdDiv").show();
+                $("#ThirdDiv").hide();
                 $("#ThankYouDiv").hide();
             });
             $("#show").click(function () {
@@ -149,7 +181,15 @@
 
                 var checkEmail = document.forms['ifwatForm'].jsEmail.value;
                 var checkTime = document.forms['ifwatForm'].Time.value;
+                //var test = document.forms['ifwatForm'].radDateSelect.value;
 
+                //var checkDateSelection = document.getElementById('DateSelected').value;
+
+                //if (checkDateSelection == "DateNotSelect") {
+                //    alert("Please select your prefer date - " + checkDateSelection)
+                //    return (false)
+                //}
+                
 
                 if (/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(checkEmail))
                   {
@@ -211,7 +251,7 @@
 </head>
 <body>
     <div class="center-cropped">
-        <img src="~/images/PLUS Raya Banner.png" alt="" />
+        <img src="~/images/RayaBanner.jpg" alt="" />
     </div>
     @*<img src="~/images/banner_CNY.jpg" alt="ASP.NET" class="img-fluid" style="width:100%" />*@
 
@@ -221,192 +261,192 @@
 
         <div class="row" id="MainDiv" style="background-color:white; text-align:center;">
             <div class="container">
-                <h2 style=" color: #d0021b; margin-left:10px; margin-right:10px;">
+                <h2 style="color: #006738; margin-left:10px; margin-right:10px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important; font-size: 30px;">
                     <b>Smoother Journey with PLUS  Festive Travel Planner this Hari Raya!</b>
                 </h2>
                 <br />
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <h4 style="text-align: center; color:#9b9b9b">
+                        <h4 style="text-align: center; color:#9b9b9b; font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important; font-size: 18px;">
                             Select your departure and arrival destination to plan your best time to travel:-
                         </h4>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
                 <br />
-                <div class="col-md-3">
-                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
-                        Period<br />
-                        @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
-                               { new SelectListItem{Text="Before Raya", Value="PRERAYA"},
-                                 new SelectListItem{Text="After Raya", Value="POSTRAYA"}},
-                           new { @class = "form-control selectpicker",
-                               @id = "jsTypeJourney",
-                               style = "width: 100%;"
-                           })
-                    </h4>
-                </div>
-                <div class="col-md-3">
-                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
-                        From
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 style="text-align:left; color:#0033A1; margin-bottom:5px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;">
+                            Period<br />
+                            @Html.DropDownListFor(m => m.Period, new List<SelectListItem>
+                                   { new SelectListItem{Text="Before Raya", Value="PRERAYA"},
+                                     new SelectListItem{Text="After Raya", Value="POSTRAYA"}},
+                               new { @class = "form-control",
+                                   @id = "jsTypeJourney"
+                               })
+                        </h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 style="text-align:left; color:#0033A1; margin-bottom:5px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;">
+                            From
+                            <br />
+                            @Html.DropDownListFor(m => m.From, new List<SelectListItem>
+                     {      /*new SelectListItem{Text="Please Select", Value="0", Selected=true},*/
+                           new SelectListItem{Text="Kuala Lumpur", Value="4"},
+                            new SelectListItem{Text="Alor Gajah", Value="2"},
+                            new SelectListItem{Text="Alor Setar", Value="8"},
+                            new SelectListItem{Text="Ayer Hitam ", Value="1"},
+                            new SelectListItem{Text="Ayer Keroh", Value="2"},
+                            new SelectListItem{Text="Bandar Saujana Putra", Value="4"},
+                            new SelectListItem{Text="Bangi", Value="4"},
+                            new SelectListItem{Text="Behrang", Value="5"},
+                            new SelectListItem{Text="Bidor", Value="5"},
+                            new SelectListItem{Text="Bagan Serai", Value="7"},
+                            new SelectListItem{Text="Butterworth", Value="7"},
+                            new SelectListItem{Text="Bukit Beruntung", Value="5"},
+                            new SelectListItem{Text="Bukit Merah", Value="7"},
+                            new SelectListItem{Text="Bukit Mertajam", Value="7"},
+                            new SelectListItem{Text="Klang (Bukit Raja)", Value="4"},
+                            new SelectListItem{Text="Bukit Tagar", Value="5"},
+                            new SelectListItem{Text="Changkat Jering", Value="6"},
+                            new SelectListItem{Text="Damansara", Value="4"},
+                            new SelectListItem{Text="Dengkil (Bandar Serenia)", Value="4"},
+                            new SelectListItem{Text="Gopeng", Value="6"},
+                            new SelectListItem{Text="Gurun", Value="8"},
+                            new SelectListItem{Text="Ipoh", Value="6"},
+                            new SelectListItem{Text="Jasin", Value="2"},
+                            new SelectListItem{Text="Juru", Value="7"},
+                            new SelectListItem{Text="Jitra", Value="8"},
+                            new SelectListItem{Text="Johor Bahru", Value="1"},
+                            new SelectListItem{Text="Kajang", Value="4"},
+                            new SelectListItem{Text="Kepala Batas", Value="8"},
+                            new SelectListItem{Text="KLIA", Value="4"},
+                            new SelectListItem{Text="Kota Damansara", Value="4"},
+                            new SelectListItem{Text="Kulai", Value="1"},
+                            new SelectListItem{Text="Kuala Kubu Baru (Lembah Beringin)", Value="5"},
+                            new SelectListItem{Text="Machap", Value="1"},
+                            new SelectListItem{Text="Muar (Bukit Gambir)", Value="1"},
+                            new SelectListItem{Text="Nibong Tebal", Value="7"},
+                            new SelectListItem{Text="Nilai", Value="3"},
+                            new SelectListItem{Text="Pagoh", Value="1"},
+                            new SelectListItem{Text="Parit Buntar", Value="7"},
+                            new SelectListItem{Text="Pedas Linggi", Value="2"},
+                            new SelectListItem{Text="Penang", Value="7"},
+                            new SelectListItem{Text="Pendang", Value="8"},
+                            new SelectListItem{Text="Putrajaya", Value="4"},
+                            new SelectListItem{Text="Putra Heights/USJ", Value="4"},
+                            new SelectListItem{Text="Putra Mahkota", Value="4"},
+                            new SelectListItem{Text="Port Dickson", Value="3"},
+                            new SelectListItem{Text="Rawang", Value="4"},
+                            new SelectListItem{Text="Seberang Prai ", Value="7"},
+                            new SelectListItem{Text="Senawang", Value="3"},
+                            new SelectListItem{Text="Serdang", Value="4"},
+                            new SelectListItem{Text="Seremban", Value="3"},
+                            new SelectListItem{Text="Serendah (Sungai Buaya) ", Value="5"},
+                            new SelectListItem{Text="Setia Alam", Value="4"},
+                            new SelectListItem{Text="Shah Alam", Value="4"},
+                            new SelectListItem{Text="Simpang Pulai", Value="6"},
+                            new SelectListItem{Text="Simpang Renggam", Value="1"},
+                            new SelectListItem{Text="Skudai", Value="1"},
+                            new SelectListItem{Text="Slim River", Value="5"},
+                            new SelectListItem{Text="Subang", Value="4"},
+                            new SelectListItem{Text="Sungai Buloh", Value="4"},
+                            new SelectListItem{Text="Sungai Petani", Value="8"},
+                            new SelectListItem{Text="Sungkai", Value="5"},
+                            new SelectListItem{Text="Taiping", Value="6"},
+                            new SelectListItem{Text="Tangkak", Value="1"},
+                            new SelectListItem{Text="Tanjung Malim", Value="5"},
+                            new SelectListItem{Text="Tapah", Value="6"}},
+                "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom"
+                })
+                        </h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 style="text-align:left; color:#0033A1; margin-bottom:5px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;">
+                            To<br />
+                            @Html.DropDownListFor(m => m.To, new List<SelectListItem>
+                          {
+                           //new SelectListItem{Text="Please Select", Value="0", Selected=true},
+                           new SelectListItem{Text="Kuala Lumpur", Value="4"},
+                            new SelectListItem{Text="Alor Gajah", Value="2"},
+                            new SelectListItem{Text="Alor Setar", Value="8"},
+                            new SelectListItem{Text="Ayer Hitam ", Value="1"},
+                            new SelectListItem{Text="Ayer Keroh", Value="2"},
+                            new SelectListItem{Text="Bandar Saujana Putra", Value="4"},
+                            new SelectListItem{Text="Bangi", Value="4"},
+                            new SelectListItem{Text="Behrang", Value="5"},
+                            new SelectListItem{Text="Bidor", Value="5"},
+                            new SelectListItem{Text="Bagan Serai", Value="7"},
+                            new SelectListItem{Text="Butterworth", Value="7"},
+                            new SelectListItem{Text="Bukit Beruntung", Value="5"},
+                            new SelectListItem{Text="Bukit Merah", Value="7"},
+                            new SelectListItem{Text="Bukit Mertajam", Value="7"},
+                            new SelectListItem{Text="Klang (Bukit Raja)", Value="4"},
+                            new SelectListItem{Text="Bukit Tagar", Value="5"},
+                            new SelectListItem{Text="Changkat Jering", Value="6"},
+                            new SelectListItem{Text="Damansara", Value="4"},
+                            new SelectListItem{Text="Dengkil (Bandar Serenia)", Value="4"},
+                            new SelectListItem{Text="Gopeng", Value="6"},
+                            new SelectListItem{Text="Gurun", Value="8"},
+                            new SelectListItem{Text="Ipoh", Value="6"},
+                            new SelectListItem{Text="Jasin", Value="2"},
+                            new SelectListItem{Text="Juru", Value="7"},
+                            new SelectListItem{Text="Jitra", Value="8"},
+                            new SelectListItem{Text="Johor Bahru", Value="1"},
+                            new SelectListItem{Text="Kajang", Value="4"},
+                            new SelectListItem{Text="Kepala Batas", Value="8"},
+                            new SelectListItem{Text="KLIA", Value="4"},
+                            new SelectListItem{Text="Kota Damansara", Value="4"},
+                            new SelectListItem{Text="Kulai", Value="1"},
+                            new SelectListItem{Text="Kuala Kubu Baru (Lembah Beringin)", Value="5"},
+                            new SelectListItem{Text="Machap", Value="1"},
+                            new SelectListItem{Text="Muar (Bukit Gambir)", Value="1"},
+                            new SelectListItem{Text="Nibong Tebal", Value="7"},
+                            new SelectListItem{Text="Nilai", Value="3"},
+                            new SelectListItem{Text="Pagoh", Value="1"},
+                            new SelectListItem{Text="Parit Buntar", Value="7"},
+                            new SelectListItem{Text="Pedas Linggi", Value="2"},
+                            new SelectListItem{Text="Penang", Value="7"},
+                            new SelectListItem{Text="Pendang", Value="8"},
+                            new SelectListItem{Text="Putrajaya", Value="4"},
+                            new SelectListItem{Text="Putra Heights/USJ", Value="4"},
+                            new SelectListItem{Text="Putra Mahkota", Value="4"},
+                            new SelectListItem{Text="Port Dickson", Value="3"},
+                            new SelectListItem{Text="Rawang", Value="4"},
+                            new SelectListItem{Text="Seberang Prai ", Value="7"},
+                            new SelectListItem{Text="Senawang", Value="3"},
+                            new SelectListItem{Text="Serdang", Value="4"},
+                            new SelectListItem{Text="Seremban", Value="3"},
+                            new SelectListItem{Text="Serendah (Sungai Buaya) ", Value="5"},
+                            new SelectListItem{Text="Setia Alam", Value="4"},
+                            new SelectListItem{Text="Shah Alam", Value="4"},
+                            new SelectListItem{Text="Simpang Pulai", Value="6"},
+                            new SelectListItem{Text="Simpang Renggam", Value="1"},
+                            new SelectListItem{Text="Skudai", Value="1"},
+                            new SelectListItem{Text="Slim River", Value="5"},
+                            new SelectListItem{Text="Subang", Value="4"},
+                            new SelectListItem{Text="Sungai Buloh", Value="4"},
+                            new SelectListItem{Text="Sungai Petani", Value="8"},
+                            new SelectListItem{Text="Sungkai", Value="5"},
+                            new SelectListItem{Text="Taiping", Value="6"},
+                            new SelectListItem{Text="Tangkak", Value="1"},
+                            new SelectListItem{Text="Tanjung Malim", Value="5"},
+                            new SelectListItem{Text="Tapah", Value="6"}},
+                 "Please Select", new
+                 {
+                     @class = "form-control input-md",
+                     @id = "jsTo"
+                 })
+                        </h4>
+                    </div>
+                    <div class="col-md-2">
                         <br />
-                        @Html.DropDownListFor(m => m.From, new List<SelectListItem>
-                 {      /*new SelectListItem{Text="Please Select", Value="0", Selected=true},*/
-                       new SelectListItem{Text="Kuala Lumpur", Value="4"},
-                        new SelectListItem{Text="Alor Gajah", Value="2"},
-                        new SelectListItem{Text="Alor Setar", Value="8"},
-                        new SelectListItem{Text="Ayer Hitam ", Value="1"},
-                        new SelectListItem{Text="Ayer Keroh", Value="2"},
-                        new SelectListItem{Text="Bandar Saujana Putra", Value="4"},
-                        new SelectListItem{Text="Bangi", Value="4"},
-                        new SelectListItem{Text="Behrang", Value="5"},
-                        new SelectListItem{Text="Bidor", Value="5"},
-                        new SelectListItem{Text="Bagan Serai", Value="7"},
-                        new SelectListItem{Text="Butterworth", Value="7"},
-                        new SelectListItem{Text="Bukit Beruntung", Value="5"},
-                        new SelectListItem{Text="Bukit Merah", Value="7"},
-                        new SelectListItem{Text="Bukit Mertajam", Value="7"},
-                        new SelectListItem{Text="Klang (Bukit Raja)", Value="4"},
-                        new SelectListItem{Text="Bukit Tagar", Value="5"},
-                        new SelectListItem{Text="Changkat Jering", Value="6"},
-                        new SelectListItem{Text="Damansara", Value="4"},
-                        new SelectListItem{Text="Dengkil (Bandar Serenia)", Value="4"},
-                        new SelectListItem{Text="Gopeng", Value="6"},
-                        new SelectListItem{Text="Gurun", Value="8"},
-                        new SelectListItem{Text="Ipoh", Value="6"},
-                        new SelectListItem{Text="Jasin", Value="2"},
-                        new SelectListItem{Text="Juru", Value="7"},
-                        new SelectListItem{Text="Jitra", Value="8"},
-                        new SelectListItem{Text="Johor Bahru", Value="1"},
-                        new SelectListItem{Text="Kajang", Value="4"},
-                        new SelectListItem{Text="Kepala Batas", Value="8"},
-                        new SelectListItem{Text="KLIA", Value="4"},
-                        new SelectListItem{Text="Kota Damansara", Value="4"},
-                        new SelectListItem{Text="Kulai", Value="1"},
-                        new SelectListItem{Text="Kuala Kubu Baru (Lembah Beringin)", Value="5"},
-                        new SelectListItem{Text="Machap", Value="1"},
-                        new SelectListItem{Text="Muar (Bukit Gambir)", Value="1"},
-                        new SelectListItem{Text="Nibong Tebal", Value="7"},
-                        new SelectListItem{Text="Nilai", Value="3"},
-                        new SelectListItem{Text="Pagoh", Value="1"},
-                        new SelectListItem{Text="Parit Buntar", Value="7"},
-                        new SelectListItem{Text="Pedas Linggi", Value="2"},
-                        new SelectListItem{Text="Penang", Value="7"},
-                        new SelectListItem{Text="Pendang", Value="8"},
-                        new SelectListItem{Text="Putrajaya", Value="4"},
-                        new SelectListItem{Text="Putra Heights/USJ", Value="4"},
-                        new SelectListItem{Text="Putra Mahkota", Value="4"},
-                        new SelectListItem{Text="Port Dickson", Value="3"},
-                        new SelectListItem{Text="Rawang", Value="4"},
-                        new SelectListItem{Text="Seberang Prai ", Value="7"},
-                        new SelectListItem{Text="Senawang", Value="3"},
-                        new SelectListItem{Text="Serdang", Value="4"},
-                        new SelectListItem{Text="Seremban", Value="3"},
-                        new SelectListItem{Text="Serendah (Sungai Buaya) ", Value="5"},
-                        new SelectListItem{Text="Setia Alam", Value="4"},
-                        new SelectListItem{Text="Shah Alam", Value="4"},
-                        new SelectListItem{Text="Simpang Pulai", Value="6"},
-                        new SelectListItem{Text="Simpang Renggam", Value="1"},
-                        new SelectListItem{Text="Skudai", Value="1"},
-                        new SelectListItem{Text="Slim River", Value="5"},
-                        new SelectListItem{Text="Subang", Value="4"},
-                        new SelectListItem{Text="Sungai Buloh", Value="4"},
-                        new SelectListItem{Text="Sungai Petani", Value="8"},
-                        new SelectListItem{Text="Sungkai", Value="5"},
-                        new SelectListItem{Text="Taiping", Value="6"},
-                        new SelectListItem{Text="Tangkak", Value="1"},
-                        new SelectListItem{Text="Tanjung Malim", Value="5"},
-                        new SelectListItem{Text="Tapah", Value="6"}},
-            "Please Select", new { @class = "form-control selectpicker", @id = "jsFrom"
-            })
-                    </h4>
-                </div>
-                <div class="col-md-3">
-                    <h4 style="text-align:left; color:#0033A1; margin-bottom:5px;">
-                        To<br />
-                        @Html.DropDownListFor(m => m.To, new List<SelectListItem>
-                      {
-                       //new SelectListItem{Text="Please Select", Value="0", Selected=true},
-                       new SelectListItem{Text="Kuala Lumpur", Value="4"},
-                        new SelectListItem{Text="Alor Gajah", Value="2"},
-                        new SelectListItem{Text="Alor Setar", Value="8"},
-                        new SelectListItem{Text="Ayer Hitam ", Value="1"},
-                        new SelectListItem{Text="Ayer Keroh", Value="2"},
-                        new SelectListItem{Text="Bandar Saujana Putra", Value="4"},
-                        new SelectListItem{Text="Bangi", Value="4"},
-                        new SelectListItem{Text="Behrang", Value="5"},
-                        new SelectListItem{Text="Bidor", Value="5"},
-                        new SelectListItem{Text="Bagan Serai", Value="7"},
-                        new SelectListItem{Text="Butterworth", Value="7"},
-                        new SelectListItem{Text="Bukit Beruntung", Value="5"},
-                        new SelectListItem{Text="Bukit Merah", Value="7"},
-                        new SelectListItem{Text="Bukit Mertajam", Value="7"},
-                        new SelectListItem{Text="Klang (Bukit Raja)", Value="4"},
-                        new SelectListItem{Text="Bukit Tagar", Value="5"},
-                        new SelectListItem{Text="Changkat Jering", Value="6"},
-                        new SelectListItem{Text="Damansara", Value="4"},
-                        new SelectListItem{Text="Dengkil (Bandar Serenia)", Value="4"},
-                        new SelectListItem{Text="Gopeng", Value="6"},
-                        new SelectListItem{Text="Gurun", Value="8"},
-                        new SelectListItem{Text="Ipoh", Value="6"},
-                        new SelectListItem{Text="Jasin", Value="2"},
-                        new SelectListItem{Text="Juru", Value="7"},
-                        new SelectListItem{Text="Jitra", Value="8"},
-                        new SelectListItem{Text="Johor Bahru", Value="1"},
-                        new SelectListItem{Text="Kajang", Value="4"},
-                        new SelectListItem{Text="Kepala Batas", Value="8"},
-                        new SelectListItem{Text="KLIA", Value="4"},
-                        new SelectListItem{Text="Kota Damansara", Value="4"},
-                        new SelectListItem{Text="Kulai", Value="1"},
-                        new SelectListItem{Text="Kuala Kubu Baru (Lembah Beringin)", Value="5"},
-                        new SelectListItem{Text="Machap", Value="1"},
-                        new SelectListItem{Text="Muar (Bukit Gambir)", Value="1"},
-                        new SelectListItem{Text="Nibong Tebal", Value="7"},
-                        new SelectListItem{Text="Nilai", Value="3"},
-                        new SelectListItem{Text="Pagoh", Value="1"},
-                        new SelectListItem{Text="Parit Buntar", Value="7"},
-                        new SelectListItem{Text="Pedas Linggi", Value="2"},
-                        new SelectListItem{Text="Penang", Value="7"},
-                        new SelectListItem{Text="Pendang", Value="8"},
-                        new SelectListItem{Text="Putrajaya", Value="4"},
-                        new SelectListItem{Text="Putra Heights/USJ", Value="4"},
-                        new SelectListItem{Text="Putra Mahkota", Value="4"},
-                        new SelectListItem{Text="Port Dickson", Value="3"},
-                        new SelectListItem{Text="Rawang", Value="4"},
-                        new SelectListItem{Text="Seberang Prai ", Value="7"},
-                        new SelectListItem{Text="Senawang", Value="3"},
-                        new SelectListItem{Text="Serdang", Value="4"},
-                        new SelectListItem{Text="Seremban", Value="3"},
-                        new SelectListItem{Text="Serendah (Sungai Buaya) ", Value="5"},
-                        new SelectListItem{Text="Setia Alam", Value="4"},
-                        new SelectListItem{Text="Shah Alam", Value="4"},
-                        new SelectListItem{Text="Simpang Pulai", Value="6"},
-                        new SelectListItem{Text="Simpang Renggam", Value="1"},
-                        new SelectListItem{Text="Skudai", Value="1"},
-                        new SelectListItem{Text="Slim River", Value="5"},
-                        new SelectListItem{Text="Subang", Value="4"},
-                        new SelectListItem{Text="Sungai Buloh", Value="4"},
-                        new SelectListItem{Text="Sungai Petani", Value="8"},
-                        new SelectListItem{Text="Sungkai", Value="5"},
-                        new SelectListItem{Text="Taiping", Value="6"},
-                        new SelectListItem{Text="Tangkak", Value="1"},
-                        new SelectListItem{Text="Tanjung Malim", Value="5"},
-                        new SelectListItem{Text="Tapah", Value="6"}},
-             "Please Select", new
-             {
-                 @class = "form-control input-md",
-                 @id = "jsTo"
-             })
-                    </h4>
-                </div>
+                        <img src="~/images/btn_plannow.png" alt="Plan My Journey" class="img-responsive" id="hide" style="display: block; margin-left: auto; margin-right: auto; min-width:150px" />
 
-                <div class="col-md-2">
-                    <br />
-                    <img src="~/images/btn_plannow.png" alt="Plan My Journey" class="img-responsive" id="hide" style="display: block; margin-left: auto; margin-right: auto; min-width:150px" />
-
+                    </div>
+                    <div class="col-md-1"></div>
                 </div>
-                <div class="col-md-1"></div>
             </div>
         </div>
         <div class="row" id="SecondDiv" style="display:none; text-align: center; margin-left:10px; margin-right:10px;">
@@ -418,36 +458,73 @@
                 <h2 style="color:#0033A1;">@Html.LabelFor(m => m.lblFromTo, new { id = "lblFromTo", Value = "TESTING", @class = "LabelStyle" })</h2>
 
                 <div class="cc-selector" id="preDateList" style="display:none;">
+                    @*<div>
+            <label>
+                @Html.RadioButton("DateSelected", "DateNotSelect", true, new { id = "radDateSelect" })
+            </label>
+        </div>*@
+
                     <label>
-                        @Html.RadioButton("DateSelected", "31 Jan", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-31jan.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "29 May", true, new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/29May.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @Html.RadioButton("DateSelected", "1 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-1feb.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "30 May", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/30May.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "31 May", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/31May.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "1 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/1June.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "2 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/2June.jpg" style="max-width:300px">
                     </label>
 
                     <label>
                         @*<input type="radio" name="test" value="big2">*@
-                        @Html.RadioButton("DateSelected", "2 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-2feb.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "3 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/3June.jpg" style="max-width:300px">
                     </label>
+
                 </div>
                 <div class="cc-selector" id="postDateList" style="display:none;">
                     <label>
-                        @Html.RadioButton("DateSelected", "7 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-7feb.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "5 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/5June.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @Html.RadioButton("DateSelected", "8 Feb", new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-8feb.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "6 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/6June.jpg" style="max-width:300px">
                     </label>
 
                     <label>
-                        @Html.RadioButton("DateSelected", "9 Feb", true, new { id = "radDateSelect" })
-                        <img src="https://journeyplus.azurewebsites.net/images/cny-9feb.jpg" style="max-width:300px">
+                        @Html.RadioButton("DateSelected", "7 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/7June.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "8 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/8June.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "9 June", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/9June.jpg" style="max-width:300px">
+                    </label>
+
+                    <label>
+                        @Html.RadioButton("DateSelected", "9 Feb", new { id = "radDateSelect" })
+                        <img src="https://plusjourney.azurewebsites.net/images/10June.jpg" style="max-width:300px">
                     </label>
 
                 </div>
@@ -467,14 +544,14 @@
             <h4 style="text-align:center;">Save this travel time in your calendar now by receiving an email notification from us. Drop your email address today</h4>
             <div class="col-md-3"> </div>
             <div class="col-md-3">
-                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email Address", id = "jsEmail", @class = "form-control", style = "width: 100%;" })
                 @Html.ValidationMessageFor(m => m.Email)
                 <br />
             </div>
             <div class="col-md-3">
-                <input type="submit" name="answer" value="SET REMINDER " class="btn btn-success" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ style="width:67%;" />
+                <input type="submit" name="answer" value="SET REMINDER " class="btn btn-success" id="CheckEmailDateTime" @*onclick="redirectPlusMiles(this.value)"*@ style="width:100% !important;" />
               
-                <input type="button" value="BACK " class="btn btn-success" onclick="backoperation()" style="width:30%;" />
+                <input type="button" value="BACK " class="btn btn-success" onclick="backoperation()" style="width:100% !important;" />
 
                 <script>
                     function backoperation()
@@ -584,7 +661,7 @@
                 <br />
                 <br />
                 <!--SPECIAL PROMOTION BANNER-->
-                @*<h4><b>Special Promotions at R&amp;R</b></h4>
+                <h4><b>Special Promotions at R&amp;R</b></h4>
                 <img src="~/images/CNYDealPLUS.jpg" width="100%" />
                 <br /><br />
                 <img src="~/images/promo_petron.jpg" width="100%" />
@@ -594,7 +671,7 @@
                 <img src="~/images/famousamos.png" width="100%" />
                 <br /><br />
                 <img src="~/images/promo_news2.jpg" width="100%" />
-                <br /><br />*@
+                <br /><br />
             </div>
         </div>
     }

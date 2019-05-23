@@ -21,6 +21,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Web;
 using System.IO;
+using System.Web.Configuration;
 
 namespace journey.Controllers
 {
@@ -383,11 +384,13 @@ namespace journey.Controllers
             return View();
         }
 
+       
+
         public ActionResult StayTune()
         {
             return View();
         }
-
+        
         public PartialViewResult Home()
         {
             return PartialView("~/Admin/home.cshtml");
@@ -467,6 +470,156 @@ namespace journey.Controllers
 
             return View();
         }
+
+        public ActionResult SafeDrive()
+        {
+            return View();
+        }
+
+        public ActionResult Contest()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contest(ContestModel model)
+        {
+            if (model.Email != null && model.Name != null && model.IC != null && model.PhoneNo != null)
+            {
+                try
+                {
+                    string constr = WebConfigurationManager.AppSettings["DBConStringLMSLoyaltyPROD"];
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        con.Open(); // throws if invalid
+
+                        string name = model.Name;
+                        string email = model.Email;
+                        string IC = model.IC;
+                        string phoneNo = model.PhoneNo;
+
+                        SqlCommand check_User_Name = new SqlCommand("SELECT COUNT(*) FROM [crm_customer] WHERE ([nric] = @IC)", con);
+                        
+                        check_User_Name.Parameters.AddWithValue("@IC", IC.ToString());
+                        int UserExist = (int)check_User_Name.ExecuteScalar();
+
+                        if (UserExist > 0)
+                        {
+                            //PLUSMILES MEMBER
+                            DateTime dateTime = DateTime.UtcNow.Date;
+                            string Timestamp = dateTime.ToString("dd/MM/yyyy");
+                            string currentTime = DateTime.Now.ToString("h:mm:ss tt");
+                            string query = "INSERT INTO [lylty_contest] (EMAIL, NAME, FESTIVE, IC_NO, PHONE_NO, DateKeyIn, TimeKeyIn) VALUES (@Email, @Name, 'RAYA2019', @IC, @Phone_No, @DateKeyIn, @Time)";
+                            query += " SELECT SCOPE_IDENTITY()";
+                            using (SqlCommand cmd = new SqlCommand(query))
+                            {
+                                cmd.Connection = con;
+
+                                cmd.Parameters.AddWithValue("@Email", model.Email);
+                                cmd.Parameters.AddWithValue("@Name", model.Name);
+                                cmd.Parameters.AddWithValue("@IC", model.IC);
+                                cmd.Parameters.AddWithValue("@Phone_No", model.PhoneNo);
+                                cmd.Parameters.AddWithValue("@DateKeyIn", Timestamp);
+                                cmd.Parameters.AddWithValue("@Time", currentTime);
+                                cmd.ExecuteScalar();
+                                con.Close();
+                            }
+                            ViewBag.Message = string.Format("Submission complete! Youre a PLUSMiles Member");
+                            return View();
+                        }
+                        else
+                        {
+                            ViewBag.Message = string.Format("Submission fail! Kindly register at www.plusmiles.com.my or contact 1800-88-0000");
+                            return View();
+                            //NOT PLUSMILES MEMBER
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return View();
+                }
+
+            }
+            else
+            {
+                ViewBag.Message = string.Format("Please fill up all the required field! ");
+                return View();
+            }
+        }
+
+        public ActionResult Redeem()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Redeem(RedeemModel model)
+        {
+            if (model.Email != null && model.Name != null && model.Location != null)
+            {
+                try
+                {
+                    string constr = WebConfigurationManager.AppSettings["DBConString"];
+                    //"Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                    using (SqlConnection con = new SqlConnection(constr))
+                    {
+                        con.Open(); // throws if invalid
+
+                        string name = model.Name;
+                        string email = model.Email;
+                        string loc = model.Location;
+
+                        SqlCommand check_User_Name = new SqlCommand("SELECT COUNT(*) FROM [USERREDEEM] WHERE ([EMAIL] = @email)", con);
+                        check_User_Name.Parameters.AddWithValue("@email", email.ToString());
+                        int UserExist = (int)check_User_Name.ExecuteScalar();
+
+                        if (UserExist > 0)
+                        {
+                            ViewBag.Message = string.Format("You already redeem");
+                            return View();
+                            //Username exist
+                        }
+                        else
+                        {
+                            //Username has not redeem yet
+                            DateTime dateTime = DateTime.UtcNow.Date;
+                            string Timestamp = dateTime.ToString("dd/MM/yyyy");
+                            string currentTime = DateTime.Now.ToString("h:mm:ss tt");
+                            string query = "INSERT INTO [USERREDEEM] (EMAIL, NAME, FESTIVE, LOC, DateKeyIn, TimeKeyIn) VALUES (@Email, @Name, 'RAYA2019', @Loc, @DateKeyIn, @Time)";
+                            query += " SELECT SCOPE_IDENTITY()";
+                            using (SqlCommand cmd = new SqlCommand(query))
+                            {
+                                cmd.Connection = con;
+
+                                cmd.Parameters.AddWithValue("@Email", model.Email);
+                                cmd.Parameters.AddWithValue("@Name", model.Name);
+                                cmd.Parameters.AddWithValue("@Loc", model.Location);
+                                cmd.Parameters.AddWithValue("@DateKeyIn", Timestamp);
+                                cmd.Parameters.AddWithValue("@Time", currentTime);
+                                cmd.ExecuteScalar();
+                                con.Close();
+                            }
+                            return RedirectToAction("SafeDrive");
+                        }
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return View();
+                }
+                
+            }
+            else
+            {
+                ViewBag.Message = string.Format("Please fill up all the required field! ");
+                return View();
+            }
+        }
+
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -550,7 +703,7 @@ namespace journey.Controllers
                             "  <div class=\"main\">" +
                             "    <h2 style=\"align:center\">Win The \"Buah Tangan\"</h2>" +
                             "    <p style=\"align:center\">The walk from Monterosso to Riomaggiore will take you approximately two hours, give or take an hour depending on the weather conditions and your physical shape.</p>" +
-                            "    <img src=\"https://journeyplus.azurewebsites.net/images/bnr_1024px_b.jpg \" style=\"width:100%; align:center;\">" +
+                            "    <img src=\"https://plusjourney.azurewebsites.net/images/bnr_1024px_b.jpg \" style=\"width:100%; align:center;\">" +
                             "  </div>" +
                             "" +
                             "  <div class=\"right\">" +
@@ -655,63 +808,111 @@ namespace journey.Controllers
 
                     if (time == "7:00 am")
                     {
-                        if (date == "31 Jan")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190130T230000Z%2F20190130T230000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "1 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T230000Z%2F20190131T230000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "2 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T230000Z%2F20190201T230000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "7 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190206T230000Z%2F20190206T230000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "8 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T230000Z%2F20190207T230000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "9 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T230000Z%2F20190208T230000Z&text=Chinese%20New%20Year%20Trip"; }
+                        if (date == "29 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190528T230000Z%2F20190528T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "30 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190529T230000Z%2F20190529T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "31 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190530T230000Z%2F20190529T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "1 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190531T230000Z%2F20190531T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "2 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190601T230000Z%2F20190601T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "3 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190602T230000Z%2F20190602T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "5 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190604T230000Z%2F20190604T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "6 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190605T230000Z%2F20190605T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "7 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190606T230000Z%2F20190606T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "8 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190607T230000Z%2F20190607T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "9 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190608T230000Z%2F20190608T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "10 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190609T230000Z%2F20190609T230000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
                     }
                     else if (time == "11:00 am")
                     {
-                        if (date == "31 Jan")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T030000Z%2F20190131T030000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "1 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T030000Z%2F20190201T030000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "2 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T030000Z%2F20190202T030000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "7 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T030000Z%2F20190207T030000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "8 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T030000Z%2F20190208T030000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "9 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T030000Z%2F20190209T030000Z&text=Chinese%20New%20Year%20Trip"; }
+                        if (date == "29 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190529T030000Z%2F20190529T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "30 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190530T030000Z%2F20190530T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "31 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190531T030000Z%2F20190531T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "1 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190601T030000Z%2F201900601T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "2 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190602T030000Z%2F20190602T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "3 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190603T030000Z%2F20190603T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "5 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190605T030000Z%2F20190605T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "6 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190606T030000Z%2F20190606T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "7 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190607T030000Z%2F20190607T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "8 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190608T030000Z%2F20190608T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "9 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190609T030000Z%2F20190609T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "10 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190610T030000Z%2F20190610T030000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
                     }
                     else if (time == "3:00 pm")
                     {
-                        if (date == "31 Jan")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T070000Z%2F20190131T070000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "1 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T070000Z%2F20190201T070000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "2 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T070000Z%2F20190202T070000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "7 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T070000Z%2F20190207T070000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "8 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T070000Z%2F20190208T070000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "9 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T070000Z%2F20190209T070000Z&text=Chinese%20New%20Year%20Trip"; }
+                        if (date == "29 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190529T070000Z%2F20190529T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "30 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190530T070000Z%2F20190530T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "31 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190531T070000Z%2F20190531T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "1 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190601T070000Z%2F20190601T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "2 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190602T070000Z%2F20190602T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "3 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190603T070000Z%2F20190603T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "5 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190605T070000Z%2F20190605T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "6 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190606T070000Z%2F20190606T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "7 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190607T070000Z%2F20190607T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "8 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190608T070000Z%2F20190608T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "9 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190609T070000Z%2F20190609T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "10 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190610T070000Z%2F20190610T070000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
                     }
                     else if (time == "7:00 pm")
                     {
-                        if (date == "31 Jan")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190131T110000Z%2F20190131T110000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "1 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190201T110000Z%2F20190201T110000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "2 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190202T110000Z%2F20190202T110000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "7 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190207T110000Z%2F20190207T110000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "8 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190208T110000Z%2F20190208T110000Z&text=Chinese%20New%20Year%20Trip"; }
-                        else if (date == "9 Feb")
-                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190209T110000Z%2F20190209T110000Z&text=Chinese%20New%20Year%20Trip"; }
+                        if (date == "29 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190529T110000Z%2F20190529T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "30 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190530T110000Z%2F20190530T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "31 May")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190531T110000Z%2F20190531T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "1 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190601T110000Z%2F20190601T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "2 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190602T110000Z%2F20190602T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "3 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190603T110000Z%2F20190603T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "5 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190605T110000Z%2F20190605T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "6 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190606T110000Z%2F20190606T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "7 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190607T110000Z%2F20190607T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "8 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190608T110000Z%2F20190608T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "9 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190609T110000Z%2F20190609T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
+                        else if (date == "10 June")
+                        { GoogleCalendarLink = "http://www.google.com/calendar/event?action=TEMPLATE&dates=20190610T110000Z%2F20190610T110000Z&text=Balik%20Beraya%20Bersama%20PLUS"; }
                     }
                     else { GoogleCalendarLink = ""; }
 
@@ -720,9 +921,9 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td>" +
-                                "<img src=\"https://journeyplus.azurewebsites.net/images/bnr_1366px_c.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 25px; color: #e3282b; line-height: 60px; padding-left: 20px; margin-top: 10px; padding-right: 20px;\" align=\"center\"><strong>TRAVEL ITINERARY</strong></p>" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; padding-left: 20px; margin-top: -30px; padding-right: 20px; padding-bottom:10px;\" align=\"center\">Thank you for planning your Chinese New Year trip with us, below is your recommended date and time for you to start your journey to your destination.</p>" +
+                                "<img src=\"https://plusjourney.azurewebsites.net/images/Raya_Bannerforemail1366x420.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 25px; color: #006738; line-height: 60px; padding-left: 20px; margin-top: 10px; padding-right: 20px;\" align=\"center\"><strong>TRAVEL ITINERARY</strong></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #000000; padding-left: 20px; margin-top: -30px; padding-right: 20px; padding-bottom:10px;\" align=\"center\">Thank you for planning your Hari Raya trip with us, below is your recommended date and time for you to start your journey to your destination.</p>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +
@@ -741,29 +942,16 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td align=\"center\">" +
-                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"><a href=" + GoogleCalendarLink.ToString() + "><img src=\"https://journeyplus.azurewebsites.net/images/btn_savethedate.jpg\" width=\"200\" alt=\"Update Profile Button\"/></a></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"><a href=" + GoogleCalendarLink.ToString() + "><img src=\"https://plusjourney.azurewebsites.net/images/btn_savethedate.jpg\" width=\"200\" alt=\"Update Profile Button\"/></a></p>" +
+                                "<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 16px; color: #c82039; padding-left: 20px; margin-top: 10px; padding-right: 20px; padding-bottom:20px;\" align=\"center\"></p>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +
                                 "</table>" +
-                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#E1292A\">" +
+                                "<table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#006738\">" +
                                 "          <tr><td><br /></td></tr> <tr>" +
-                                "            <td width=\"100%\" valign=\"top\"><img src=\"https://journeyplus.azurewebsites.net/images/buahtangan_bag.png \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td>" +
+                                "            <td width=\"100%\" valign=\"top\"><img src=\"https://plusjourney.azurewebsites.net/images/BuahTanganEmail.jpg \" width=\"100%\" alt=\"Buah Tangan Bag\" /></td>" +
                                 "            <td align=\"left\" valign=\"top\">" +
-                                //"<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" +
-                                //"              <tr>" +
-                                //"                <td><p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 18px; color: #ffffff; padding-left: 25px; margin-top: 20px; padding-right: 25px; padding-bottom:5px;\"><strong>Redeem a FREE* 'Buah Tangan' Bag with minimum spend of RM38 at selected R&R along PLUS Highway in a maximum of five (5) combined same day receipts.</strong></p></td>" +
-                                //"              </tr>" +
-                                //"              <tr>" +
-                                //"                <td>" +
-                                //"<p style=\"font-family: Helvetica, Arial, sans-serif; font-size: 10px; color: #FFFFFF; padding-left: 25px; margin-top: 10px; padding-right: 25px; padding-bottom:10px;\"><em>" +
-                                //"*Redemption period: 31st Jan to 4th Feb 2019, 9am - 9pm" +
-                                //"</br>*While stocks last." +
-                                //"</br>*Valid for purchases at all R&R including food stalls and retail outlets except Tobacco & Fuel products." +
-                                //"</br>*Redemption booths at Pagoh R&R north & south bound, Ayer Keroh R&R north bound, Tapah R&R north & south bound, Bukit Gantang R&R north bound.</em></p>" +
-                                //"</td>" +
-                                //"              </tr>" +
-                                //"            </table>" +
                                 " </td>" +
                                 "          </tr>" +
                                 "        </table>" +
@@ -787,7 +975,7 @@ namespace journey.Controllers
                                 "</tr>" +
                                 "<tr>" +
                                 "  <td valign=\"center\" style=\"font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:5px\" class=\"center\">" +
-                                "  <img src=\"https://journeyplus.azurewebsites.net/images/plus_app_thumb.png \" width=\"18\"> Download PLUS App: <a href=\"https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8\" style=\"color:#999;text-decoration:underline;\">iOS</a>&nbsp; | &nbsp;<a href=\"https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true\" style=\"color:#999;text-decoration:underline;\">Android</a> </p>" +
+                                "  <img src=\"https://plusjourney.azurewebsites.net/images/plus_app_thumb.png \" width=\"18\"> Download PLUS App: <a href=\"https://itunes.apple.com/my/app/plus-app-official/id1439887531?mt=8\" style=\"color:#999;text-decoration:underline;\">iOS</a>&nbsp; | &nbsp;<a href=\"https://play.google.com/store/apps/details?id=com.PLUS&showAllReviews=true\" style=\"color:#999;text-decoration:underline;\">Android</a> </p>" +
                                 "  </td>" +
                                 "</tr>" +
                                 "  </table>" +
@@ -795,11 +983,11 @@ namespace journey.Controllers
                                 "  <table width=\"30%\" cellpadding=\"0\" cellspacing=\"0\"  border=\"0\" align=\"right\" class=\"deviceWidth\">" +
                                 "  <tr>" +
                                 "  <td valign=\"top\" style=\"font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right\" class=\"center\">" +
-                                "  <a href=\"https://www.facebook.com/MYPLUSMiles\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/facebook.png \" width=\"30\" height=\"30\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a>" +
-                                "  <a href=\"https://www.instagram.com/plus_malaysia/\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/instagram.png \" width=\"30\" height=\"30\" alt=\"Instagram\" title=\"Instagram\" border=\"0\" /></a>" +
-                                "  <a href=\"https://twitter.com/plus2u\" target=\"_blank\"><img src=\"https://journeyplus.azurewebsites.net/images/twitter.png \" width=\"30\" height=\"30\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a>" +
+                                "  <a href=\"https://www.facebook.com/MYPLUSMiles\" target=\"_blank\"><img src=\"https://plusjourney.azurewebsites.net/images/facebook.png \" width=\"30\" height=\"30\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a>" +
+                                "  <a href=\"https://www.instagram.com/plus_malaysia/\" target=\"_blank\"><img src=\"https://plusjourney.azurewebsites.net/images/instagram.png \" width=\"30\" height=\"30\" alt=\"Instagram\" title=\"Instagram\" border=\"0\" /></a>" +
+                                "  <a href=\"https://twitter.com/plus2u\" target=\"_blank\"><img src=\"https://plusjourney.azurewebsites.net/images/twitter.png \" width=\"30\" height=\"30\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a>" +
                                 "  </br>" +
-                                "  <a href=\"http://www.plus.com.my\"><img src=\"https://journeyplus.azurewebsites.net/images/plus_logo.png \" alt=\"\" border=\"0\" width=\"70\" style=\"padding-top: 5px;\" /></a><br/>" +
+                                "  <a href=\"http://www.plus.com.my\"><img src=\"https://plusjourney.azurewebsites.net/images/plus_logo.png \" alt=\"\" border=\"0\" width=\"70\" style=\"padding-top: 5px;\" /></a><br/>" +
                                 "  </td>" +
                                 "  </tr>" +
                                 "  </table>" +
@@ -813,7 +1001,7 @@ namespace journey.Controllers
                                 "<tbody>" +
                                 "<tr>" +
                                 "<td>" +
-                                "<img src=\"https://journeyplus.azurewebsites.net/images/footer_bar.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
+                                "<img src=\"https://plusjourney.azurewebsites.net/images/footer_bar.jpg \" alt=\"More miles more smiles with PLUSMiles\" width=\"100%\" align=\"center\"/>" +
                                 "</td>" +
                                 "</tr>" +
                                 "</tbody>" +

@@ -1,0 +1,152 @@
+.content-wrap {
+    position: relative;
+    padding: 0;
+    background: #C9E6E8;
+}
+.green-color{
+    color: #258065 !important;
+}
+.blue-color{
+    color: #293485 !important;
+}
+.white-color {
+    color: #ffffff !important;
+}
+.section_title{
+    text-transform: none !important;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.green_bg{
+    background: #258065;
+}
+
+.darkblue_bg{
+  background: #002459;
+}
+
+.lightgreen_bg {
+    background: #bbe6e8;
+}
+
+.bottom-below{
+    margin-bottom: -70px;
+    margin-top: 50px;
+    max-width: 800px;
+}
+.btn-outline-light{
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 5px 25px 7px;
+}
+
+.btn-outline-green {
+background: transparent;
+border: 2px solid ;
+border-radius: 20px;
+padding: 5px 25px 7px;
+border-color: #258065;
+}
+
+#section-features p{
+    line-height: 1.2;
+    font-size: 120%;
+}
+#section-features h4{
+    text-transform: none;
+    font-size: 25px;
+    line-height: 1.2;
+}
+#section-features, #section-faqs{
+    padding-top: 80px !important;
+}
+#raya-deals{
+    background: url("images/raya-deals-banner.jpg") no-repeat center center;
+    background-size: cover;
+}
+#travel-and-win{
+    background: url("images/travel-and-win.jpg") no-repeat center center;
+    background-size: cover;
+}
+#section-pricing{
+    background: url("images/blur_bg.jpg") no-repeat center center;
+    background-size: cover;
+}
+
+#section-pricing .bottom-below{
+    padding-top: 100px;
+}
+.insta_img{
+    padding: 30px 0;
+}
+.insta_img img{
+    max-width: 80%;
+}
+#section-faqs h3{
+    line-height: 1;
+    text-transform: none;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+hr.green{
+    border-top: 2px solid #258065a6;
+}
+#section-contact img{
+    max-width: 200px;
+    width: 100%;
+    padding: 20px 0;
+}
+#section-contact h3 {
+    text-transform: none;
+    margin-bottom: 0;
+}
+#section-contact P{
+    line-height: 1.3;
+    font-size: 100%;
+}
+#content {
+    width: 100%;
+}
+.participate{
+    background: #258065;
+}
+.participate-content{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.participate-content h3{
+
+}
+.participate-content p{
+    color: white;
+}
+.w-600{
+    max-width: 600px !important;
+    margin: 0 auto;
+}
+.w-400{
+    max-width: 400px !important;
+    margin: 0 auto;
+}
+
+.w-800 {
+max-width: 800px !important;
+margin: 0 auto;
+}
+
+.dark #copyrights {
+    /*background-color: white !important;*/
+    color: white !important;
+}
+#footer.dark, .dark #footer {
+    /*background-color: white !important;*/
+    color: #fff !important;
+    /*border-top-color: #eee !important;*/
+}
+.dark .copyright-links a {
+    color: white !important;
+}
+.dark #footer .social-icon.si-borderless, #footer.dark .social-icon.si-borderless {
+    color: #fff !important;
+}

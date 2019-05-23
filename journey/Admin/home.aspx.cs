@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Security.Permissions;
 using System.Windows.Forms;
-
+using System.Web.Configuration;
 
 namespace journey.Admin
 {
@@ -52,6 +52,51 @@ namespace journey.Admin
         [STAThread]
         protected void Page_Load(object sender, EventArgs e)
         {
+            string constrForProd = WebConfigurationManager.AppSettings["DBConStringLMSLoyaltyPROD"];
+            using (SqlConnection con = new SqlConnection(constrForProd))
+            {
+                #region COUNT BAG REDEEM
+                con.Open();
+                string sqlQuery = "select top 10 sku, product_name, recipient_name from [dbo].[fulfill_order] where category_code = 'M01' order by created_timestamp desc";
+                SqlCommand cmdRecentRedeem = new SqlCommand(sqlQuery, con);
+                SqlDataReader drRecentRedeem = cmdRecentRedeem.ExecuteReader();
+                gvRecentItemRedeem.DataSource = drRecentRedeem;
+                gvRecentItemRedeem.DataBind();
+                con.Close();
+                #endregion
+            }
+
+                using (SqlConnection con = new SqlConnection("Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            {
+                #region COUNT BAG REDEEM
+                con.Open();
+                string sqlQuery = "SELECT LOC as 'LOCATION' , COUNT(ID) as 'BAG REDEEMED'  FROM [USERREDEEM] GROUP BY LOC ORDER BY 'BAG REDEEMED' DESC";
+                SqlCommand cmdBagRedeem = new SqlCommand(sqlQuery, con);
+                SqlDataReader drRedeemBag = cmdBagRedeem.ExecuteReader();
+                gvBagRedeem.DataSource = drRedeemBag;
+                gvBagRedeem.DataBind();
+                con.Close();
+                #endregion
+
+                #region Select Highest User
+                con.Open();
+                SqlCommand cmdHighUser = new SqlCommand("select top 10 username as 'Customer Name', point as 'Point Spend' from redemption order by point desc", con);
+                SqlDataReader drHighUser = cmdHighUser.ExecuteReader();
+                gvHighestUser.DataSource = drHighUser;
+                gvHighestUser.DataBind();
+                con.Close();
+                #endregion
+
+                #region Display Balance Point by Products
+                con.Open();
+                SqlCommand cmdBalPoint = new SqlCommand("SELECT  [ItemName] ,[Balance] FROM [dbo].[VENDOR]", con);
+                SqlDataReader drBalPoint = cmdBalPoint.ExecuteReader();
+                gvBalPoint.DataSource = drBalPoint;
+                gvBalPoint.DataBind();
+                con.Close();
+                #endregion
+            }
+
             using (SqlConnection con = new SqlConnection("Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 #region Count Date selection
