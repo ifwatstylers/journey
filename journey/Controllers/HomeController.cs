@@ -407,7 +407,7 @@ namespace journey.Controllers
         {
             ViewBag.Message = "Database Result";
 
-            String connectionString = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            String connectionString = WebConfigurationManager.AppSettings["DBConString"];
 
             String sql = "SELECT * FROM Driver";
             SqlConnection conn = new SqlConnection(connectionString);
@@ -749,7 +749,7 @@ namespace journey.Controllers
             if (model.Email != null)
             {
                 #region Save Driver Info to Database
-                string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                string constr = WebConfigurationManager.AppSettings["DBConString"];
                 using (SqlConnection conn = new SqlConnection(constr))
                 {
                     try

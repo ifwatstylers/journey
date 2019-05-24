@@ -57,16 +57,25 @@ namespace journey.Admin
             {
                 #region COUNT BAG REDEEM
                 con.Open();
-                string sqlQuery = "select top 10 sku, product_name, recipient_name from [dbo].[fulfill_order] where category_code = 'M01' order by created_timestamp desc";
+                string sqlQuery = "select top 10 sku, product_name from [dbo].[fulfill_order] where category_code = 'M01' order by created_timestamp desc";
                 SqlCommand cmdRecentRedeem = new SqlCommand(sqlQuery, con);
                 SqlDataReader drRecentRedeem = cmdRecentRedeem.ExecuteReader();
                 gvRecentItemRedeem.DataSource = drRecentRedeem;
                 gvRecentItemRedeem.DataBind();
                 con.Close();
                 #endregion
+
+                #region Display Balance Point by Products
+                con.Open();
+                SqlCommand cmdBalPoint = new SqlCommand("select sku, product_name, stock_available from [dbo].[ctlog_product_inventory] where root_category_id = '25' order by stock_available desc", con);
+                SqlDataReader drBalPoint = cmdBalPoint.ExecuteReader();
+                gvBalPoint.DataSource = drBalPoint;
+                gvBalPoint.DataBind();
+                con.Close();
+                #endregion
             }
 
-                using (SqlConnection con = new SqlConnection("Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB_staging;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (SqlConnection con = new SqlConnection(WebConfigurationManager.AppSettings["DBConString"]))
             {
                 #region COUNT BAG REDEEM
                 con.Open();
@@ -84,15 +93,6 @@ namespace journey.Admin
                 SqlDataReader drHighUser = cmdHighUser.ExecuteReader();
                 gvHighestUser.DataSource = drHighUser;
                 gvHighestUser.DataBind();
-                con.Close();
-                #endregion
-
-                #region Display Balance Point by Products
-                con.Open();
-                SqlCommand cmdBalPoint = new SqlCommand("SELECT  [ItemName] ,[Balance] FROM [dbo].[VENDOR]", con);
-                SqlDataReader drBalPoint = cmdBalPoint.ExecuteReader();
-                gvBalPoint.DataSource = drBalPoint;
-                gvBalPoint.DataBind();
                 con.Close();
                 #endregion
             }
@@ -153,7 +153,7 @@ namespace journey.Admin
             {
                 #region display email list
                 con.Open();
-                SqlCommand cmd = new SqlCommand("Select ID,EMAIL FROM DRIVER", con);
+                SqlCommand cmd = new SqlCommand("Select ID,EMAIL FROM DRIVER where FESTIVE = 'RAYA2019'", con);
                 SqlDataReader dr = cmd.ExecuteReader();
                 //GridView1.PageIndex = e.NewPageIndex;
                 GridView1.DataSource = dr;
@@ -163,7 +163,7 @@ namespace journey.Admin
 
                 #region count total driver
                 con.Open();
-                String sqlCount = "SELECT COUNT(ID) as DRIVER FROM DRIVER";
+                String sqlCount = "SELECT COUNT(ID) as DRIVER FROM DRIVER where FESTIVE = 'RAYA2019'";
                 SqlCommand cmdCount = new SqlCommand(sqlCount, con);
                 Int32 count = (Int32)cmdCount.ExecuteScalar();
                 lblTotalSubscribers.Text = count.ToString();
@@ -173,7 +173,7 @@ namespace journey.Admin
 
                 #region most top 10 driver from
                 con.Open();
-                SqlCommand cmdMostFrom = new SqlCommand("select top 10 locfrom as 'Driver From', count(*) Total from driver group by locfrom order by Total desc", con);
+                SqlCommand cmdMostFrom = new SqlCommand("select top 10 locfrom as 'Driver From', count(*) Total from driver  where FESTIVE = 'RAYA2019' group by locfrom order by Total desc", con);
                 SqlDataReader drMostFrom = cmdMostFrom.ExecuteReader();
                 gvMostFrom.DataSource = drMostFrom;
                 gvMostFrom.DataBind();
@@ -182,7 +182,7 @@ namespace journey.Admin
 
                 #region most top 10 driver to
                 con.Open();
-                SqlCommand cmdMostTo = new SqlCommand("select top 10 locto as 'Driver To', count(*) Total from driver group by locto order by Total desc", con);
+                SqlCommand cmdMostTo = new SqlCommand("select top 10 locto as 'Driver To', count(*) Total from driver  where FESTIVE = 'RAYA2019' group by locto order by Total desc", con);
                 SqlDataReader drMostTo = cmdMostTo.ExecuteReader();
                 gvMostTo.DataSource = drMostTo;
                 gvMostTo.DataBind();
@@ -191,7 +191,7 @@ namespace journey.Admin
 
                 #region most user subscribe on
                 con.Open();
-                SqlCommand cmdMostSubscribe = new SqlCommand("select DateKeyIn as 'Date', COUNT(ID) as 'User Subscribed' from driver GROUP BY DateKeyIn order by convert(datetime, DateKeyIn, 103) desc", con);
+                SqlCommand cmdMostSubscribe = new SqlCommand("select DateKeyIn as 'Date', COUNT(ID) as 'User Subscribed' from driver  where FESTIVE = 'RAYA2019' GROUP BY DateKeyIn order by convert(datetime, DateKeyIn, 103) desc", con);
                 SqlDataReader drMostSubscribe = cmdMostSubscribe.ExecuteReader();
                 gvMostUserSubscribe.DataSource = drMostSubscribe;
                 gvMostUserSubscribe.DataBind();

@@ -235,7 +235,7 @@ chart.render();
 
               </div>
               <div class="col-md-6" runat="server">
-                    <h2>Balance points by items:</h2>
+                    <h2>Balance item:</h2>
                     <asp:GridView ID="gvBalPoint" runat="server" BackColor="White" 
               BorderColor="#3366CC" BorderStyle="None" 
               BorderWidth="1px" CellPadding="4"
