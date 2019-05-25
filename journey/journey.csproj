@@ -316,6 +316,7 @@
     <Content Include="images\btn_plannow.png" />
     <Content Include="images\btn_register.png" />
     <Content Include="images\btn_savethedate.jpg" />
+    <Content Include="images\btn_savethedateCNY.jpg" />
     <Content Include="images\btn_setreminder.png" />
     <Content Include="images\BuahTanganEmail.jpg" />
     <Content Include="images\buahtangan_bag.png" />

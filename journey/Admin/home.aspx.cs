@@ -15,6 +15,7 @@ namespace journey.Admin
     public partial class home : System.Web.UI.Page
     {
         public int jan31, feb1, feb2, feb7, feb8, feb9;
+        public int dunkin_donut, umbrella, towel, tumbler, nasikambing, rotibakar, kreme;
 
         
         protected void lnkbtnExCSV_Click(object sender, EventArgs e)
