@@ -790,6 +790,7 @@
     <Content Include="RAYA2019\js\plugins\jquery.youtube.js" />
     <Content Include="RAYA2019\plus-raya-deals.html" />
     <Content Include="RAYA2019\style.css" />
+    <Content Include="RAYA2019\old-travel-and-win.html" />
     <Content Include="RAYA2019\travel-and-win.html" />
     <Content Include="RAYA2019\travel-schedule.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -836,6 +837,10 @@
     <Content Include="RAYA2019\js\components\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="RAYA2019\js\components\tinymce\skins\ui\oxide\skin.min.css.map" />
     <Content Include="RAYA2019\js\components\tinymce\skins\ui\oxide\skin.mobile.min.css.map" />
+    <Content Include="RAYA2019\faq-bm.pdf" />
+    <Content Include="RAYA2019\faq-eng.pdf" />
+    <Content Include="RAYA2019\terms-and-conditions-bm.pdf" />
+    <Content Include="RAYA2019\terms-and-conditions.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
