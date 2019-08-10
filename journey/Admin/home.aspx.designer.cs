@@ -22,6 +22,15 @@ namespace journey.Admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// lblJuteBagCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblJuteBagCount;
+        
+        /// <summary>
         /// gvBagRedeem control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace journey.Admin {
         protected global::System.Web.UI.WebControls.GridView gvBagRedeem;
         
         /// <summary>
+        /// lblSunShadeCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSunShadeCount;
+        
+        /// <summary>
         /// gvRecentItemRedeem control.
         /// </summary>
         /// <remarks>
@@ -38,15 +56,6 @@ namespace journey.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRecentItemRedeem;
-        
-        /// <summary>
-        /// gvHighestUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvHighestUser;
         
         /// <summary>
         /// gvBalPoint control.

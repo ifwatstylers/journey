@@ -172,8 +172,8 @@ body {
 }
 
 a {
-	text-decoration: none !important;
-	color: #1ABC9C;
+text-decoration: underline;
+color: #293485 !important;
 }
 
 a:hover { color: #222; }

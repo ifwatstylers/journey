@@ -37,7 +37,7 @@ namespace journey.Controllers
 
         //    #region LOAD TOL INTO DROPDOWNLIST
 
-        //    String connectionString3 = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        //    String connectionString3 = WebConfigurationManager.AppSettings["DBConString"];
 
         //    String sql3 = "select * from poi2 where PLACE_CAT = 'tp'";
 
@@ -118,7 +118,7 @@ namespace journey.Controllers
         //        int DriverFROM = customer.DriverFROM;
         //        int DriverTO = customer.DriverTO;
 
-                #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
+        #region FOR CALCULATE GROUP CLUSTER FOR SET TIME FOR DEPARTURE
         //        int DriverFROMforGroup = customer.DriverFROMGroudID;
         //        int DriverTOforGroup = customer.DriverTOGroupID;
 
@@ -188,7 +188,7 @@ namespace journey.Controllers
         //        customer.ListRSAName = modelForNameRSa;
         //    }
 
-            #endregion end load RSA here
+        #endregion end load RSA here
 
         //    string constr = "Server=tcp:festive.database.windows.net,1433;Initial Catalog=FestiveDB;Persist Security Info=False;User ID=admin_festive;Password=P@55w0rd2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -577,17 +577,43 @@ namespace journey.Controllers
 
                         if (UserExist > 0)
                         {
-                            ViewBag.Message = string.Format("You already redeem");
-                            return View();
-                            //Username exist
+                            if (email.ToString() == "admin@plusmiles.com.my")
+                            {
+                                //Username has not redeem yet
+                                DateTime dateTime = DateTime.UtcNow.Date;
+                                string Timestamp = dateTime.ToString("dd/MM/yyyy");
+                                string currentTime = DateTime.UtcNow.AddHours(8).ToString("h:mm:ss tt");
+                                string query = "INSERT INTO [USERREDEEM] (EMAIL, NAME, FESTIVE, LOC, DateKeyIn, TimeKeyIn, Item) VALUES (@Email, @Name, 'RAYA2019', @Loc, @DateKeyIn, @Time, @Item)";
+                                query += " SELECT SCOPE_IDENTITY()";
+                                using (SqlCommand cmd = new SqlCommand(query))
+                                {
+                                    cmd.Connection = con;
+
+                                    cmd.Parameters.AddWithValue("@Email", model.Email);
+                                    cmd.Parameters.AddWithValue("@Name", model.Name);
+                                    cmd.Parameters.AddWithValue("@Loc", model.Location);
+                                    cmd.Parameters.AddWithValue("@DateKeyIn", Timestamp);
+                                    cmd.Parameters.AddWithValue("@Time", currentTime);
+                                    cmd.Parameters.AddWithValue("@Item", model.Item);
+                                    cmd.ExecuteScalar();
+                                    con.Close();
+                                }
+                                return RedirectToAction("SafeDrive");
+                            }
+                            else
+                            {
+                                ViewBag.Message = string.Format("You already redeem");
+                                return View();
+                            }
+                            
                         }
                         else
                         {
                             //Username has not redeem yet
                             DateTime dateTime = DateTime.UtcNow.Date;
                             string Timestamp = dateTime.ToString("dd/MM/yyyy");
-                            string currentTime = DateTime.Now.ToString("h:mm:ss tt");
-                            string query = "INSERT INTO [USERREDEEM] (EMAIL, NAME, FESTIVE, LOC, DateKeyIn, TimeKeyIn) VALUES (@Email, @Name, 'RAYA2019', @Loc, @DateKeyIn, @Time)";
+                            string currentTime = DateTime.UtcNow.AddHours(8).ToString("h:mm:ss tt");
+                            string query = "INSERT INTO [USERREDEEM] (EMAIL, NAME, FESTIVE, LOC, DateKeyIn, TimeKeyIn, Item) VALUES (@Email, @Name, 'RAYA2019', @Loc, @DateKeyIn, @Time, @Item)";
                             query += " SELECT SCOPE_IDENTITY()";
                             using (SqlCommand cmd = new SqlCommand(query))
                             {
@@ -598,6 +624,7 @@ namespace journey.Controllers
                                 cmd.Parameters.AddWithValue("@Loc", model.Location);
                                 cmd.Parameters.AddWithValue("@DateKeyIn", Timestamp);
                                 cmd.Parameters.AddWithValue("@Time", currentTime);
+                                cmd.Parameters.AddWithValue("@Item", model.Item);
                                 cmd.ExecuteScalar();
                                 con.Close();
                             }

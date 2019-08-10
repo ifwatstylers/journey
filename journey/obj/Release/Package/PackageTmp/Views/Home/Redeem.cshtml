@@ -33,42 +33,52 @@
             <div class="container">
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form">
-                        
+
                         <h2 class="form-title">#oleolerayaplus redemption page</h2>
-                            <div class="form-group">
-                                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-input" })
-                                @*<input type="text" class="form-input" name="name" id="name" placeholder="Your Name" />*@
-                            </div>
-                            <div class="form-group">
-                                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-input" })
-                                @*<input type="email" class="form-input" name="email" id="email" placeholder="Your Email" />*@
-                            </div>
-                            <div class="form-group">
-                                @Html.DropDownListFor(m => m.Location, new List<SelectListItem>
-                              {
-                                new SelectListItem{Text="TAPAH NB", Value="TAPAH NB"},
-                                new SelectListItem{Text="TAPAH SB", Value="TAPAH SB"},
-                                new SelectListItem{Text="PAGOH NB ", Value="PAGOH NB"},
-                                new SelectListItem{Text="RAWANG NB", Value="RAWANG NB"},
-                                new SelectListItem{Text="SEREMBAN NB", Value="SEREMBAN NB"},
-                                new SelectListItem{Text="SEREMBAN SB", Value="SEREMBAN SB"},
-                                new SelectListItem{Text="AYEH KEROH SB", Value="AYEH KEROH SB"},
-                                new SelectListItem{Text="LPT2 AJIL", Value="LPT2 AJIL"}},
-                      "Please Select", new
-                      {
-                          @class = "form-input"
-                      })
-                            </div>
-                            <!--<div class="form-group">
-                                <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div>-->
-                            <div class="form-group">
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Record" />
-                            </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-input" })
+                            @*<input type="text" class="form-input" name="name" id="name" placeholder="Your Name" />*@
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-input" })
+                            @*<input type="email" class="form-input" name="email" id="email" placeholder="Your Email" />*@
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.Item, new List<SelectListItem>
+                          {
+                            new SelectListItem{Text="Jute Bag", Value="Jute Bag"},
+                            new SelectListItem{Text="Sunshade", Value="Sunshade"} },
+                  "Please Select", new
+                  {
+                      @class = "form-input"
+                  })
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.Location, new List<SelectListItem>
+                          {
+                            new SelectListItem{Text="TAPAH NB", Value="TAPAH NB"},
+                            new SelectListItem{Text="TAPAH SB", Value="TAPAH SB"},
+                            new SelectListItem{Text="PAGOH NB ", Value="PAGOH NB"},
+                            new SelectListItem{Text="RAWANG NB", Value="RAWANG NB"},
+                            new SelectListItem{Text="SEREMBAN NB", Value="SEREMBAN NB"},
+                            new SelectListItem{Text="SEREMBAN SB", Value="SEREMBAN SB"},
+                            new SelectListItem{Text="AYEH KEROH SB", Value="AYEH KEROH SB"},
+                            new SelectListItem{Text="LPT2 PAKA", Value="LPT2 PAKA"}},
+                  "Please Select", new
+                  {
+                      @class = "form-input"
+                  })
+                        </div>
+                        <!--<div class="form-group">
+        <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+    </div>
+    <div class="form-group">
+        <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+    </div>-->
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Record" />
+                        </div>
                     </form>
                     <!--<p class="loginhere">
                         Have already an account ? <a href="#" class="loginhere-link">Login here</a>
